@@ -24,41 +24,55 @@ describe Proposal do
     end
   end
 
-  describe "scope :available" do
-    it "shows a previously assigned but removed proposal as available" do
-      proposal = create(:proposal, state: ACCEPTED)
-      conf_session = create(:session, proposal: proposal, event: proposal.event)
+  # describe "scope :available" do
+  #   it "shows a previously assigned but removed proposal as available" do
+  #     proposal = create(:proposal, state: ACCEPTED)
+  #     conf_session = create(:time_slot, proposal: proposal, event: proposal.event)
+  #
+  #     expect {
+  #       conf_session.destroy
+  #     }.to change{Proposal.available.count}.by(1)
+  #   end
+  #
+  #   it "only shows accepted proposals" do
+  #     create(:proposal, state: WAITLISTED)
+  #     proposal = create(:proposal, state: ACCEPTED)
+  #
+  #     expect(Proposal.available).to match_array([ proposal ])
+  #   end
+  #
+  #   it "sorts proposals by talk title" do
+  #     zebra = create(:proposal, title: 'Zebra', state: ACCEPTED)
+  #     theta = create(:proposal, title: 'Theta', state: ACCEPTED)
+  #     alpha = create(:proposal, title: 'Alpha', state: ACCEPTED)
+  #     expect(Proposal.available).to eq([ alpha, theta, zebra ])
+  #   end
+  # end
 
-      expect {
-        conf_session.destroy
-      }.to change{Proposal.available.count}.by(1)
+  describe 'scope :in_track' do
+    let(:track1) { create :track, name: 'Track 1' }
+    let(:track1_proposals) { create_list :proposal, 3, track: track1 }
+    let(:no_track_proposals) { create_list :proposal, 2, track: nil }
+
+    it 'returns proposals of the given track' do
+      expect(Proposal.in_track(track1.id)).to match_array(track1_proposals)
     end
 
-    it "only shows accepted proposals" do
-      create(:proposal, state: WAITLISTED)
-      proposal = create(:proposal, state: ACCEPTED)
-
-      expect(Proposal.available).to match_array([ proposal ])
-    end
-
-    it "sorts proposals by talk title" do
-      zebra = create(:proposal, title: 'Zebra', state: ACCEPTED)
-      theta = create(:proposal, title: 'Theta', state: ACCEPTED)
-      alpha = create(:proposal, title: 'Alpha', state: ACCEPTED)
-      expect(Proposal.available).to eq([ alpha, theta, zebra ])
+    it 'returns proposals with no track' do
+      expect(Proposal.in_track('')).to match_array(no_track_proposals)
     end
   end
 
   describe "scope :emails" do
     it "returns all attached email addresses" do
-      person1 = create(:person, email: 'person1@test.com')
-      person2 = create(:person, email: 'person2@test.com')
+      user1 = create(:user, email: 'user1@test.com')
+      user2 = create(:user, email: 'user2@test.com')
 
-      create(:proposal, speakers: [ create(:speaker, person: person1) ])
-      create(:proposal, speakers: [ create(:speaker, person: person2) ])
+      create(:proposal, speakers: [ create(:speaker, user: user1) ])
+      create(:proposal, speakers: [ create(:speaker, user: user2) ])
 
       emails = Proposal.all.emails
-      expect(emails).to match_array([ person1.email, person2.email ])
+      expect(emails).to match_array([ user1.email, user2.email ])
     end
   end
 
@@ -109,7 +123,7 @@ describe Proposal do
 
   describe "#confirmed?" do
     it "returns true if proposal has been confirmed" do
-      proposal = create(:proposal, confirmed_at: DateTime.now)
+      proposal = create(:proposal, state: Proposal::ACCEPTED, confirmed_at: DateTime.now)
       expect(proposal).to be_confirmed
     end
 
@@ -119,23 +133,23 @@ describe Proposal do
     end
   end
 
-  describe "#scheduled?" do
-    let(:proposal) { build_stubbed(:proposal, state: ACCEPTED) }
-
-    it "returns true for scheduled proposals" do
-      create(:session, proposal: proposal)
-      expect(proposal).to be_scheduled
-    end
-
-    it "returns false for proposals that are not yet scheduled." do
-      expect(proposal).to_not be_scheduled
-    end
-  end
+  # describe "#scheduled?" do
+  #   let(:proposal) { build(:proposal, state: ACCEPTED) }
+  #
+  #   it "returns true for scheduled proposals" do
+  #     create(:time_slot, proposal: proposal)
+  #     expect(proposal).to be_scheduled
+  #   end
+  #
+  #   it "returns false for proposals that are not yet scheduled." do
+  #     expect(proposal).to_not be_scheduled
+  #   end
+  # end
 
   describe "state changing" do
     describe "#finalized?" do
       it "returns false for all soft states" do
-        soft_states = [ SOFT_ACCEPTED, SOFT_WITHDRAWN, SOFT_WAITLISTED,
+        soft_states = [ SOFT_ACCEPTED, SOFT_WAITLISTED,
                         SOFT_REJECTED, SUBMITTED ]
 
         soft_states.each do |state|
@@ -163,10 +177,10 @@ describe Proposal do
         end
       end
 
-      it "doesn't change a SUBMITTED proposal" do
+      it "changes a SUBMITTED proposal to REJECTED" do
         proposal = create(:proposal, state: SUBMITTED)
-        expect(proposal.finalize).to be_falsey
-        expect(proposal.reload.state).to eq(SUBMITTED)
+        expect(proposal.finalize).to be_truthy
+        expect(proposal.reload.state).to eq(REJECTED)
       end
     end
 
@@ -177,20 +191,10 @@ describe Proposal do
         expect(proposal.state).to eq(WAITLISTED)
       end
 
-      it "converts symbolized state before saving" do
-        states = {
-          soft_rejected: SOFT_REJECTED,
-          soft_accepted: SOFT_ACCEPTED,
-          soft_waitlisted: SOFT_WAITLISTED,
-          soft_withdrawn: SOFT_WITHDRAWN,
-          accepted: ACCEPTED
-        }
-
-        proposal = create(:proposal)
-        states.each do |symbol, string|
-          proposal.update_state(symbol)
-          expect(proposal.state).to eq(string)
-        end
+      it "rejects invalid states" do
+        proposal = create(:proposal, state: ACCEPTED)
+        proposal.update_state('almonds!')
+        expect(proposal.errors.messages[:state][0]).to eq("'almonds!' not a valid state.")
       end
     end
   end
@@ -305,12 +309,12 @@ describe Proposal do
 
   describe "#update" do
     let(:proposal) { create(:proposal, title: 't') }
-    let(:organizer) { create(:person, :organizer) }
+    let(:organizer) { create(:user, :organizer) }
 
     describe ".last_change" do
       describe "when role organizer" do
         it "is cleared" do
-          proposal.update_attributes(title: 'Organizer Edited Title', updating_person: organizer)
+          proposal.update_attributes(title: 'Organizer Edited Title', updating_user: organizer)
           expect(proposal.last_change).to be_nil
         end
       end
@@ -353,7 +357,7 @@ describe Proposal do
       ]
 
       values.each do |value|
-        proposal = build_stubbed(:proposal)
+        proposal = build(:proposal)
         value[:scores].each do |i|
           attrs = attributes_for(:rating, score: i)
           proposal.ratings.build(attrs)
@@ -364,19 +368,19 @@ describe Proposal do
     end
 
     it "returns nil if array is empty" do
-      proposal = build_stubbed(:proposal, ratings: [])
+      proposal = build(:proposal, ratings: [])
       expect(proposal.standard_deviation).to be_nil
     end
   end
 
   describe "#reviewers" do
     let!(:proposal) { create(:proposal) }
-    let!(:reviewer) { create(:person, :reviewer) }
+    let!(:reviewer) { create(:user, :reviewer) }
     let!(:organizer) { create(:organizer, event: proposal.event) }
 
     it "can return the list of reviewers" do
-      create(:rating, person: reviewer, proposal: proposal)
-      proposal.public_comments.create(attributes_for(:comment, person: organizer))
+      create(:rating, user: reviewer, proposal: proposal)
+      proposal.public_comments.create(attributes_for(:comment, user: organizer))
 
       expect(proposal.reviewers).to match_array([ reviewer, organizer ])
     end
@@ -386,8 +390,8 @@ describe Proposal do
     end
 
     it "does not list a reviewer more than once" do
-      create(:rating, person: reviewer, proposal: proposal)
-      proposal.public_comments.create(attributes_for(:comment, person: reviewer))
+      create(:rating, user: reviewer, proposal: proposal)
+      proposal.public_comments.create(attributes_for(:comment, user: reviewer))
 
       expect(proposal.reviewers).to match_array([ reviewer ])
     end
@@ -396,11 +400,11 @@ describe Proposal do
   describe "#update_and_send_notifications" do
     it "sends notification to all reviewers" do
       proposal = create(:proposal, title: 'orig_title', pitch: 'orig_pitch')
-      reviewer = create(:person, :reviewer)
+      reviewer = create(:user, :reviewer)
       organizer = create(:organizer, event: proposal.event)
 
-      create(:rating, person: reviewer, proposal: proposal)
-      proposal.public_comments.create(attributes_for(:comment, person: organizer))
+      create(:rating, user: reviewer, proposal: proposal)
+      proposal.public_comments.create(attributes_for(:comment, user: organizer))
 
       expect {
         proposal.update_and_send_notifications(title: 'new_title', pitch: 'new_pitch')
@@ -414,8 +418,8 @@ describe Proposal do
 
     it "uses the old title in the notification message" do
       proposal = create(:proposal, title: 'orig_title')
-      reviewer = create(:person, :reviewer)
-      create(:rating, person: reviewer, proposal: proposal)
+      reviewer = create(:user, :reviewer)
+      create(:rating, user: reviewer, proposal: proposal)
 
       proposal.update_and_send_notifications(title: 'new_title')
       expect(Notification.last.message).to include('orig_title')
@@ -466,38 +470,38 @@ describe Proposal do
 
   describe "#has_speaker?" do
     let(:proposal) { create(:proposal) }
-    let(:person) { create(:person) }
+    let(:user) { create(:user) }
 
-    it "returns true if person is a speaker on the proposal" do
-      create(:speaker, person: person, proposal: proposal)
-      expect(proposal).to have_speaker(person)
+    it "returns true if user is a speaker on the proposal" do
+      create(:speaker, user: user, proposal: proposal)
+      expect(proposal).to have_speaker(user)
     end
 
-    it "returns false if person is not a speaker on the proposal" do
-      expect(proposal).to_not have_speaker(person)
+    it "returns false if user is not a speaker on the proposal" do
+      expect(proposal).to_not have_speaker(user)
     end
   end
 
-  describe "#was_rated_by_person?" do
+  describe "#was_rated_by_user?" do
     let(:proposal) { create(:proposal) }
-    let(:reviewer) { create(:person, :reviewer) }
+    let(:reviewer) { create(:user, :reviewer) }
 
-    it "returns true if person has rated the proposal" do
-      create(:rating, person: reviewer, proposal: proposal)
-      expect(proposal.was_rated_by_person?(reviewer)).to be_truthy
+    it "returns true if user has rated the proposal" do
+      create(:rating, user: reviewer, proposal: proposal)
+      expect(proposal.was_rated_by_user?(reviewer)).to be_truthy
     end
 
-    it "returns false if person has not rated the proposal" do
-      expect(proposal.was_rated_by_person?(reviewer)).to be_falsey
+    it "returns false if user has not rated the proposal" do
+      expect(proposal.was_rated_by_user?(reviewer)).to be_falsey
     end
   end
 
   describe "#has_reviewer_comments?" do
     let(:proposal) { create(:proposal) }
-    let(:reviewer) { create(:person, :reviewer) }
+    let(:reviewer) { create(:user, :reviewer) }
 
     it "returns true if proposal has reviewer comments" do
-      create(:internal_comment, person: reviewer, proposal: proposal)
+      create(:internal_comment, user: reviewer, proposal: proposal)
       expect(proposal).to have_reviewer_comments
     end
 

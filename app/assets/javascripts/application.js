@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require bootstrap
+//= require bootstrap-sprockets
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require jquery.dataTables.columnFilter
@@ -21,4 +21,7 @@
 //= require jquery-ui-timepicker-addon
 //= require bootstrap-multiselect
 //= require zeroclipboard
+//= require momentjs
+//= require selectize
+//= require palette.js
 //= require_tree .
