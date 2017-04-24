@@ -42,7 +42,7 @@ bin/rails server
 
 ## Deployment on Heroku
 
-The app was written with a Heroku deployment stack in mind. You can easily deploy the application using the button below, or you can deploy it anywhere assuming you can run Ruby 2.3.0 and Rails 4.2.5 with a postgres database and an SMTP listener.
+The app was written with a Heroku deployment stack in mind. You can easily deploy the application using the button below, or you can deploy it anywhere assuming you can run Ruby 2.3.1 and Rails 4.2.5 with a postgres database and an SMTP listener.
 
 The Heroku stack will use the free SendGrid Starter and Heroku postgreSQL
 addons.
