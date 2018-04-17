@@ -30,24 +30,30 @@ class Staff::ProposalReviewsController < Staff::ApplicationController
     rating.touch unless rating.new_record?
 
     current_user.notifications.mark_as_read_for_proposal(request.url)
-    track_and_format_edit = current_user.program_team_for_event?(current_event)
+    track_and_format_edit = current_user.reviewer_for_event?(current_event)
+    visit_program_view = current_user.program_team_for_event?(current_event) && current_event.closed?
 
-    render locals: { rating: rating, track_and_format_edit: track_and_format_edit }
+    @mention_names = current_event.mention_names
+
+    render locals: {
+      rating: rating,
+      track_and_format_edit: track_and_format_edit,
+      visit_program_view: visit_program_view
+    }
   end
 
   def update
     if program_mode?
-      authorize @proposal, :review_as_organizer?
+      authorize @proposal, :review_as_program_team?
     else
       authorize @proposal, :review?
     end
     tags = params[:proposal][:review_tags].downcase
     params[:proposal][:review_tags] = Tagging.tags_string_to_array(tags)
 
-    unless @proposal.update_without_touching_updated_by_speaker_at(proposal_review_tags_params)
+    unless @proposal.update_attributes(proposal_review_tags_params)
       flash[:danger] = 'There was a problem saving the proposal.'
     else
-      flash[:info] = 'Review Tags were saved for this proposal'
       @proposal.reload
     end
   end

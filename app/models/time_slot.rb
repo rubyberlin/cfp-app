@@ -19,6 +19,13 @@ class TimeSlot < ApplicationRecord
   end
   scope :grid_order, -> { joins(:room).order(:conference_day, :start_time, 'rooms.grid_position') }
 
+  scope :scheduled, -> { where.not(title: [nil, ""]).or(where.not(program_session_id: nil)) }
+  scope :empty, -> { where(program_session: nil, title: [nil, ""]) }
+
+  validate :end_time_later_than_start_time
+
+  validates :room_id, :conference_day, presence: true
+
   def self.import(file)
     raw_json = file.read # maybe open as well
     parsed_slots = JSON.parse(raw_json)
@@ -69,6 +76,14 @@ class TimeSlot < ApplicationRecord
     program_session && program_session.abstract
   end
 
+  def session_suggested_duration
+    if program_session && program_session.session_format && program_session.session_format.duration
+      "#{program_session.session_format.duration} minutes"
+    else
+      "N/A"
+    end    
+  end
+
   def session_track_id
     program_session && program_session.track_id
   end
@@ -91,6 +106,12 @@ class TimeSlot < ApplicationRecord
 
   def session_duration
     (end_time - start_time).to_i/60
+  end
+
+  def end_time_later_than_start_time
+    if session_duration <= 0
+      errors.add(:end_time, 'must be later than start time')
+    end
   end
 end
 
@@ -118,4 +139,5 @@ end
 #  index_time_slots_on_event_id            (event_id)
 #  index_time_slots_on_program_session_id  (program_session_id)
 #  index_time_slots_on_room_id             (room_id)
+#  index_time_slots_on_track_id            (track_id)
 #

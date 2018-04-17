@@ -4,7 +4,7 @@ class Staff::TeammatesController < Staff::ApplicationController
   respond_to :html, :json
 
   def index
-    @staff = current_event.teammates.accepted.alphabetize
+    @staff = TeammateDecorator.decorate_collection(current_event.teammates.accepted.alphabetize)
     @invitations = current_event.teammates.invitations
 
     @staff_count = group_count(@staff)
@@ -12,7 +12,7 @@ class Staff::TeammatesController < Staff::ApplicationController
   end
 
   def create #creating an invitation
-    invitation = current_event.teammates.build(params.require(:teammate).permit(:email, :role))
+    invitation = current_event.teammates.build(params.require(:teammate).permit(:email, :role, :mention_name))
 
     if invitation.invite
         TeammateInvitationMailer.create(invitation).deliver_now
@@ -26,12 +26,11 @@ class Staff::TeammatesController < Staff::ApplicationController
 
   def update
     teammate = current_event.teammates.find(params[:id])
-    teammate.update(params.require(:teammate).permit(:role, :notifications))
+    teammate.update(params.require(:teammate).permit(:role, :notifications, :mention_name))
     if teammate.save
       respond_to do |format|
         format.html do
-          redirect_to event_staff_teammates_path(current_event),
-            flash: { info: "You have successfully updated #{teammate.name}'s role." }
+          redirect_to event_staff_teammates_path(current_event)
         end
         format.js do
           render locals: { teammate: teammate }
@@ -39,7 +38,7 @@ class Staff::TeammatesController < Staff::ApplicationController
       end
     else
       redirect_to event_staff_teammates_path(current_event),
-        flash: { danger: "There was a problem updating #{teammate.name}'s role." }
+        flash: { danger: "There was a problem updating #{teammate.name}. #{teammate.errors.full_messages.join(", ")}." }
     end
   end
 

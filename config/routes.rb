@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :proposals, param: :uuid do
       member { post :confirm }
       member { post :withdraw }
+      member { post :decline }
       member { post :update_notes }
       member { delete :destroy }
     end
@@ -65,25 +66,21 @@ Rails.application.routes.draw do
           collection do
             get 'selection'
             get 'session_counts'
-            post 'finalize_remaining'
+            get 'bulk_finalize'
+            post 'finalize_by_state'
           end
           post :finalize
           post :update_state
           post :update_track
           post :update_session_format
-          member do
-            post :confirm_for_speaker
-          end
         end
 
         resources :speakers, only: [:index, :show, :edit, :update, :destroy]
         resources :program_sessions, as: 'sessions', path: 'sessions' do
           resources :speakers, only: [:new, :create]
           post :update_state
-          collection do
-            get 'speaker_emails'
-          end
           member do
+            post :confirm_for_speaker
             patch :promote
           end
         end

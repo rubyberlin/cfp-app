@@ -54,7 +54,7 @@ module ApplicationHelper
 
   def show_flash
     flash.map do |key, value|
-      key += " alert-info" if key == "notice"
+      key += " alert-info" if key == "notice" || key == 'confirm'
       key = "danger" if key == "alert"
       content_tag(:div, class: "container alert alert-dismissable alert-#{key}") do
         content_tag(:button, content_tag(:span, '', class: 'glyphicon glyphicon-remove'),
@@ -66,23 +66,21 @@ module ApplicationHelper
 
   def copy_email_btn
     link_to "<i class='fa fa-files-o'></i> Copy Speaker Emails".html_safe, '#',
-            data: {url: speaker_emails_event_staff_program_sessions_path(current_event)},
             class: "btn btn-primary btn-sm",
             id: 'copy-filtered-speaker-emails'
   end
 
-  def finalize_remaining_button
-    return unless policy(Proposal).finalize? && Proposal.soft_states.size > 0
+  def promote_button(program_session)
+    if program_session.can_promote?
+      link_to 'Promote', promote_event_staff_program_session_path(program_session.event, program_session), method: :patch, data: { confirm: "Are you sure you want to promote #{program_session.title}?" }, class: 'btn btn-warning'
+    end
+  end
 
-    link_to finalize_remaining_event_staff_program_proposals_path,
-                method: :post,
-                class: 'btn btn-danger navbar-btn',
-                data: {
-                    confirm:
-                        'This will finalize the status of all proposals and ' +
-                            'send emails to speakers. Proceed?'
-                } do
-      bang('Finalize Remaining')
+  def finalize_info
+    if current_event.proposals.soft_states.any?
+      content_tag(:span, "You can use the following bulk actions to finalize the state of all proposals.", class: "text-info")
+    else
+      content_tag(:span, "There are no proposals awaiting finalization.", class: "text-warning")
     end
   end
 
@@ -109,7 +107,7 @@ module ApplicationHelper
   end
 
   def program_nav?
-    current_user.program_team_for_event?(current_event)
+    (current_user.program_team_for_event?(current_event) && current_event.closed?) || current_user.organizer_for_event?(current_event)
   end
 
   def schedule_nav?

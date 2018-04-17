@@ -25,6 +25,7 @@
 @import 'jquery-ui/theme';
 
 @import "vendor/jquery-ui-1.10.3.custom.min";
+@import "vendor/jquery.mentionsInput";
 @import "dataTables/bootstrap/3/jquery.dataTables.bootstrap";
 @import "bootstrap-multiselect";
 @import "jquery-ui-timepicker-addon";
@@ -60,6 +61,8 @@
 @import "modules/event-teammate-invitations";
 @import "modules/program-session";
 @import "modules/proposal";
+@import "modules/profile";
+@import "modules/ratings";
 @import "modules/schedule";
 @import "modules/selection";
 @import "modules/time-slot";

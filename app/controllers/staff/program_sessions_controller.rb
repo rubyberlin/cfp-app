@@ -1,14 +1,14 @@
 class Staff::ProgramSessionsController < Staff::ApplicationController
   include ProgramSupport
 
+  before_action :enable_staff_program_subnav
+
   decorates_assigned :program_session, with: Staff::ProgramSessionDecorator
   decorates_assigned :sessions, with: Staff::ProgramSessionDecorator
   decorates_assigned :waitlisted_sessions, with: Staff::ProgramSessionDecorator
 
   def index
-    @sessions = current_event.program_sessions.non_waitlisted
-    @waitlisted_sessions = current_event.program_sessions.waitlisted
-
+    @sessions = current_event.program_sessions.includes(:speakers)
     session[:prev_page] = { name: 'Program', path: event_staff_program_sessions_path(current_event) }
 
     respond_to do |format|
@@ -20,6 +20,7 @@ class Staff::ProgramSessionsController < Staff::ApplicationController
   def show
     @program_session = current_event.program_sessions.find(params[:id])
     @speakers = @program_session.speakers
+    @mention_names = current_event.mention_names
   end
 
   def edit
@@ -53,7 +54,6 @@ class Staff::ProgramSessionsController < Staff::ApplicationController
     @program_session.speakers.each { |speaker| speaker.event_id = current_event.id }
     if @program_session.save
       redirect_to event_staff_program_session_path(current_event,  @program_session)
-      flash[:info] = "Program session was successfully created."
     else
       flash[:danger] = "Program session was unable to be saved: #{@program_session.errors.full_messages.to_sentence}"
       render :new
@@ -64,7 +64,7 @@ class Staff::ProgramSessionsController < Staff::ApplicationController
     @program_session = current_event.program_sessions.find(params[:id])
     authorize @program_session
 
-    if @program_session.update(state: ProgramSession::LIVE)
+    if @program_session.promote
       flash[:success] = "#{@program_session.title} was successfully promoted to #{@program_session.state}."
     else
       flash[:danger] = "There was a problem promoting this program session."
@@ -80,11 +80,12 @@ class Staff::ProgramSessionsController < Staff::ApplicationController
     flash[:info] = "Program session was successfully deleted."
   end
 
-  def speaker_emails
-    emails = current_event.program_sessions.where(id: params[:session_ids]).emails
-    respond_to do |format|
-      format.json { render json: {emails: emails} }
-    end
+  def confirm_for_speaker
+    @program_session = current_event.program_sessions.find(params[:id])
+    authorize @program_session
+    @program_session.proposal.confirm
+
+    redirect_to event_staff_program_session_path(current_event, @program_session)
   end
 
   private

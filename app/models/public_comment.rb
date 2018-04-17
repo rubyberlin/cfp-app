@@ -15,15 +15,17 @@ class PublicComment < Comment
       if proposal.has_speaker?(user)
         @users = proposal.reviewers
         message = "Speaker commented on #{proposal.title}"
-        CommentNotificationMailer.reviewer_notification(proposal, self, @users.with_notifications).deliver_now
+        CommentNotificationMailer.reviewer_notification(proposal, self,
+                                    proposal.emailable_reviewers).deliver_now
       else
         @users = proposal.speakers.map(&:user)
         message = "New comment on #{proposal.title}"
         CommentNotificationMailer.speaker_notification(proposal, self, @users).deliver_now
       end
-
-      Notification.create_for(@users, proposal: proposal, message: message)
-    rescue e
+      @users.each do |user|
+        Notification.create_for(user, proposal: proposal, message: message)
+      end
+    rescue => e
       logger.error("Comment Notification ran into an error: #{e.message}")
     end
   end

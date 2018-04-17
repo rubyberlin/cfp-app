@@ -25,7 +25,7 @@ describe Staff::ProposalsController, type: :controller do
 
   describe "GET 'show'" do
     it "marks all notifications for this proposal as read" do
-      Notification.create_for([user], proposal: proposal, message: "A fancy notification")
+      Notification.create_for(user, proposal: proposal, message: "A fancy notification")
       expect{
         get :show, params: {event_slug: event, uuid: proposal.uuid}
       }.to change {user.notifications.unread.count}.by(-1)
@@ -66,11 +66,31 @@ describe Staff::ProposalsController, type: :controller do
       expect(assigns(:proposal).state).to eq(Proposal::State::ACCEPTED)
     end
 
+    it "creates a draft program session" do
+      proposal = create(:proposal, event: event, state: Proposal::State::SOFT_ACCEPTED)
+      post :finalize, params: {event_slug: event, proposal_uuid: proposal.uuid}
+      expect(assigns(:proposal).program_session.state).to eq(ProgramSession::UNCONFIRMED_ACCEPTED)
+    end
+
     it "sends appropriate emails" do
       proposal = create(:proposal, state: Proposal::State::SOFT_ACCEPTED)
       mail = double(:mail, deliver_now: nil)
       expect(Staff::ProposalMailer).to receive('send_email').and_return(mail)
-      post :finalize, event_slug: event, proposal_uuid: proposal.uuid
+      post :finalize, params: {event_slug: event, proposal_uuid: proposal.uuid}
+    end
+  end
+
+  describe "GET 'bulk_finalize'" do
+    it "should respond" do
+      get :bulk_finalize, params: {event_slug: event.slug}
+      expect(response.status).to eq(200)
+    end
+  end
+
+  describe "POST 'finalize_by_state'" do
+    it "returns http redirect" do
+      post :finalize_by_state, params: {event_slug: event, proposals_state: proposal.state}
+      expect(response).to redirect_to(bulk_finalize_event_staff_program_proposals_path(event))
     end
   end
 

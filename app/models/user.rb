@@ -7,8 +7,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :confirmable, #:validatable,
          :omniauthable, omniauth_providers: [:twitter, :github]
 
-  scope :with_notifications, -> { joins(:teammates).where(teammates: { notifications: true })}
-
   has_many :invitations,  dependent: :destroy
   has_many :teammates, dependent: :destroy
   has_many :reviewer_teammates, -> { where(role: ['reviewer', 'program team', 'organizer']) }, class_name: 'Teammate'
@@ -33,6 +31,8 @@ class User < ApplicationRecord
   validates_length_of :password, within: Devise.password_length, allow_blank: true
 
   before_create :check_pending_invite_email
+
+  accepts_nested_attributes_for :teammates
 
   attr_accessor :pending_invite_email
 
@@ -80,11 +80,12 @@ class User < ApplicationRecord
   end
 
   def organizer_for_event?(event)
+    #Checks for role of organizer through teammates
     teammates.organizer.for_event(event).size > 0
   end
 
   def staff_for?(event)
-    #Checks all roles
+    #Checks for any role in the event through teammates
     teammates.for_event(event).size > 0
   end
 
@@ -93,6 +94,7 @@ class User < ApplicationRecord
   end
 
   def reviewer_for_event?(event)
+    #Checks for role of reviewer through teammates
     teammates.reviewer.for_event(event).size > 0
   end
 
@@ -115,6 +117,14 @@ class User < ApplicationRecord
 
   def role_names
     self.teammates.collect {|p| p.role}.uniq.join(", ")
+  end
+
+  def assign_email
+    if email.blank? && unconfirmed_email.present?
+      unconfirmed_email
+    else
+      email
+    end
   end
 
   def self.gravatar_hash(email)

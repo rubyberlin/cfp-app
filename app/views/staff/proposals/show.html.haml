@@ -31,7 +31,7 @@
             .proposal-meta-item
               %strong Status:
               %span.proposal-status #{proposal.state_label(small: true)}
-            %span.state-buttons #{proposal.state_buttons(show_confirm_for_speaker: true, show_hard_reset: true)}
+            %span.state-buttons #{proposal.state_buttons(show_hard_reset: true)}
     .row
       .proposal-info-bar.clearfix
         .proposal-meta.proposal-description.clearfix
@@ -48,30 +48,26 @@
           .col-sm-4
             .col-sm-6.no-pad-left
               .proposal-meta-item.full-width
-                .info-item-heading Format
                 #current-format
+                  .info-item-heading Format
                   #format-name.pull-left
                     #{proposal.session_format_name}
                   #edit-format-icon.fa.fa-pencil
                 #edit-format-wrapper
                   %span
                     = render 'shared/proposals/inline_format_edit', proposal: proposal
-                  #cancel-format-editing.btn.btn-danger.btn-sm
-                    %span.glyphicon.glyphicon-remove
-
+                  #cancel-format-editing.fa.fa-undo
             .col-sm-6
               .proposal-meta-item.full-width
-                .info-item-heading Track
                 #current-track
+                  .info-item-heading Track
                   #track-name.pull-left
                     #{proposal.track_name}
                   #edit-track-icon.fa.fa-pencil
                 #edit-track-wrapper
                   %span
                     = render 'shared/proposals/inline_track_edit', proposal: proposal
-                  #cancel-track-editing.btn.btn-danger.btn-sm
-                    %span.glyphicon.glyphicon-remove
-
+                  #cancel-track-editing.btn.fa.fa-undo
           .col-sm-4
             .proposal-meta-item.col-sm-12.no-pad-left
               .info-item-heading Reviewer Tags
@@ -80,7 +76,8 @@
                   #{proposal.review_tags_labels}
                 -else
                   %em None
-              #edit-tags-icon.fa.fa-pencil
+              - if allow_review?(proposal)
+                #edit-tags-icon.fa.fa-pencil
             #review-tags-form-wrapper
               = render 'shared/proposals/tags_form', locals: { event: event, proposal: proposal }
 

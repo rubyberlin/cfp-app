@@ -19,8 +19,6 @@
 .row
   .col-md-8
     %h1 Program Selection
-  .col.md-4.text-right
-    = finalize_remaining_button
 .row
   &nbsp;
 
@@ -71,4 +69,3 @@
               %span.proposal-status= proposal.state_label(small: true, show_confirmed: true)
             %td
               %span.state-buttons= proposal.small_state_buttons
-

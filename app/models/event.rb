@@ -1,5 +1,7 @@
 class Event < ApplicationRecord
+
   has_many :teammates, dependent: :destroy
+  has_many :staff, through: :teammates, source: :user
   has_many :proposals, dependent: :destroy
   has_many :speakers
   has_many :rooms, dependent: :destroy
@@ -48,6 +50,12 @@ class Event < ApplicationRecord
   with_options on: :update, if: :open? do
     validates :public_session_formats, presence: { message: 'A least one public session format must be defined before event can be opened.' }
     validates :guidelines, presence: { message: 'Guidelines must be defined before event can be opened.' }
+  end
+
+  def initialize_speaker_emails
+    SpeakerEmailTemplate::TYPES.each do |type|
+      speaker_notification_emails[type] ||= ""
+    end
   end
 
   def remove_speaker_email_template(template)
@@ -221,6 +229,10 @@ class Event < ApplicationRecord
     (end_date.to_date - start_date.to_date).to_i + 1
   end
 
+  def mention_names
+    teammates.pluck(:mention_name)
+  end
+
   private
 
   def update_closes_at_if_manually_closed
@@ -251,7 +263,7 @@ end
 #  proposal_tags               :text
 #  review_tags                 :text
 #  custom_fields               :text
-#  speaker_notification_emails :text             default({:accept=>"", :reject=>"", :waitlist=>""})
+#  speaker_notification_emails :text
 #  created_at                  :datetime
 #  updated_at                  :datetime
 #

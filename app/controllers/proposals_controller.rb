@@ -30,15 +30,6 @@ class ProposalsController < ApplicationController
     flash.now[:warning] = incomplete_profile_msg unless current_user.complete?
   end
 
-  def confirm
-    if @proposal.confirm
-      flash[:success] = "You have confirmed your participation in #{@proposal.event.name}."
-    else
-      flash[:danger] = "There was a problem confirming your participation in #{@proposal.event.name}: #{@proposal.errors.full_messages.join(', ')}"
-    end
-    redirect_to event_proposal_path(slug: @proposal.event.slug, uuid: @proposal)
-  end
-
   def update_notes
     if @proposal.update(confirmation_notes: notes_params[:confirmation_notes])
       flash[:success] = "Confirmation notes successfully updated."
@@ -49,8 +40,20 @@ class ProposalsController < ApplicationController
     end
   end
 
+  def confirm
+    @proposal.confirm
+    flash[:success] = "You have confirmed your participation in #{@proposal.event.name}."
+    redirect_to event_proposal_path(slug: @proposal.event.slug, uuid: @proposal)
+  end
+
   def withdraw
     @proposal.withdraw unless @proposal.confirmed?
+    flash[:info] = "As requested, your talk has been removed for consideration."
+    redirect_to event_proposal_url(slug: @proposal.event.slug, uuid: @proposal)
+  end
+
+  def decline
+    @proposal.decline
     flash[:info] = "As requested, your talk has been removed for consideration."
     redirect_to event_proposal_url(slug: @proposal.event.slug, uuid: @proposal)
   end
@@ -74,7 +77,7 @@ class ProposalsController < ApplicationController
 
     if @proposal.save
       current_user.update_bio
-      flash[:info] = setup_flash_message
+      flash[:confirm] = setup_flash_message
       redirect_to event_proposal_url(event_slug: @event.slug, uuid: @proposal)
     else
       flash[:danger] = "There was a problem saving your proposal."
@@ -98,7 +101,7 @@ class ProposalsController < ApplicationController
     if params[:confirm]
       @proposal.update(confirmed_at: DateTime.current)
       redirect_to event_event_proposals_url(slug: @event.slug, uuid: @proposal), flash: { success: "Thank you for confirming your participation" }
-    elsif @proposal.update_and_send_notifications(proposal_params)
+    elsif @proposal.speaker_update_and_notify(proposal_params)
       redirect_to event_proposal_url(event_slug: @event.slug, uuid: @proposal)
     else
       flash[:danger] = "There was a problem saving your proposal."
@@ -145,12 +148,14 @@ class ProposalsController < ApplicationController
   end
 
   def setup_flash_message
-    message = "Thank you! Your proposal has been submitted and may be reviewed at any time while the CFP is open.\n\n"
-    message << "You are welcome to update your proposal or leave a comment at any time, just please be sure to preserve your anonymity.\n\n"
+    message = "<h2 class='text-center'>Thank you!</h2>"
+    message << "<p>Your proposal has been submitted and may be reviewed at any time while the CFP is open.  You are welcome to update your proposal or leave a comment at any time, just please be sure to preserve your anonymity."
 
     if @event.closes_at
-      message << "Expect a response regarding acceptance after the CFP closes on #{@event.closes_at.to_s(:long)}."
+      message << "  Expect a response regarding acceptance after the CFP closes on #{@event.closes_at.to_s(:long)}."
     end
+
+    message << "</p>"
   end
 
   def require_waitlisted_or_accepted_state

@@ -8,8 +8,8 @@ class ProposalPolicy < ApplicationPolicy
     @user.staff_for?(@current_event) && !@record.has_speaker?(@user)
   end
 
-  def review_as_organizer?
-    @user.organizer_for_event?(@current_event)
+  def review_as_program_team?
+    @user.program_team_for_event?(@current_event)
   end
 
   def rate?
@@ -21,18 +21,22 @@ class ProposalPolicy < ApplicationPolicy
   end
 
   def update_track?
-    @user.program_team_for_event?(@current_event)
+    @user.program_team_for_event?(@current_event) || @user.reviewer?
   end
 
   def update_session_format?
-    @user.program_team_for_event?(@current_event)
+    @user.program_team_for_event?(@current_event) || @user.reviewer?
   end
 
   def finalize?
     @user.organizer_for_event?(@current_event)
   end
 
-  def confirm_for_speaker?
+  def bulk_finalize?
+    @user.organizer_for_event?(@current_event)
+  end
+
+  def finalize_by_state?
     @user.organizer_for_event?(@current_event)
   end
 

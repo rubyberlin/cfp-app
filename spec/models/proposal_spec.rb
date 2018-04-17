@@ -133,6 +133,56 @@ describe Proposal do
     end
   end
 
+  describe "#confirm" do
+    it "confirms the proposal" do
+      proposal = create(:proposal, state: Proposal::ACCEPTED)
+
+      proposal.confirm
+
+      expect(proposal.reload).to be_confirmed
+    end
+
+    it "updates the state of it's program session" do
+      confirmed_waitlisted_proposal = create(:proposal, state: Proposal::WAITLISTED, confirmed_at: DateTime.now)
+      unconfirmed_waitlisted_proposal = create(:proposal, state: Proposal::WAITLISTED)
+      unconfirmed_accepted_proposal = create(:proposal, state: Proposal::ACCEPTED)
+      confirmed_accepted_proposal = create(:proposal, state: Proposal::ACCEPTED, confirmed_at: DateTime.now)
+
+
+      Proposal.all.each do |prop|
+        create(:program_session, proposal: prop)
+        expect(prop.program_session).to receive(:confirm)
+        prop.confirm
+      end
+    end
+  end
+
+  describe "#promote" do
+    it "promotes from waitlisted to accepted" do
+      waitlisted = create(:proposal, state: Proposal::WAITLISTED)
+
+      waitlisted.promote
+
+      expect(waitlisted.reload.state).to eq("accepted")
+    end
+
+    it "doesn't promote from other states" do
+      create(:proposal, state: Proposal::ACCEPTED)
+      create(:proposal, state: Proposal::REJECTED)
+      create(:proposal, state: Proposal::WITHDRAWN)
+      create(:proposal, state: Proposal::NOT_ACCEPTED)
+      create(:proposal, state: Proposal::SUBMITTED)
+      create(:proposal, state: Proposal::SOFT_ACCEPTED)
+      create(:proposal, state: Proposal::SOFT_WAITLISTED)
+      create(:proposal, state: Proposal::SOFT_REJECTED)
+
+
+      Proposal.all.each do |prop|
+        expect{ prop.promote }.not_to change(prop, :state)
+      end
+    end
+  end
+
   # describe "#scheduled?" do
   #   let(:proposal) { build(:proposal, state: ACCEPTED) }
   #
@@ -168,6 +218,26 @@ describe Proposal do
       end
     end
 
+    describe "#becomes_program_session?" do
+      it "returns true for WAITLISTED and  ACCEPTED" do
+        states = [ ACCEPTED, WAITLISTED ]
+
+        states.each do |state|
+          proposal = create(:proposal, state: state)
+          expect(proposal).to be_becomes_program_session
+        end
+      end
+
+      it "returns false for SUBMITTED and REJECTED" do
+        states = [ SUBMITTED, REJECTED ]
+
+        states.each do |state|
+          proposal = create(:proposal, state: state)
+          expect(proposal).to_not be_becomes_program_session
+        end
+      end
+    end
+
     describe "#finalize" do
       it "changes a soft state to a finalized state" do
         Proposal::SOFT_TO_FINAL.each do |key, val|
@@ -181,6 +251,22 @@ describe Proposal do
         proposal = create(:proposal, state: SUBMITTED)
         expect(proposal.finalize).to be_truthy
         expect(proposal.reload.state).to eq(REJECTED)
+      end
+
+      it "creates a draft program session for WAITLISTED and ACCEPTED proposals, but not for REJECTED or SUBMITTED" do
+        waitlisted_proposal = create(:proposal, state: SOFT_WAITLISTED)
+        accepted_proposal = create(:proposal, state: SOFT_ACCEPTED)
+        rejected_proposal = create(:proposal, state: SOFT_REJECTED)
+        submitted_proposal = create(:proposal, state: SUBMITTED)
+
+        Proposal.all.each do |prop|
+          prop.finalize
+        end
+
+        expect(waitlisted_proposal.reload.program_session.state).to eq('unconfirmed waitlisted')
+        expect(accepted_proposal.reload.program_session.state).to eq('unconfirmed accepted')
+        expect(rejected_proposal.reload.program_session).to be_nil
+        expect(submitted_proposal.reload.program_session).to be_nil
       end
     end
 
@@ -326,6 +412,15 @@ describe Proposal do
         end
       end
     end
+
+    it "doesn't update the update_by_speaker_at column" do
+      tag = create(:tagging)
+      updated_at = 1.day.ago
+      proposal.update_column(:updated_by_speaker_at, updated_at)
+      proposal.update(review_tags: [tag.tag])
+      proposal.reload
+      expect(proposal.updated_by_speaker_at.to_s).to eq(updated_at.to_s)
+    end
   end
 
   describe "#average_rating" do
@@ -397,7 +492,32 @@ describe Proposal do
     end
   end
 
-  describe "#update_and_send_notifications" do
+  describe 'emailable_reviewers' do
+    let!(:proposal) { create(:proposal) }
+    let!(:no_email_reviewer) do
+      reviewer = create(:user, :reviewer)
+      reviewer.teammates.first.update_attribute(:notification_preference, Teammate::IN_APP_ONLY)
+      create(:rating, user: reviewer, proposal: proposal)
+      reviewer
+    end
+    let!(:mentions_only_reviewer) do
+      reviewer = create(:user, :reviewer)
+      reviewer.teammates.first.update_attribute(:notification_preference, Teammate::MENTIONS)
+      create(:rating, user: reviewer, proposal: proposal)
+      reviewer
+    end
+    let!(:reviewer) do
+      reviewer = create(:user, :reviewer)
+      create(:rating, user: reviewer, proposal: proposal)
+      reviewer
+    end
+
+    it 'returns only reviewers with all emails turned on' do
+      expect(proposal.emailable_reviewers).to match_array([ reviewer ])
+    end
+  end
+
+  describe "#speaker_update_and_notify" do
     it "sends notification to all reviewers" do
       proposal = create(:proposal, title: 'orig_title', pitch: 'orig_pitch')
       reviewer = create(:user, :reviewer)
@@ -407,7 +527,7 @@ describe Proposal do
       proposal.public_comments.create(attributes_for(:comment, user: organizer))
 
       expect {
-        proposal.update_and_send_notifications(title: 'new_title', pitch: 'new_pitch')
+        proposal.speaker_update_and_notify(title: 'new_title', pitch: 'new_pitch')
       }.to change { Notification.count }.by(2)
 
       expect(reviewer.notifications.count).to eq(1)
@@ -421,7 +541,7 @@ describe Proposal do
       reviewer = create(:user, :reviewer)
       create(:rating, user: reviewer, proposal: proposal)
 
-      proposal.update_and_send_notifications(title: 'new_title')
+      proposal.speaker_update_and_notify(title: 'new_title')
       expect(Notification.last.message).to include('orig_title')
     end
 
@@ -429,8 +549,16 @@ describe Proposal do
       proposal = create(:proposal)
 
       expect {
-        proposal.update_and_send_notifications(title: '')
+        proposal.speaker_update_and_notify(title: '')
       }.to_not change { Notification.count }
+    end
+
+    it "updates updated_by_speaker_at" do
+      proposal = create(:proposal)
+
+      expect {
+        proposal.speaker_update_and_notify(title: 'new_title')
+      }.to change { proposal.updated_by_speaker_at }
     end
   end
 
@@ -451,7 +579,7 @@ describe Proposal do
     end
   end
 
-  context "When propsal has multiple speakers" do
+  context "When proposal has multiple speakers" do
     it "displays the oldest speaker first" do
       proposal = create(:proposal)
       secondary_speaker = create(:speaker, created_at: 2.weeks.ago, proposal: proposal)

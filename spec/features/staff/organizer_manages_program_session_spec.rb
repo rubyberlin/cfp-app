@@ -14,11 +14,12 @@ feature "Organizers can manage program sessions" do
   end
 
   context "organizer can promote program session" do
-    let!(:waitlisted_session) { create(:program_session, event: event, session_format: session_format, state: ProgramSession::WAITLISTED) }
+    let!(:waitlisted_session) { create(:program_session, event: event, session_format: session_format, state: ProgramSession::CONFIRMED_WAITLISTED) }
 
     scenario "from program session index", js: true do
       visit event_staff_program_sessions_path(event)
       page.accept_confirm do
+        page.find('#waitlist').click
         find('tr', text: waitlisted_session.title).click_link("Promote")
       end
 
@@ -108,5 +109,15 @@ feature "Organizers can manage program sessions" do
     expect(page).not_to have_content(program_session_two.title)
     expect(event.speakers).to include(speaker)
     expect(event.proposals).to include(speaker.proposal)
+  end
+
+  scenario "organizer can confirm program session for speaker" do
+    program_session_with_proposal = create(:program_session_with_proposal, :with_speaker, event: event, session_format: session_format)
+    visit event_staff_program_session_path(event, program_session_with_proposal)
+
+    click_link("Confirm for Speaker")
+
+    expect(page).to have_content("Confirmed at:")
+    expect(page).not_to have_link("Confirm for Speaker")
   end
 end
