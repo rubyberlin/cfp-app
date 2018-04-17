@@ -139,5 +139,4 @@ end
 #  index_time_slots_on_event_id            (event_id)
 #  index_time_slots_on_program_session_id  (program_session_id)
 #  index_time_slots_on_room_id             (room_id)
-#  index_time_slots_on_track_id            (track_id)
 #

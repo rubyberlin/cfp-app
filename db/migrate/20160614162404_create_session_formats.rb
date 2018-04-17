@@ -1,4 +1,4 @@
-class CreateSessionFormats < ActiveRecord::Migration[5.1]
+class CreateSessionFormats < ActiveRecord::Migration[5.0]
   def change
     create_table :session_formats do |t|
       t.references :event, index: true

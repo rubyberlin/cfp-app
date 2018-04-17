@@ -263,7 +263,7 @@ end
 #  proposal_tags               :text
 #  review_tags                 :text
 #  custom_fields               :text
-#  speaker_notification_emails :text
+#  speaker_notification_emails :text             default({:accept=>"", :reject=>"", :waitlist=>""})
 #  created_at                  :datetime
 #  updated_at                  :datetime
 #

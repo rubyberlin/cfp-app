@@ -1,4 +1,4 @@
-class CreateTaggings < ActiveRecord::Migration[5.1]
+class CreateTaggings < ActiveRecord::Migration[5.0]
   def change
     create_table :taggings do |t|
       t.references :proposal, index: true

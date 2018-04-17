@@ -1,4 +1,4 @@
-class CreateNonUniqueUserIndexes < ActiveRecord::Migration[5.1]
+class CreateNonUniqueUserIndexes < ActiveRecord::Migration[5.0]
   def change
     remove_index :users, :email
     remove_index :users, :reset_password_token

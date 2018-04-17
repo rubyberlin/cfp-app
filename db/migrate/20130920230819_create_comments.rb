@@ -1,4 +1,4 @@
-class CreateComments < ActiveRecord::Migration[5.1]
+class CreateComments < ActiveRecord::Migration[5.0]
   def change
     create_table :comments do |t|
       t.references :proposal, index: true
