@@ -81,7 +81,7 @@ GEM
       capybara (>= 2.3.0, < 2.8.0)
       json
     chartkick (2.2.1)
-    coderay (1.1.1)
+    coderay (1.1.2)
     concurrent-ruby (1.0.5)
     countries (0.9.3)
       currencies (~> 0.4.2)
