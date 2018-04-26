@@ -362,7 +362,7 @@ GEM
     timecop (0.9.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (3.0.4)
+    uglifier (4.1.10)
       execjs (>= 0.3.0, < 3)
     underscore-rails (1.8.3)
     warden (1.2.7)
