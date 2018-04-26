@@ -18,7 +18,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'rails-assets-momentjs', source: 'https://rails-assets.org'
 gem 'selectize-rails'
 
-gem 'devise', '~> 4.3.0'
+gem 'devise',             '~> 4.4.3'
 gem 'omniauth',           '~> 1.8.1'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
