@@ -1,18 +1,32 @@
+dist: trusty
+sudo: false
+
 language: ruby
+
 rvm:
   - 2.4.1
-env:
-  global:
-    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
-    - QMAKE=/usr/lib/x86_64-linux-gnu/qt4/bin/qmake
+
 addons:
+  postgresql: "9.6"
   apt:
-    sources:
-      - ubuntu-sdk-team
     packages:
-      - libqt5webkit5-dev
-      - qtdeclarative5-dev
-bundler_args: --jobs=3 --retry=3 --without development
-script: xvfb-run bundle exec rake
+      - google-chrome-stable
+
+cache: bundler
+
+bundler_args: --jobs=3 --retry=3 --deployment --without development production
+
+branches:
+  only:
+    - master
+
+before_install:
+  - gem update --system
+  - gem install bundler
+
 before_script:
-  - psql -c 'create database cfp_app_test;' -U postgres
+  - curl -O https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip -d chromedriver
+  - export PATH=$PATH:`pwd`/chromedriver
+
+script: bundle exec rake db:create db:migrate spec
