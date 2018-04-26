@@ -60,6 +60,7 @@ end
 
 group :development, :test do
   gem 'capybara', '~> 3.0'
+  gem 'capybara_table', git: 'https://github.com/myabc/capybara_table.git'
   gem 'selenium-webdriver'
   gem 'database_cleaner', '~> 1.6.0'
   gem 'dotenv-rails'
