@@ -58,7 +58,7 @@ group :development do
 end
 
 group :development, :test do
-  gem 'capybara'
+  gem 'capybara', '~> 3.0'
   gem 'selenium-webdriver'
   gem 'database_cleaner', '~> 1.6.0'
   gem 'dotenv-rails'
