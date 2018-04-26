@@ -78,12 +78,11 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.11.1)
-      capybara (>= 2.3.0, < 2.8.0)
-      json
     case_transform (0.2)
       activesupport
     chartkick (2.3.4)
+    childprocess (0.9.0)
+      ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.2)
     concurrent-ruby (1.0.5)
     countries (0.9.3)
@@ -183,7 +182,6 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
-    json (2.1.0)
     jsonapi-renderer (0.2.0)
     jwt (1.5.6)
     launchy (2.4.3)
@@ -327,6 +325,7 @@ GEM
     ruby_dep (1.5.0)
     ruby_parser (3.10.1)
       sexp_processor (~> 4.9)
+    rubyzip (1.2.1)
     sass (3.5.6)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -339,6 +338,9 @@ GEM
       sprockets-rails (>= 2.0, < 4.0)
       tilt (>= 1.1, < 3)
     selectize-rails (0.12.4.1)
+    selenium-webdriver (3.11.0)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.2)
     sexp_processor (4.10.0)
     shellany (0.0.1)
     simple_form (3.5.0)
@@ -390,7 +392,6 @@ DEPENDENCIES
   bootstrap-multiselect-rails (~> 0.9.9)
   bootstrap-sass (~> 3.3.6)
   capybara
-  capybara-webkit
   chartkick
   coderay (~> 1.0)
   country_select (~> 1.3.1)
@@ -436,6 +437,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails (~> 5.0.4)
   selectize-rails
+  selenium-webdriver
   simple_form (~> 3.5.0)
   spring
   spring-commands-rspec

@@ -5,6 +5,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'capybara/rspec'
 require 'pundit/rspec'
+require 'selenium/webdriver'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -20,16 +21,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  Capybara.javascript_driver = :webkit
-
-  Capybara::Webkit.configure do |config|
-    config.block_unknown_urls
-    config.allow_url("127.0.0.1")
-    config.allow_url("localhost")
-    config.allow_url("example.com")
-  end
-
-
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
