@@ -105,10 +105,11 @@ class ProgramSession < ApplicationRecord
   end
 
   def promote
-    update(state: PROMOTIONS[state])
-    if proposal.present?
-      proposal.promote
-    end
+    update(state: PROMOTIONS[state]) | promote_proposal
+  end
+
+  def promote_proposal
+    proposal && proposal.promote
   end
 
   def live?
