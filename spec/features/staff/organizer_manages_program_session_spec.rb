@@ -15,14 +15,18 @@ feature "Organizers can manage program sessions" do
 
   context "organizer can promote program session" do
     let!(:waitlisted_session) { create(:program_session, event: event, session_format: session_format, state: ProgramSession::CONFIRMED_WAITLISTED) }
+    let!(:session_title)      { waitlisted_session.title }
 
     scenario "from program session index", js: true do
       visit event_staff_program_sessions_path(event)
       page.accept_confirm do
         page.find('#waitlist').click
-        find('tr', text: waitlisted_session.title).click_link("Promote")
+        find('tr', text: session_title).click_link("Promote")
       end
 
+      expect(page).to have_bs_alert(
+        "#{session_title} was successfully promoted to live"
+      )
       expect(waitlisted_session.reload.state).to eq(ProgramSession::LIVE)
     end
 
@@ -32,6 +36,9 @@ feature "Organizers can manage program sessions" do
         click_link("Promote")
       end
 
+      expect(page).to have_bs_alert(
+        "#{session_title} was successfully promoted to live"
+      )
       expect(waitlisted_session.reload.state).to eq(ProgramSession::LIVE)
     end
   end
