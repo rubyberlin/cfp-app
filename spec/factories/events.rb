@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :event do
     sequence(:name) { |i| "Fine Event#{i}" }
     url "http://fineevent.com/"

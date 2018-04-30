@@ -63,7 +63,7 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'database_cleaner', '~> 1.6.0'
   gem 'dotenv-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails', '~> 4.8'
   gem 'growl'
   gem 'guard'
   gem 'guard-rspec'
