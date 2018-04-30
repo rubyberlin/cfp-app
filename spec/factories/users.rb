@@ -18,21 +18,21 @@ FactoryBot.define do
     trait :reviewer do
       name "John Doe Reviewer"
       after(:create) do |user|
-        FactoryBot.create(:teammate, :reviewer, user: user)
+        create(:teammate, :reviewer, user: user)
       end
     end
 
     trait :organizer do
       name "John Doe Organizer"
       after(:create) do |user|
-        FactoryBot.create(:teammate, :organizer, user: user)
+        create(:teammate, :organizer, user: user)
       end
     end
 
     trait :program_team do
       name "John Doe Program Team"
       after(:create) do |user|
-        FactoryBot.create(:teammate, :program_team, user: user)
+        create(:teammate, :program_team, user: user)
       end
     end
 
