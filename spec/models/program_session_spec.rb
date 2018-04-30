@@ -192,33 +192,124 @@ describe ProgramSession do
   end
 
   describe "#promote" do
-    it "promotes a draft to accepted_confirmed" do
-      ps = create(:program_session, state: "draft")
-      ps.promote
+    context 'when draft' do
+      let(:ps) { create(:program_session, state: 'draft') }
 
-      expect(ps.reload.state).to eq("live")
+      context 'without a proposal' do
+        it 'promotes the program session to live' do
+          expect { ps.promote }.to change { ps.reload.state }.to('live')
+        end
+
+        it 'returns true if the program session was changed' do
+          expect(ps.promote).to be true
+        end
+      end
+
+      context 'with a waitlisted proposal' do
+        let(:proposal) { create(:proposal, program_session: ps, state: 'waitlisted') }
+
+        it 'promotes the program session to live' do
+          expect { ps.promote }.to change { ps.reload.state }.to('live')
+        end
+
+        it 'promotes the proposal to accepted' do
+          expect { ps.promote }.to change { proposal.reload.state }.to('accepted')
+        end
+
+        it 'returns true if the program session or proposal were changed' do
+          expect(ps.promote).to be true
+        end
+      end
     end
 
-    it "promotes an unconfirmed waitlisted to unconfirmed_accepted" do
-      ps = create(:program_session, state: "unconfirmed waitlisted")
-      ps.promote
+    context 'when unconfirmed waitlisted' do
+      let(:ps) { create(:program_session, state: 'unconfirmed waitlisted') }
 
-      expect(ps.reload.state).to eq("unconfirmed accepted")
+      context 'without a proposal' do
+        it 'promotes the program session to unconfirmed accepted' do
+          expect { ps.promote }.to change { ps.reload.state }.to('unconfirmed accepted')
+        end
+
+        it 'returns true if the program session was changed' do
+          expect(ps.promote).to be true
+        end
+      end
+
+      context 'with a waitlisted proposal' do
+        let(:proposal) { create(:proposal, program_session: ps, state: 'waitlisted') }
+
+        it 'promotes the program session to live' do
+          expect { ps.promote }.to change { ps.reload.state }.to('unconfirmed accepted')
+        end
+
+        it 'promotes the proposal to accepted' do
+          expect { ps.promote }.to change { proposal.reload.state }.to('accepted')
+        end
+
+        it 'returns true if the program session or proposal were changed' do
+          expect(ps.promote).to be true
+        end
+      end
     end
 
-    it "promotes a confirmed_waitlisted to live" do
-      ps = create(:program_session, state: "confirmed waitlisted")
-      ps.promote
+    context 'when confirmed waitlisted' do
+      let(:ps) { create(:program_session, state: 'confirmed waitlisted') }
 
-      expect(ps.reload.state).to eq("live")
+      context 'without a proposal' do
+        it 'promotes the program session to live' do
+          expect { ps.promote }.to change { ps.reload.state }.to('live')
+        end
+
+        it 'returns true if the program session was changed' do
+          expect(ps.promote).to be true
+        end
+      end
+
+      context 'with a waitlisted proposal' do
+        let(:proposal) { create(:proposal, program_session: ps, state: 'waitlisted') }
+
+        it 'promotes the program session to live' do
+          expect { ps.promote }.to change { ps.reload.state }.to('live')
+        end
+
+        it 'promotes the proposal to accepted' do
+          expect { ps.promote }.to change { proposal.reload.state }.to('accepted')
+        end
+
+        it 'returns true if the program session or proposal were changed' do
+          expect(ps.promote).to be true
+        end
+      end
     end
 
-    it "promotes it's proposal" do
-      ps = create(:program_session)
-      proposal = create(:proposal, program_session: ps)
+    context 'when live' do
+      let(:ps) { create(:program_session, state: 'live') }
 
-      expect(proposal).to receive(:promote)
-      ps.promote
+      context 'without a proposal' do
+        it 'does not promote (or change) the program session' do
+          expect { ps.promote }.not_to change { ps.reload.state }
+        end
+
+        it 'returns false if the program session was not changed' do
+          expect(ps.promote).to be false
+        end
+      end
+
+      context 'with an accepted proposal' do
+        let(:proposal) { create(:proposal, program_session: ps, state: 'accepted') }
+
+        it 'does not promote (or change) the program session' do
+          expect { ps.promote }.not_to change { ps.reload.state }
+        end
+
+        it 'does not promote (or change) the proposal' do
+          expect { ps.promote }.not_to change { proposal.reload.state }
+        end
+
+        it 'returns false if neither the program session nor proposal were changed' do
+          expect(ps.promote).to be false
+        end
+      end
     end
   end
 

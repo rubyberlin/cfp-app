@@ -93,7 +93,7 @@ feature "Review Proposals" do
       expect(page).to_not have_content('Internal Comments')
 
       within("#rating-form") do
-        find("input[value='5']").set(true)
+        find("input[value='5']", visible: false).set(true)
       end
 
       expect(page).to have_content('Internal Comments')

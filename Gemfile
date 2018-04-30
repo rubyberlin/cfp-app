@@ -3,7 +3,8 @@ source 'https://rubygems.org'
 ruby '2.4.1'
 
 gem 'rails', '5.1.4'
-gem 'puma', '~> 3.6.2'
+
+gem 'puma', '~> 3.11.4'
 
 gem 'pg'
 
@@ -58,8 +59,9 @@ group :development do
 end
 
 group :development, :test do
-  gem 'capybara'
-  gem 'capybara-webkit' # Local QT install req'd (`brew install qt`)
+  gem 'capybara', '~> 3.0'
+  gem 'capybara_table', git: 'https://github.com/myabc/capybara_table.git'
+  gem 'selenium-webdriver'
   gem 'database_cleaner', '~> 1.6.0'
   gem 'dotenv-rails'
   gem 'factory_girl_rails'
