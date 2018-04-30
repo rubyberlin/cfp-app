@@ -12,6 +12,10 @@ feature "Event Config" do
   let(:program_team_user) { create(:user) }
   let!(:program_team_event_teammate) { create(:teammate, :program_team, user: program_team_user, event: event) }
 
+  def document
+    page.document
+  end
+
   context "As an organizer", js: true do
     before :each do
       logout
@@ -22,42 +26,43 @@ feature "Event Config" do
       visit event_staff_config_path(event)
       click_on "Add Session Format"
 
-      fill_in "Name", with: "Best Session"
-      click_button "Save"
-
-      within('#session-formats') do
-        expect(page).to have_content("Best Session")
+      within_bs_modal 'New Session Format' do
+        fill_in "Name", with: "Best Session"
+        click_button "Save"
       end
+
+      expect(find('table#session-formats'))
+        .to have_table_row('Name' => 'Best Session')
     end
 
     it "can edit a session format" do
       session_format = create(:session_format)
       visit event_staff_config_path(event)
 
-      within("#session_format_#{session_format.id}") do
-        click_on "Edit"
+      find("tr#session_format_#{session_format.id}").click_on 'Edit'
+
+      within_bs_modal 'Edit Session Format' do
+        fill_in "Description", with: "The most exciting session."
+        click_button "Save"
       end
 
-      fill_in "Description", with: "The most exciting session."
-      click_button "Save"
-
-      within("#session_format_#{session_format.id}") do
-        expect(page).to have_content("The most exciting session.")
-      end
+      expect(find('table#session-formats'))
+        .to have_table_row('Description' => 'The most exciting session.')
     end
 
     it "can't edit a session format to have no name" do
       session_format = create(:session_format)
       visit event_staff_config_path(event)
 
-      within("#session_format_#{session_format.id}") do
-        click_on "Edit"
+      find("tr#session_format_#{session_format.id}").click_on 'Edit'
+
+      within_bs_modal 'Edit Session Format' do
+        fill_in "Name", with: ""
+        click_button "Save"
+
+        expect(current_scope)
+          .to have_css('.errors', text: "Name can't be blank")
       end
-
-      fill_in "Name", with: ""
-      click_button "Save"
-
-      expect(page).to have_content("Name can't be blank.")
     end
 
     it "can delete a session format" do
@@ -80,69 +85,85 @@ feature "Event Config" do
       visit event_staff_config_path(event)
       click_on "Add Track"
 
-      fill_in "Name", with: "Best Track"
-      click_button "Save"
-
-      within("#tracks") do
-        expect(page).to have_content("Best Track")
+      within_bs_modal 'New Track' do
+        fill_in "Name", with: "Best Track"
+        click_button "Save"
       end
+
+      expect(find('table#tracks')).to have_table_row('Name' => 'Best Track')
     end
 
     it "can't add a track with a description longer than 250 characters" do
       visit event_staff_config_path(event)
       click_on "Add Track"
 
-      fill_in "Name", with: "Best Session"
-      fill_in "Description", with: "A really long description about  Gastropub sartorial narwhal pitchfork hashtag venmo forage gluten-free. Echo messenger bag swag. Lomo humblebrag authentic. Photo booth iphone portland cardigan pitchfork locavore ramps. Pop-up poutine photo booth fingerstache kombucha mumblecore mlkshk."
-      click_button "Save"
+      within_bs_modal 'New Track' do
+        fill_in "Name", with: "Best Session"
+        fill_in "Description", with: "A really long description about  Gastropub sartorial narwhal pitchfork hashtag venmo forage gluten-free. Echo messenger bag swag. Lomo humblebrag authentic. Photo booth iphone portland cardigan pitchfork locavore ramps. Pop-up poutine photo booth fingerstache kombucha mumblecore mlkshk."
+        click_button "Save"
 
-      expect(page).to have_content("Description is too long (maximum is 250 characters)")
-      expect(page).to have_content("There was a problem saving your track, Description is too long (maximum is 250 characters).")
+        expect(current_scope)
+          .to have_css(
+            '.errors',
+            text: 'Description is too long (maximum is 250 characters)'
+          )
+        expect(document).to have_bs_alert(%{
+          There was a problem saving your track,
+          Description is too long (maximum is 250 characters)
+        }.squish)
+      end
     end
 
     it "can edit a track" do
       track = create(:track, event: event)
       visit event_staff_config_path(event)
 
-      within("#track_#{track.id}") do
-        click_on "Edit"
+      find("tr#track_#{track.id}").click_on 'Edit'
+
+      within_bs_modal 'Edit Track' do
+        fill_in "Description", with: "The best track ever."
+        click_button "Save"
       end
 
-      fill_in "Description", with: "The best track ever."
-      click_button "Save"
-
-      within("#track_#{track.id}") do
-        expect(page).to have_content("The best track ever.")
-      end
+      expect(find('table#tracks'))
+        .to have_table_row('Description' => 'The best track ever.')
     end
 
     it "can't edit a track to have no name" do
       track = create(:track, event: event)
       visit event_staff_config_path(event)
 
-      within("#track_#{track.id}") do
-        click_on "Edit"
+      find("tr#track_#{track.id}").click_on 'Edit'
+
+      within_bs_modal 'Edit Track' do
+        fill_in "Name", with: ""
+        click_button "Save"
+
+        expect(current_scope)
+          .to have_css('.errors', text: "Name can't be blank")
       end
-
-      fill_in "Name", with: ""
-      click_button "Save"
-
-      expect(page).to have_content("Name can't be blank.")
     end
 
     it "can't edit description to be longer than 250 characters" do
       track = create(:track, event: event)
       visit event_staff_config_path(event)
 
-      within("#track_#{track.id}") do
-        click_on "Edit"
+      find("#track_#{track.id}").click_on 'Edit'
+
+      within_bs_modal 'Edit Track' do
+        fill_in "Description", with: "A really long description about  Gastropub sartorial narwhal pitchfork hashtag venmo forage gluten-free. Echo messenger bag swag. Lomo humblebrag authentic. Photo booth iphone portland cardigan pitchfork locavore ramps. Pop-up poutine photo booth fingerstache kombucha mumblecore mlkshk."
+        click_button "Save"
+
+        expect(current_scope)
+          .to have_css(
+            '.errors',
+            text: 'Description is too long (maximum is 250 characters)'
+          )
+        expect(document).to have_bs_alert(%{
+          There was a problem updating your track,
+          Description is too long (maximum is 250 characters).
+        }.squish)
       end
-
-      fill_in "Description", with: "A really long description about  Gastropub sartorial narwhal pitchfork hashtag venmo forage gluten-free. Echo messenger bag swag. Lomo humblebrag authentic. Photo booth iphone portland cardigan pitchfork locavore ramps. Pop-up poutine photo booth fingerstache kombucha mumblecore mlkshk."
-      click_button "Save"
-
-      expect(page).to have_content("Description is too long (maximum is 250 characters)")
-      expect(page).to have_content("There was a problem updating your track, Description is too long (maximum is 250 characters).")
     end
 
     it "can delete a track" do
