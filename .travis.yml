@@ -16,6 +16,10 @@ cache: bundler
 
 bundler_args: --jobs=3 --retry=3 --deployment --without development production
 
+env:
+  global:
+    - CC_TEST_REPORTER_ID=4fc8a11662c55757f43db35ae5235374c7e3614adabdf5e3365addc845867081
+
 branches:
   only:
     - master
@@ -28,5 +32,11 @@ before_script:
   - curl -O https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip -d chromedriver
   - export PATH=$PATH:`pwd`/chromedriver
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 -o ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
 script: bundle exec rake db:create db:migrate spec
+
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
