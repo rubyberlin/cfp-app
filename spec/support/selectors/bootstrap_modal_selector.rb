@@ -10,14 +10,15 @@
 #
 Capybara.add_selector(:bs_modal) do
   CSS_CLASSES = {
-    base:     %w[modal],
-    visible:  %w[in],
-    content:  %w[modal-content],
-    header:   %w[modal-header],
-    body:     %w[modal-body],
-    title:    %w[modal-title]
+    base:     %(modal),
+    open:     %(in),
+    content:  %(modal-content),
+    header:   %(modal-header),
+    body:     %(modal-body),
+    title:    %(modal-title)
   }.freeze
 
+  visible :all
   label 'Bootstrap Modal'
 
   xpath(:title) do |locator, **_options|
@@ -37,9 +38,19 @@ Capybara.add_selector(:bs_modal) do
     expr[build_title_xpath(val)]
   end
 
-  describe do |**options|
+  filter(:open, boolean: true, default: true, skip_if: :all) do |node, value|
+    !(value ^ modal_is_open?(node))
+  end
+
+  filter(:closed, boolean: true) do |node, value|
+    (value ^ modal_is_open?(node))
+  end
+
+  describe do |open: nil, closed: nil, **options|
     desc = ''.dup
     desc << describe_all_expression_filters(options)
+    desc << ' that is open' if open || (closed == false)
+    desc << ' that is closed' if closed || (open == false)
     desc
   end
 
@@ -48,5 +59,9 @@ Capybara.add_selector(:bs_modal) do
         find_by_attr(:class, CSS_CLASSES[:header]) |
         find_by_attr(:class, CSS_CLASSES[:title])
     ) & XPath.string.n.is(title_str)]
+  end
+
+  def modal_is_open?(node)
+    node[:class].split(/\s+/).include?(CSS_CLASSES[:open]) && node.visible?
   end
 end
