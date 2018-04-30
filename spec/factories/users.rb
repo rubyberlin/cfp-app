@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   sequence :name do |n|
     "User Name #{n}"
   end
@@ -18,21 +18,21 @@ FactoryGirl.define do
     trait :reviewer do
       name "John Doe Reviewer"
       after(:create) do |user|
-        FactoryGirl.create(:teammate, :reviewer, user: user)
+        FactoryBot.create(:teammate, :reviewer, user: user)
       end
     end
 
     trait :organizer do
       name "John Doe Organizer"
       after(:create) do |user|
-        FactoryGirl.create(:teammate, :organizer, user: user)
+        FactoryBot.create(:teammate, :organizer, user: user)
       end
     end
 
     trait :program_team do
       name "John Doe Program Team"
       after(:create) do |user|
-        FactoryGirl.create(:teammate, :program_team, user: user)
+        FactoryBot.create(:teammate, :program_team, user: user)
       end
     end
 

@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :internal_comment do
     body "Internal Comment"
   end

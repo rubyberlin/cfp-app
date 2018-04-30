@@ -1,6 +1,6 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :teammate do
-    event { Event.first || FactoryGirl.create(:event) }
+    event { Event.first || FactoryBot.create(:event) }
 
     sequence :email do |n|
       "email#{n}@factory.com"

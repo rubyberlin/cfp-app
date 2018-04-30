@@ -127,10 +127,10 @@ GEM
     erubis (2.7.0)
     eventmachine (1.2.1)
     execjs (2.7.0)
-    factory_girl (4.8.0)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.8.0)
-      factory_girl (~> 4.8.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     faker (1.8.7)
       i18n (>= 0.7)
@@ -412,7 +412,7 @@ DEPENDENCIES
   dotenv-rails
   draper (~> 3.0.1)
   erubis
-  factory_girl_rails
+  factory_bot_rails (~> 4.8)
   faker
   foreman
   groupdate
