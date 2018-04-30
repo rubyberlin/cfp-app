@@ -77,3 +77,7 @@ group :development, :test do
   gem 'pry-rescue'
   gem 'pry-remote'
 end
+
+group :test do
+  gem 'simplecov', require: false
+end
