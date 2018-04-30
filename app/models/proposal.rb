@@ -27,7 +27,7 @@ class Proposal < ApplicationRecord
   validates :title, length: { maximum: 60 }
   validates :state, inclusion: { in: valid_states, allow_nil: true, message: "'%{value}' not a valid state." }
   validates :state, inclusion: { in: FINAL_STATES, allow_nil: false, message: "'%{value}' not a confirmable state.",
-                                 if: :confirmed_at_changed? }
+                                 if: :saved_change_to_confirmed_at? }
 
   serialize :last_change
   serialize :proposal_data, Hash
