@@ -41,7 +41,6 @@ gem 'nokogiri', '~> 1.8.1'
 gem 'erubis'
 
 group :production do
-  gem 'rails_12factor'
   gem 'rack-timeout', '~> 0.2.4'
 end
 
