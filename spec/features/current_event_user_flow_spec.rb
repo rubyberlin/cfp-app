@@ -141,7 +141,6 @@ feature "A user sees correct information for the current event and their role" d
       expect(page).to have_link("", href: "/notifications")
       expect(page).to have_content(normal_user.name)
     end
-
   end
 
   scenario "Reviewer flow and navbar layout" do
@@ -249,7 +248,7 @@ feature "A user sees correct information for the current event and their role" d
     event_1 = create(:event, state: "open")
     event_2 = create(:event, state: "closed")
     create(:teammate, :organizer, user: admin_user, event: event_1)
-    create(:teammate, :organizer,  event: event_2)
+    create(:teammate, :organizer, event: event_2)
 
     signin(admin_user.email, admin_user.password)
 

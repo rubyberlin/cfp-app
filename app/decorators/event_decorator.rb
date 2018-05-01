@@ -14,10 +14,10 @@ class EventDecorator < ApplicationDecorator
   end
 
   def path_for(user)
-    path = if user && user.organizer_for_event?(object)
-      h.event_staff_proposals_path(object)
-    else
-      h.event_path(object.slug)
+    path = if user&.organizer_for_event?(object)
+             h.event_staff_proposals_path(object)
+           else
+             h.event_path(object.slug)
     end
 
     h.link_to h.pluralize(object.proposals.count, 'proposal'), path
@@ -54,7 +54,7 @@ class EventDecorator < ApplicationDecorator
 
   def reviewed_percent
     if proposals.count > 1
-      "#{((object.proposals.rated.count.to_f/object.proposals.count.to_f)*100).round(1)}%"
+      "#{((object.proposals.rated.count.to_f / object.proposals.count.to_f) * 100).round(1)}%"
     else
       "0%"
     end
@@ -76,7 +76,7 @@ class EventDecorator < ApplicationDecorator
 
   def confirmed_percent
     if proposals.accepted.confirmed.count > 0
-      "#{((object.proposals.accepted.confirmed.count.to_f/object.proposals.accepted.count.to_f)*100).round(1)}%"
+      "#{((object.proposals.accepted.confirmed.count.to_f / object.proposals.accepted.count.to_f) * 100).round(1)}%"
     else
       "0%"
     end
@@ -91,7 +91,7 @@ class EventDecorator < ApplicationDecorator
     if scheduled_count > 0
       tot = object.proposals.accepted.count.to_f
       sched = tot - object.program_sessions.unscheduled.count.to_f
-      "#{((sched/tot)*100).round(1)}%"
+      "#{((sched / tot) * 100).round(1)}%"
     else
       "0%"
     end
@@ -99,7 +99,7 @@ class EventDecorator < ApplicationDecorator
 
   def waitlisted_percent
     if proposals.waitlisted.confirmed.count > 0
-      "#{((object.proposals.waitlisted.confirmed.count.to_f/object.proposals.waitlisted.count.to_f)*100).round(1)}%"
+      "#{((object.proposals.waitlisted.confirmed.count.to_f / object.proposals.waitlisted.count.to_f) * 100).round(1)}%"
     else
       "0%"
     end
@@ -107,7 +107,7 @@ class EventDecorator < ApplicationDecorator
 
   def line_chart
     h.line_chart object.proposals.group_by_day(:created_at, Time.zone, proposal_date_range).count,
-      library: {pointSize: 0, lineWidth: 2, series: [{color: '#9ACFEA'}]}
+                 library: { pointSize: 0, lineWidth: 2, series: [{ color: '#9ACFEA' }] }
   end
 
   def conference_day_in_words(day)
@@ -129,13 +129,13 @@ class EventDecorator < ApplicationDecorator
         object.proposals.order(created_at: :asc).pluck(:created_at).first
 
       proposal_date_range =
-        event_first_proposal_created_at..(now < object.closes_at ? now : object.closes_at )
+        event_first_proposal_created_at..(now < object.closes_at ? now : object.closes_at)
     else
       proposal_date_range = (now..(now + 3.months))
     end
   end
 
   def format_date(date)
-      date.to_s(:long) if date.present?
+    date.to_s(:long) if date.present?
   end
 end

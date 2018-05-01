@@ -2,30 +2,34 @@ require 'rails_helper'
 
 feature "Review Proposals" do
   let(:event) { create(:event, state: 'open') }
-  let(:reviewer_user) {create(:user) }
+  let(:reviewer_user) { create(:user) }
 
   # First proposal
   let(:user) { create(:user) }
-  let(:proposal) { create(:proposal,
-                          title: 'First Proposal',
-                          abstract: 'Well then.',
-                          event: event)
+  let(:proposal) {
+    create(:proposal,
+           title: 'First Proposal',
+           abstract: 'Well then.',
+           event: event)
   }
-  let!(:speaker) { create(:speaker,
-                         user: user,
-                         proposal: proposal)
+  let!(:speaker) {
+    create(:speaker,
+           user: user,
+           proposal: proposal)
   }
 
   # Another proposal
   let(:user2) { create(:user) }
-  let(:proposal2) { create(:proposal,
-                          title: 'Second Proposal',
-                          abstract: 'This is second.',
-                          event: event)
+  let(:proposal2) {
+    create(:proposal,
+           title: 'Second Proposal',
+           abstract: 'This is second.',
+           event: event)
   }
-  let!(:speaker2) { create(:speaker,
-                         user: user2,
-                         proposal: proposal2)
+  let!(:speaker2) {
+    create(:speaker,
+           user: user2,
+           proposal: proposal2)
   }
 
   # Reviewer
@@ -64,14 +68,16 @@ feature "Review Proposals" do
   end
 
   context "When the reviewer submits a proposal" do
-    let!(:reviewer_proposal) { create(:proposal,
-                                      title: 'Reviewer Proposal',
-                                      abstract: 'Yes indeed.',
-                                      event: event)
+    let!(:reviewer_proposal) {
+      create(:proposal,
+             title: 'Reviewer Proposal',
+             abstract: 'Yes indeed.',
+             event: event)
     }
-    let!(:reviewer_speaker) { create(:speaker,
-                                     user: reviewer_user,
-                                     proposal: reviewer_proposal)
+    let!(:reviewer_speaker) {
+      create(:speaker,
+             user: reviewer_user,
+             proposal: reviewer_proposal)
     }
 
     scenario "they can't view their own proposals" do

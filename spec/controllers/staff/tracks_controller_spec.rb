@@ -7,8 +7,7 @@ describe Staff::TracksController, type: :controller do
   describe "Delete 'destroy'" do
     it "destroys the track" do
       pending('Fix once flows are more settled.')
-      fail
+      raise
     end
   end
-
 end

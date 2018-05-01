@@ -19,7 +19,6 @@ describe InternalComment do
 
       describe "for organizers who have commented on the proposal" do
         it "creates a notification to other teammates when reviewer creates internal comment" do
-
           expect {
             proposal.internal_comments.create(attributes_for(:comment, :internal, user: reviewer))
           }.to change(Notification, :count).by(1)
@@ -34,7 +33,7 @@ describe InternalComment do
           expect {
             proposal.internal_comments.create(attributes_for(:comment, :internal, user: reviewer, body: "@#{organizer.teammates.first.mention_name}, this is for you."))
           }.to change(Notification, :count).by(1)
-            .and change(ActionMailer::Base.deliveries, :count).by(1)
+                                           .and change(ActionMailer::Base.deliveries, :count).by(1)
 
           expect(Notification.count).to eq(1)
           expect(organizer.notifications.length).to eq(1)
@@ -44,15 +43,15 @@ describe InternalComment do
 
         it 'does only creates a notification and no email when teammate preference is in app only' do
           ActionMailer::Base.deliveries.clear
-          organizer.teammates.first.update_attributes(notification_preference: Teammate::IN_APP_ONLY)
+          organizer.teammates.first.update(notification_preference: Teammate::IN_APP_ONLY)
           expect {
             proposal.internal_comments.create(attributes_for(:comment, :internal, user: reviewer, body: "@#{organizer.teammates.first.mention_name}, this is for you."))
           }.to change(Notification, :count).by(1)
-            .and change(ActionMailer::Base.deliveries, :count).by(0)
+                                           .and change(ActionMailer::Base.deliveries, :count).by(0)
         end
 
         it "creates notifications for all teammates when reviewer comments" do
-          create(:comment, proposal: proposal, type: "PublicComment", user: organizer2, body: "Organizer 2 comment" )
+          create(:comment, proposal: proposal, type: "PublicComment", user: organizer2, body: "Organizer 2 comment")
 
           expect {
             proposal.internal_comments.create(attributes_for(:comment, :internal, user: reviewer))
@@ -61,9 +60,7 @@ describe InternalComment do
           expect(organizer.notifications.length).to eq(1)
           expect(organizer2.notifications.length).to eq(1)
         end
-
       end
     end
   end
-
 end

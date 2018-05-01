@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 feature "Organizers can manage proposals" do
-
-  let(:event) { create(:event, review_tags: ['intro', 'advanced']) }
+  let(:event) { create(:event, review_tags: %w[intro advanced]) }
   let(:proposal) { create(:proposal, event: event) }
 
   let(:organizer_user) { create(:user) }
@@ -45,5 +44,4 @@ feature "Organizers can manage proposals" do
     expect(page).to have_content("Successfully finalized remaining submitted proposals.")
     expect(Proposal.soft_states.count).to eq(0)
   end
-
 end

@@ -3,11 +3,11 @@ class SessionFormat < ApplicationRecord
   has_many :time_slots
   has_many :proposals
 
-  validates_presence_of :event
-  validates :name, uniqueness: {scope: :event}, presence: true
+  validates :event, presence: true
+  validates :name, uniqueness: { scope: :event }, presence: true
 
-  scope :sort_by_name, ->{ order(:name) }
-  scope :publicly_viewable, ->{ where(public: true)}
+  scope :sort_by_name, -> { order(:name) }
+  scope :publicly_viewable, -> { where(public: true) }
 end
 
 # == Schema Information

@@ -1,12 +1,12 @@
 class Track < ApplicationRecord
-  NO_TRACK = 'General'
+  NO_TRACK = 'General'.freeze
 
   belongs_to :event
   has_many :program_sessions
   has_many :proposals
 
-  validates :name, uniqueness: {scope: :event}, presence: true
-  validates :description, length: {maximum: 250}
+  validates :name, uniqueness: { scope: :event }, presence: true
+  validates :description, length: { maximum: 250 }
 
   scope :sort_by_name, -> { order(:name) }
 

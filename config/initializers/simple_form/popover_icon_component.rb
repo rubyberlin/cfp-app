@@ -1,7 +1,7 @@
 module SimpleForm
   module Components
     module PopoverIcons
-      def popover_icon(wrapper_options = nil)
+      def popover_icon(_wrapper_options = nil)
         return if popover_content.blank?
 
         input_html_options[:rel] ||= 'popover'
@@ -19,16 +19,16 @@ module SimpleForm
 
       def icon
         return if popover_content.blank?
-        template.capture do
-          template.content_tag(:a, class:'btn btn-icon hint-btn popover-trigger', data: { target: popover_selector }) do
+        template.capture {
+          template.content_tag(:a, class: 'btn btn-icon hint-btn popover-trigger', data: { target: popover_selector }) do
             template.content_tag(:i, '', class: 'fa fa-fw fa-question-circle')
           end
-        end.html_safe
+        }.html_safe
       end
 
-      def label_text(wrapper_options = nil)
+      def label_text(_wrapper_options = nil)
         label_text = options[:label_text] || SimpleForm.label_text
-        label_text.call(html_escape(raw_label_text), required_label_text, options[:label].present?, icon).strip.html_safe
+        label_text.(html_escape(raw_label_text), required_label_text, options[:label].present?, icon).strip.html_safe
       end
 
       def popover_selector
@@ -44,16 +44,12 @@ module SimpleForm
           popover
         elsif popover.is_a?(Hash)
           popover[:content]
-        else
-          nil
         end
       end
 
       def popover_title
         popover = options[:popover_icon]
-        if popover.is_a?(Hash)
-          popover[:title]
-        end
+        popover[:title] if popover.is_a?(Hash)
       end
 
       def popover_placement

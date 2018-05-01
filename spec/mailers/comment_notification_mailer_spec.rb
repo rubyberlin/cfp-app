@@ -22,14 +22,13 @@ describe CommentNotificationMailer do
     end
 
     it "has proper body content" do
-      #Verify format of email and that it includes the event name, proposal title, link to proposal and comment body.
+      # Verify format of email and that it includes the event name, proposal title, link to proposal and comment body.
       expect(mail.body.encoded).to match(proposal.event.name)
       expect(mail.body.encoded).to match(proposal.title)
       expect(mail.body.encoded).to match("View your proposal")
       expect(mail.body.encoded).to match("/events/#{proposal.event.slug}/proposals/#{proposal.uuid}")
       expect(mail.body.encoded).to match(comment.body)
     end
-
   end
 
   describe "reviewer_notification" do
@@ -98,5 +97,4 @@ describe CommentNotificationMailer do
       end
     end
   end
-
 end

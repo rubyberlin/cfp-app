@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature "Program team views program sessions" do
-
   let(:event) { create(:event) }
   let(:program_session) { create(:program_session, event: event) }
 

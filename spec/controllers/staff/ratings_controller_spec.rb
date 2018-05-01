@@ -10,11 +10,11 @@ describe Staff::RatingsController, type: :controller do
 
   context "reviewer has a submitted proposal" do
     let!(:speaker) { create(:speaker, user: reviewer) }
-    let!(:proposal) { create(:proposal, speakers: [ speaker ]) }
+    let!(:proposal) { create(:proposal, speakers: [speaker]) }
 
     it "prevents reviewer from rating their own proposals" do
       expect {
-        post :create, xhr: true, params: {event_slug: event.slug, proposal_uuid: proposal, rating: { score: 3 }}
+        post :create, xhr: true, params: { event_slug: event.slug, proposal_uuid: proposal, rating: { score: 3 } }
       }.to_not change { Rating.count }
     end
   end

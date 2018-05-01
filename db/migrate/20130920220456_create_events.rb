@@ -14,8 +14,8 @@ class CreateEvents < ActiveRecord::Migration[5.0]
       t.text :review_tags
       t.text :custom_fields
       t.text :speaker_notification_emails, default: { accept: '',
-                                                        reject: '',
-                                                        waitlist: '' }.to_yaml
+                                                      reject: '',
+                                                      waitlist: '' }.to_yaml
       t.timestamps null: true
     end
 

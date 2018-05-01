@@ -12,10 +12,10 @@ class TimeSlot < ApplicationRecord
 
   before_save :clear_fields_if_session
 
-  scope :day, -> (num) { where(conference_day: num).order(:start_time).order(room_name: :asc) }
-  scope :start_times_by_day, -> (num) { day(num+1).pluck(:start_time).uniq }
+  scope :day, ->(num) { where(conference_day: num).order(:start_time).order(room_name: :asc) }
+  scope :start_times_by_day, ->(num) { day(num + 1).pluck(:start_time).uniq }
   scope :by_room, -> do
-    joins(:room).where.not(rooms: {grid_position: nil}).sort_by { |slot| slot.room.grid_position }
+    joins(:room).where.not(rooms: { grid_position: nil }).sort_by { |slot| slot.room.grid_position }
   end
   scope :grid_order, -> { joins(:room).order(:conference_day, :start_time, 'rooms.grid_position') }
 
@@ -32,12 +32,11 @@ class TimeSlot < ApplicationRecord
     parsed_slots["sessions"].each do |slot|
       slot.delete("session_id")
       slot.delete("desc")
-      self.create!(slot)
+      create!(slot)
     end
   end
 
-  def self.bulk_build(params)
-  end
+  def self.bulk_build(params); end
 
   def self.track_names
     pluck(:track_name).uniq
@@ -65,7 +64,7 @@ class TimeSlot < ApplicationRecord
   end
 
   def session_title
-    program_session && program_session.title
+    program_session&.title
   end
 
   def session_presenter
@@ -73,27 +72,27 @@ class TimeSlot < ApplicationRecord
   end
 
   def session_description
-    program_session && program_session.abstract
+    program_session&.abstract
   end
 
   def session_suggested_duration
-    if program_session && program_session.session_format && program_session.session_format.duration
+    if program_session&.session_format && program_session.session_format.duration
       "#{program_session.session_format.duration} minutes"
     else
       "N/A"
-    end    
+    end
   end
 
   def session_track_id
-    program_session && program_session.track_id
+    program_session&.track_id
   end
 
   def session_track_name
-    program_session && program_session.track_name
+    program_session&.track_name
   end
 
   def session_speaker_names
-    program_session && program_session.speaker_names
+    program_session&.speaker_names
   end
 
   def session_format_name
@@ -101,11 +100,11 @@ class TimeSlot < ApplicationRecord
   end
 
   def session_confirmation_notes
-    program_session && program_session.confirmation_notes
+    program_session&.confirmation_notes
   end
 
   def session_duration
-    (end_time - start_time).to_i/60
+    (end_time - start_time).to_i / 60
   end
 
   def end_time_later_than_start_time

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature "Event Config" do
-  let(:event) { create(:event, review_tags: ["intro", "advanced"]) }
+  let(:event) { create(:event, review_tags: %w[intro advanced]) }
 
   let(:organizer_user) { create(:user) }
   let!(:organizer_teammate) { create(:teammate, :organizer, user: organizer_user, event: event) }
@@ -12,9 +12,7 @@ feature "Event Config" do
   let(:program_team_user) { create(:user) }
   let!(:program_team_event_teammate) { create(:teammate, :program_team, user: program_team_user, event: event) }
 
-  def document
-    page.document
-  end
+  delegate :document, to: :page
 
   context "As an organizer", js: true do
     before :each do

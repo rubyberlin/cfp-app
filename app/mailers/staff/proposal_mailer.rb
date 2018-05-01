@@ -3,12 +3,12 @@ class Staff::ProposalMailer < ApplicationMailer
 
   def send_email(proposal)
     case proposal.state
-      when Proposal::State::ACCEPTED
-        accept_email(proposal.event, proposal)
-      when Proposal::State::REJECTED
-        reject_email(proposal.event, proposal)
-      when Proposal::State::WAITLISTED
-        waitlist_email(proposal.event, proposal)
+    when Proposal::State::ACCEPTED
+      accept_email(proposal.event, proposal)
+    when Proposal::State::REJECTED
+      reject_email(proposal.event, proposal)
+    when Proposal::State::WAITLISTED
+      waitlist_email(proposal.event, proposal)
     end
   end
 
@@ -29,7 +29,7 @@ class Staff::ProposalMailer < ApplicationMailer
 
     @template_name = 'accept_email'
     mail_to_speakers(event, proposal,
-        "Your proposal for #{@proposal.event.name} has been accepted")
+                     "Your proposal for #{@proposal.event.name} has been accepted")
   end
 
   def reject_email(event, proposal)
@@ -38,7 +38,7 @@ class Staff::ProposalMailer < ApplicationMailer
 
     @template_name = 'reject_email'
     mail_to_speakers(event, proposal,
-       "Your proposal for #{@proposal.event.name} has not been accepted")
+                     "Your proposal for #{@proposal.event.name} has not been accepted")
   end
 
   def waitlist_email(event, proposal)
@@ -47,7 +47,7 @@ class Staff::ProposalMailer < ApplicationMailer
 
     @template_name = 'waitlist_email'
     mail_to_speakers(event, proposal,
-      "Your proposal for #{proposal.event.name} has been added to the waitlist")
+                     "Your proposal for #{proposal.event.name} has been added to the waitlist")
   end
 
   private

@@ -6,7 +6,7 @@ SimpleForm.setup do |config|
   # stack. The options given below are used to wrap the
   # whole input.
   config.wrappers :default, class: :input,
-    hint_class: :field_with_hint, error_class: :field_with_errors do |b|
+                            hint_class: :field_with_hint, error_class: :field_with_errors do |b|
     ## Extensions enabled by default
     # Any of these extensions can be disabled for a
     # given input by passing: `f.input EXTENSION_NAME => false`.
@@ -51,10 +51,10 @@ SimpleForm.setup do |config|
     # b.use :full_error, wrap_with: { tag: :span, class: :error }
   end
 
-  #Checkbox wrappers
-  config.wrappers :inline_checkbox, tag: 'div', class: 'form-group col-sm-12', error_class: 'error' do | b |
+  # Checkbox wrappers
+  config.wrappers :inline_checkbox, tag: 'div', class: 'form-group col-sm-12', error_class: 'error' do |b|
     b.use :html5
-    b.wrapper tag: 'div', class: 'checkbox' do | ba |
+    b.wrapper tag: 'div', class: 'checkbox' do |ba|
       ba.use :label_input
       ba.use :error, wrap_with: { tag: 'span', class: 'help-inline' }
       ba.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
@@ -108,13 +108,13 @@ SimpleForm.setup do |config|
   # config.item_wrapper_class = nil
 
   # How the label text should be generated altogether with the required text.
-  config.label_text = lambda { |label, required, explicit_label| "#{label} #{required}" }
+  config.label_text = lambda { |label, required, _explicit_label| "#{label} #{required}" }
 
   # You can define the class to use on all labels. Default is nil.
   # config.label_class = nil
 
   # You can define the class to use on all forms. Default is simple_form.
-  #config.default_form_class = 'form-horizontal'
+  # config.default_form_class = 'form-horizontal'
 
   # You can define which elements should obtain additional classes
   # config.generate_additional_classes_for = [:wrapper, :label, :input]

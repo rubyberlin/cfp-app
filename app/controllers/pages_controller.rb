@@ -1,6 +1,3 @@
 class PagesController < ApplicationController
-
-  def current_styleguide
-  end
-
+  def current_styleguide; end
 end

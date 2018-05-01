@@ -20,13 +20,13 @@ describe NotificationsController, type: :controller do
   describe "GET 'show'" do
     it "returns http success" do
       notification = create(:notification, user: user)
-      get :show, params: {id: notification}
+      get :show, params: { id: notification }
       expect(response).to be_redirect
     end
 
     it "sets notification as read" do
       notification = create(:notification, read_at: nil, user: user)
-      get :show, params: {id: notification}
+      get :show, params: { id: notification }
       expect(notification.reload).to be_read
     end
   end
@@ -40,8 +40,6 @@ describe NotificationsController, type: :controller do
       expect {
         post :mark_all_as_read
       }.to change(user.notifications.unread, :count).from(5).to(0)
-
     end
   end
-
 end

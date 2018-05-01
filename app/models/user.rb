@@ -5,9 +5,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :confirmable, #:validatable,
-         :omniauthable, omniauth_providers: [:twitter, :github]
+         :omniauthable, omniauth_providers: %i[twitter github]
 
-  has_many :invitations,  dependent: :destroy
+  has_many :invitations, dependent: :destroy
   has_many :teammates, dependent: :destroy
   has_many :reviewer_teammates, -> { where(role: ['reviewer', 'program team', 'organizer']) }, class_name: 'Teammate'
   has_many :reviewer_events, through: :reviewer_teammates, source: :event
@@ -22,13 +22,13 @@ class User < ApplicationRecord
 
   validates :bio, length: { maximum: 500 }
   validates :name, presence: true, allow_nil: true
-  validates_uniqueness_of :email, allow_blank: true
-  validates_format_of :email, with: Devise.email_regexp, allow_blank: true, if: :email_changed?
-  validates_presence_of :email, on: :create, if: -> { provider.blank? }
-  validates_presence_of :email, on: :update, if: -> { provider.blank? || unconfirmed_email.blank? }
-  validates_presence_of :password, on: :create
-  validates_confirmation_of :password, on: :create
-  validates_length_of :password, within: Devise.password_length, allow_blank: true
+  validates :email, uniqueness: { allow_blank: true }
+  validates :email, format: { with: Devise.email_regexp, allow_blank: true, if: :email_changed? }
+  validates :email, presence: { on: :create, if: -> { provider.blank? } }
+  validates :email, presence: { on: :update, if: -> { provider.blank? || unconfirmed_email.blank? } }
+  validates :password, presence: { on: :create }
+  validates :password, confirmation: { on: :create }
+  validates :password, length: { within: Devise.password_length, allow_blank: true }
 
   before_create :check_pending_invite_email
 
@@ -36,9 +36,9 @@ class User < ApplicationRecord
 
   attr_accessor :pending_invite_email
 
-  def self.from_omniauth(auth, invitation_email=nil)
+  def self.from_omniauth(auth, invitation_email = nil)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      password = Devise.friendly_token[0,20]
+      password = Devise.friendly_token[0, 20]
       user.name = auth['info']['name'] if user.name.blank?
       user.email = invitation_email || auth['info']['email'] || '' if user.email.blank?
       user.password = password
@@ -80,13 +80,13 @@ class User < ApplicationRecord
   end
 
   def organizer_for_event?(event)
-    #Checks for role of organizer through teammates
-    teammates.organizer.for_event(event).size > 0
+    # Checks for role of organizer through teammates
+    !teammates.organizer.for_event(event).empty?
   end
 
   def staff_for?(event)
-    #Checks for any role in the event through teammates
-    teammates.for_event(event).size > 0
+    # Checks for any role in the event through teammates
+    !teammates.for_event(event).empty?
   end
 
   def reviewer?
@@ -94,16 +94,16 @@ class User < ApplicationRecord
   end
 
   def reviewer_for_event?(event)
-    #Checks for role of reviewer through teammates
-    teammates.reviewer.for_event(event).size > 0
+    # Checks for role of reviewer through teammates
+    !teammates.reviewer.for_event(event).empty?
   end
 
   def program_team?
-    teammates.program_team.size > 0
+    !teammates.program_team.empty?
   end
 
   def program_team_for_event?(event)
-    teammates.program_team.for_event(event).size > 0
+    !teammates.program_team.for_event(event).empty?
   end
 
   def rating_for(proposal, build_new = true)
@@ -116,7 +116,7 @@ class User < ApplicationRecord
   end
 
   def role_names
-    self.teammates.collect {|p| p.role}.uniq.join(", ")
+    teammates.collect(&:role).uniq.join(", ")
   end
 
   def assign_email

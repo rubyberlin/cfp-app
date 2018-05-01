@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Users::OmniauthCallbacksController, type: :controller do
-
   describe '#twitter' do
     let(:twitter_auth_hash) { OmniAuth.config.mock_auth[:twitter] }
     let(:github_auth_hash) { OmniAuth.config.mock_auth[:github] }
@@ -33,7 +32,6 @@ describe Users::OmniauthCallbacksController, type: :controller do
 
       expect(response).to redirect_to(events_url)
     end
-
   end
 
   describe "GET #new" do

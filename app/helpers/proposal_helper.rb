@@ -1,6 +1,6 @@
 module ProposalHelper
   def rating_tooltip
-      <<-HTML
+    <<-HTML
       <p><strong>Ratings Guide</strong></p>
      <p> 1 - Poor talk with many issues. Not a fit for the event.</p>
      <p> 2 - Mediocre talk that might fit event if they work on it.</p>
@@ -12,9 +12,9 @@ module ProposalHelper
 
   def session_format_tooltip
     content_tag(:div) do
-      concat(content_tag(:p) do
+      concat(content_tag(:p) {
         content_tag(:strong, "Session Format Guide")
-      end)
+      })
       event.session_formats.each do |format|
         concat(content_tag(:p, "#{format.name} - #{format.description}"))
       end
@@ -23,9 +23,9 @@ module ProposalHelper
 
   def track_tooltip
     content_tag(:div) do
-      concat(content_tag(:p) do
+      concat(content_tag(:p) {
         content_tag(:strong, "Session Track Guide")
-      end)
+      })
       event.tracks.each do |track|
         concat(content_tag(:p, "#{track.name} - #{track.description}"))
       end

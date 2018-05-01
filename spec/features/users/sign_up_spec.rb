@@ -4,7 +4,6 @@ require 'rails_helper'
 #   I want to sign Up
 #   So I can visit protected areas of the site
 feature 'Sign Up', :devise do
-
   # Scenario: User cannot sign up if no password
   #   Given I do not exist as a user
   #   When I sign up with empty credentials
@@ -51,5 +50,4 @@ feature 'Sign Up', :devise do
     sign_up_with(user.email, user.password, user.password)
     expect(page).to have_content I18n.t('devise.registrations.signed_up_but_unconfirmed')
   end
-
 end

@@ -2,21 +2,24 @@ require 'rails_helper'
 
 feature "Event Dashboard" do
   let(:organizer_user) { create(:user) }
-  let!(:organizer_teammate) { create(:teammate,
-                                       user: organizer_user,
-                                       role: "organizer")
+  let!(:organizer_teammate) {
+    create(:teammate,
+           user: organizer_user,
+           role: "organizer")
   }
 
   let(:reviewer_user) { create(:user) }
-  let!(:reviewer_teammate) { create(:teammate,
-                                      user: reviewer_user,
-                                      role: "reviewer")
+  let!(:reviewer_teammate) {
+    create(:teammate,
+           user: reviewer_user,
+           role: "reviewer")
   }
 
   let(:program_team_user) { create(:user) }
-  let!(:program_team_teammate) { create(:teammate,
-                                      user: program_team_user,
-                                      role: "program_team")
+  let!(:program_team_teammate) {
+    create(:teammate,
+           user: program_team_user,
+           role: "program_team")
   }
 
   context "As an organizer" do
@@ -53,7 +56,7 @@ feature "Event Dashboard" do
       end
 
       click_link("Change Status")
-      select('open', :from => 'event[state]')
+      select('open', from: 'event[state]')
       click_button("Update Status")
 
       within('.page-header') do

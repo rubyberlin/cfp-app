@@ -1,7 +1,6 @@
 require "rails_helper"
 
 describe TeammateInvitationMailer, type: :mailer do
-
   describe "create" do
     let(:invitation) { create(:teammate, :has_been_invited) }
 
@@ -25,5 +24,4 @@ describe TeammateInvitationMailer, type: :mailer do
       expect(mail.body.encoded).to match(event_url(invitation.event.slug))
     end
   end
-
 end

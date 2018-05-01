@@ -27,7 +27,7 @@ class Staff::TimeSlotDecorator < Draper::Decorator
   end
 
   def row
-    {id: object.id, values: row_data(buttons: true)}
+    { id: object.id, values: row_data(buttons: true) }
   end
 
   def action_links
@@ -36,12 +36,12 @@ class Staff::TimeSlotDecorator < Draper::Decorator
                 h.edit_event_staff_schedule_time_slot_path(object.event, object),
                 class: 'btn btn-primary btn-xs',
                 remote: true,
-                data: {toggle: 'modal', target: "#time-slot-edit-dialog"}),
+                data: { toggle: 'modal', target: "#time-slot-edit-dialog" }),
 
       h.link_to('Remove',
                 h.event_staff_schedule_time_slot_path(object.event, object),
                 method: :delete,
-                data: {confirm: "Are you sure you want to remove this time slot?"},
+                data: { confirm: "Are you sure you want to remove this time slot?" },
                 remote: true,
                 class: 'btn btn-danger btn-xs')
     ].join("\n").html_safe
@@ -50,18 +50,16 @@ class Staff::TimeSlotDecorator < Draper::Decorator
   def unscheduled_program_sessions
     program_sessions = object.event.program_sessions.unscheduled.sorted_by_title.to_a
 
-    if object.program_session
-      program_sessions.unshift(object.program_session)
-    end
+    program_sessions.unshift(object.program_session) if object.program_session
 
     program_sessions.map do |ps|
       [ps.title, ps.id, { selected: ps == object.program_session, data: {
-          title: ps.title,
-          track: ps.track_name,
-          speaker: ps.speaker_names,
-          abstract: ps.abstract,
-          duration: ps.session_format.duration
-      }}]
+        title: ps.title,
+        track: ps.track_name,
+        speaker: ps.speaker_names,
+        abstract: ps.abstract,
+        duration: ps.session_format.duration
+      } }]
     end
   end
 
@@ -83,26 +81,26 @@ class Staff::TimeSlotDecorator < Draper::Decorator
   end
 
   def cell_data_attr
-    {"time-slot-edit-path" => h.edit_event_staff_schedule_time_slot_path(object.event, object), toggle: 'modal', target: "#time-slot-edit-dialog"}
+    { "time-slot-edit-path" => h.edit_event_staff_schedule_time_slot_path(object.event, object), toggle: 'modal', target: "#time-slot-edit-dialog" }
   end
 
   def ts_data
     ts = object
-    starts = (ts.start_time.to_i - ts.start_time.beginning_of_day.to_i)/60
-    ends = (ts.end_time.to_i - ts.end_time.beginning_of_day.to_i)/60
+    starts = (ts.start_time.to_i - ts.start_time.beginning_of_day.to_i) / 60
+    ends = (ts.end_time.to_i - ts.end_time.beginning_of_day.to_i) / 60
 
     data = {
       starts: starts,
-      duration: ends - starts,
+      duration: ends - starts
     }
 
     if ts.persisted?
-      data.merge!({
+      data.merge!(
         edit_path: h.edit_event_staff_schedule_grid_time_slot_path(object.event, object),
         update_path: h.event_staff_schedule_grid_time_slot_url(object.event, object),
         toggle: 'modal',
         target: '#grid-time-slot-edit-dialog'
-      })
+      )
     end
     data
   end

@@ -1,16 +1,16 @@
 class SpeakerEmailTemplate
-  TYPES = [ :accept, :waitlist, :reject ]
+  TYPES = %i[accept waitlist reject].freeze
 
   DISPLAY_TYPES = {
-      accept: 'Accept',
-      waitlist: 'Waitlist',
-      reject: 'Not Accepted'
+    accept: 'Accept',
+    waitlist: 'Waitlist',
+    reject: 'Not Accepted'
   }.with_indifferent_access
 
   TYPES_TO_STATES = {
-      accept: Proposal::ACCEPTED,
-      waitlist: Proposal::WAITLISTED,
-      reject: Proposal::REJECTED
+    accept: Proposal::ACCEPTED,
+    waitlist: Proposal::WAITLISTED,
+    reject: Proposal::REJECTED
   }.with_indifferent_access
 
   attr_accessor :email, :type_key

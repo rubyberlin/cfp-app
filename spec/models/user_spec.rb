@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe User do
-
   describe ".from_omniauth" do
     let(:uid) { '123456' }
     let(:provider) { 'twitter' }
@@ -19,7 +18,6 @@ describe User do
           User.from_omniauth(github_auth_hash)
         }.to_not change { User.count }
       end
-
     end
 
     context "User doesn't yet exist" do
@@ -28,7 +26,7 @@ describe User do
       end
 
       it "sets user's email and name" do
-        #No email returned by twitter so use github
+        # No email returned by twitter so use github
         user = User.from_omniauth(github_auth_hash)
         expect(user.email).to eq(email)
         expect(user.name).to eq(name)
@@ -201,7 +199,8 @@ describe User do
     let(:event) { create(:event) }
     let(:user) { create(:user) }
     let!(:teammate) {
-      create(:teammate, role: 'reviewer', event: event, user: user) }
+      create(:teammate, role: 'reviewer', event: event, user: user)
+    }
 
     it "returns the role names for a reviewer" do
       expect(user.role_names).to eq('reviewer')

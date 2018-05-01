@@ -96,7 +96,7 @@ describe Event do
     let(:event) { build :event }
     it 'splits comma separated string into tags' do
       event.valid_proposal_tags = 'one,two,three'
-      expect(event.proposal_tags).to match_array ['one', 'two', 'three']
+      expect(event.proposal_tags).to match_array %w[one two three]
     end
   end
 
@@ -104,7 +104,7 @@ describe Event do
     let(:event) { build :event }
     it 'splits comma separated string into tags' do
       event.valid_review_tags = 'one,two,three'
-      expect(event.review_tags).to match_array ['one', 'two', 'three']
+      expect(event.review_tags).to match_array %w[one two three]
     end
   end
 

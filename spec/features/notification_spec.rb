@@ -83,7 +83,6 @@ feature "User's can interact with notifications" do
     end
 
     context "on the notifications page" do
-
       scenario "can view their notifications" do
         visit notifications_path
         expect(page).to have_text("Notifications")
@@ -110,6 +109,5 @@ feature "User's can interact with notifications" do
         expect(user.notifications.unread.length).to eq(0)
       end
     end
-
   end
 end

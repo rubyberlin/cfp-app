@@ -10,7 +10,7 @@ class CreateInvitations < ActiveRecord::Migration[5.0]
       t.timestamps null: true
     end
 
-    add_index :invitations, [:proposal_id, :email], unique: true
+    add_index :invitations, %i[proposal_id email], unique: true
     add_index :invitations, :slug, unique: true
   end
 end

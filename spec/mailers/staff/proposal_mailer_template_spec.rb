@@ -10,8 +10,8 @@ describe Staff::ProposalMailerTemplate do
     it "passes unknown tags as themselves" do
       template = "::no_tag:: and ::fake_tag::.\n\n::tag_alone::"
       rendered = Staff::ProposalMailerTemplate.new(template, event, proposal).render
-      expect(rendered).to match(%r{no_tag and fake_tag})
-      expect(rendered).to match(%r{tag_alone})
+      expect(rendered).to match(/no_tag and fake_tag/)
+      expect(rendered).to match(/tag_alone/)
     end
 
     it "substitutes proposal title" do

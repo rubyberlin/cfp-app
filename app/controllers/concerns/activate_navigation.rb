@@ -30,7 +30,7 @@ module ActivateNavigation
   def find_first(item_map)
     return unless item_map.is_a?(Hash)
 
-    item_map.find do |key, paths|
+    item_map.find do |_key, paths|
       match?(paths)
     end
   end
@@ -43,7 +43,7 @@ module ActivateNavigation
       paths =~ request.path
 
     elsif paths.is_a?(Array)
-      paths.any?{|p| match?(p) }
+      paths.any? { |p| match?(p) }
 
     elsif paths.is_a?(Hash)
       find_first(paths).present?
@@ -52,48 +52,48 @@ module ActivateNavigation
 
   def nav_item_map
     @nav_item_map ||= {
-        'my-proposals-link' => [
-            starts_with_path(:proposals),
-            starts_with_path(:event_event_proposals, current_event)
-        ],
-        'event-review-proposals-link' => starts_with_path(:event_staff_proposals, current_event),
-        'event-selection-link' => selection_subnav_item_map,
-        'event-program-link' => program_subnav_item_map,
-        'event-schedule-link' => schedule_subnav_item_map,
-        'event-dashboard-link' => event_subnav_item_map,
+      'my-proposals-link' => [
+        starts_with_path(:proposals),
+        starts_with_path(:event_event_proposals, current_event)
+      ],
+      'event-review-proposals-link' => starts_with_path(:event_staff_proposals, current_event),
+      'event-selection-link' => selection_subnav_item_map,
+      'event-program-link' => program_subnav_item_map,
+      'event-schedule-link' => schedule_subnav_item_map,
+      'event-dashboard-link' => event_subnav_item_map
     }
   end
 
   def event_subnav_item_map
     @event_subnav_item_map ||= {
-        'event-staff-dashboard-link' => exact_path(:event_staff, current_event),
-        'event-staff-info-link' => [
-            exact_path(:event_staff_info, current_event),
-            exact_path(:event_staff_edit, current_event)
-        ],
-        'event-staff-teammates-link' => exact_path(:event_staff_teammates, current_event),
-        'event-staff-config-link' => exact_path(:event_staff_config, current_event),
-        'event-staff-guidelines-link' => exact_path(:event_staff_guidelines, current_event),
-        'event-staff-speaker-emails-link' => exact_path(:event_staff_speaker_email_notifications, current_event),
+      'event-staff-dashboard-link' => exact_path(:event_staff, current_event),
+      'event-staff-info-link' => [
+        exact_path(:event_staff_info, current_event),
+        exact_path(:event_staff_edit, current_event)
+      ],
+      'event-staff-teammates-link' => exact_path(:event_staff_teammates, current_event),
+      'event-staff-config-link' => exact_path(:event_staff_config, current_event),
+      'event-staff-guidelines-link' => exact_path(:event_staff_guidelines, current_event),
+      'event-staff-speaker-emails-link' => exact_path(:event_staff_speaker_email_notifications, current_event)
     }
   end
 
   def selection_subnav_item_map
     @selection_subnav_item_map ||= {
-        'event-program-proposals-selection-link' => [
-            starts_with_path(:selection_event_staff_program_proposals, current_event),
+      'event-program-proposals-selection-link' => [
+        starts_with_path(:selection_event_staff_program_proposals, current_event),
         # add_path(:event_staff_program_proposal, current_event, @proposal)
-        #How to leverage session[:prev_page] here? Considering lamdas
-        ],
-        'event-program-bulk-finalize-link' => starts_with_path(:bulk_finalize_event_staff_program_proposals, current_event),
-        'event-program-proposals-link' => starts_with_path(:event_staff_program_proposals, current_event)
+        # How to leverage session[:prev_page] here? Considering lamdas
+      ],
+      'event-program-bulk-finalize-link' => starts_with_path(:bulk_finalize_event_staff_program_proposals, current_event),
+      'event-program-proposals-link' => starts_with_path(:event_staff_program_proposals, current_event)
     }
   end
 
   def program_subnav_item_map
     @program_subnav_item_map ||= {
-        'event-program-sessions-link' => starts_with_path(:event_staff_program_sessions, current_event),
-        'event-program-speakers-link' => starts_with_path(:event_staff_program_speakers, current_event)
+      'event-program-sessions-link' => starts_with_path(:event_staff_program_sessions, current_event),
+      'event-program-speakers-link' => starts_with_path(:event_staff_program_speakers, current_event)
     }
   end
 

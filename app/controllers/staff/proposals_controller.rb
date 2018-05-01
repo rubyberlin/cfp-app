@@ -1,19 +1,19 @@
 class Staff::ProposalsController < Staff::ApplicationController
   include ProgramSupport
 
-  before_action :require_proposal, only: [:show, :update_state, :update_track, :update_session_format, :finalize]
+  before_action :require_proposal, only: %i[show update_state update_track update_session_format finalize]
   before_action :enable_staff_selection_subnav
-  skip_before_action :require_program_team, only: [:update_track, :update_session_format]
-  before_action :require_staff, only: [:update_track, :update_session_format]
+  skip_before_action :require_program_team, only: %i[update_track update_session_format]
+  before_action :require_staff, only: %i[update_track update_session_format]
 
   decorates_assigned :proposal, with: Staff::ProposalDecorator
 
   def index
-    session[:prev_page] = {name: 'Proposals', path: event_staff_program_proposals_path}
+    session[:prev_page] = { name: 'Proposals', path: event_staff_program_proposals_path }
 
     @proposals = @event.proposals
-                     .includes(:event, :review_taggings, :proposal_taggings, :ratings,
-                               {speakers: :user}).load
+                       .includes(:event, :review_taggings, :proposal_taggings, :ratings,
+                                 speakers: :user).load
     @proposals = Staff::ProposalsDecorator.decorate(@proposals)
     @taggings_count = Tagging.count_by_tag(@event)
   end
@@ -38,7 +38,7 @@ class Staff::ProposalsController < Staff::ApplicationController
     @proposal.update_state(params[:new_state])
 
     respond_to do |format|
-      format.html { redirect_to event_staff_program_proposals_path(@proposal.event) }
+      format.html do redirect_to event_staff_program_proposals_path(@proposal.event) end
       format.js
     end
   end
@@ -60,11 +60,11 @@ class Staff::ProposalsController < Staff::ApplicationController
   end
 
   def selection
-    session[:prev_page] = {name: 'Selection', path: selection_event_staff_program_proposals_path}
+    session[:prev_page] = { name: 'Selection', path: selection_event_staff_program_proposals_path }
 
     @proposals = @event.proposals.working_program
-                 .includes(:event, :review_taggings, :ratings,
-                           {speakers: :user}).load
+                       .includes(:event, :review_taggings, :ratings,
+                                 speakers: :user).load
     @proposals = Staff::ProposalsDecorator.decorate(@proposals)
     @taggings_count = Tagging.count_by_tag(@event)
   end
@@ -73,9 +73,9 @@ class Staff::ProposalsController < Staff::ApplicationController
     track = params[:track_id]
     self.sticky_selected_track = track
     render json: {
-        all_accepted_proposals: current_event.stats.all_accepted_proposals(sticky_selected_track),
-        all_waitlisted_proposals: current_event.stats.all_waitlisted_proposals(sticky_selected_track)
-      }
+      all_accepted_proposals: current_event.stats.all_accepted_proposals(sticky_selected_track),
+      all_waitlisted_proposals: current_event.stats.all_waitlisted_proposals(sticky_selected_track)
+    }
   end
 
   def finalize
@@ -92,7 +92,7 @@ class Staff::ProposalsController < Staff::ApplicationController
   def bulk_finalize
     authorize Proposal, :bulk_finalize?
 
-    @remaining_by_state = Proposal.soft_states.group_by{ |proposal| proposal.state }
+    @remaining_by_state = Proposal.soft_states.group_by(&:state)
   end
 
   def finalize_by_state
@@ -101,13 +101,11 @@ class Staff::ProposalsController < Staff::ApplicationController
 
     authorize @remaining, :finalize?
 
-    @remaining.each do |prop|
-      prop.finalize
-    end
-    errors = @remaining.map do |prop|
+    @remaining.each(&:finalize)
+    errors = @remaining.map { |prop|
       Staff::ProposalMailer.send_email(prop).deliver_now unless prop.changed?
       prop.errors.full_messages.join(', ')
-    end.compact!
+    }.compact!
 
     if errors.present?
       flash[:danger] = "There was a problem finalizing #{errors.size} proposals: \n#{errors.join("\n")}"
@@ -116,5 +114,4 @@ class Staff::ProposalsController < Staff::ApplicationController
     end
     redirect_to bulk_finalize_event_staff_program_proposals_path
   end
-
 end

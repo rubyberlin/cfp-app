@@ -24,8 +24,6 @@ feature "Staff Organizers can manage teammates" do
           expect(page).to have_content teammate.mention_name
         end
       end
-
-
     end
   end
 
@@ -131,5 +129,4 @@ feature "Staff Organizers can manage teammates" do
       expect(page).to_not have_link("Invite new teammate")
     end
   end
-
 end

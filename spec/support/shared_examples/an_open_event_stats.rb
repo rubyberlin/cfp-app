@@ -33,28 +33,28 @@ RSpec.shared_examples_for 'an open event stats' do
   end
   let(:total_proposals) do
     track1_review_stats[:proposals] +
-    track2_review_stats[:proposals] +
-    no_track_review_stats[:proposals]
+      track2_review_stats[:proposals] +
+      no_track_review_stats[:proposals]
   end
   let(:total_reviews) do
     track1_review_stats[:reviews] +
-    track2_review_stats[:reviews] +
-    no_track_review_stats[:reviews]
+      track2_review_stats[:reviews] +
+      no_track_review_stats[:reviews]
   end
   let(:total_public_comments) do
     track1_review_stats[:public_comments] +
-    track2_review_stats[:public_comments] +
-    no_track_review_stats[:public_comments]
+      track2_review_stats[:public_comments] +
+      no_track_review_stats[:public_comments]
   end
   let(:total_internal_comments) do
     track1_review_stats[:internal_comments] +
-    track2_review_stats[:internal_comments] +
-    no_track_review_stats[:internal_comments]
+      track2_review_stats[:internal_comments] +
+      no_track_review_stats[:internal_comments]
   end
   let(:total_needs_review) do
     track1_review_stats[:needs_review] +
-    track2_review_stats[:needs_review] +
-    no_track_review_stats[:needs_review]
+      track2_review_stats[:needs_review] +
+      no_track_review_stats[:needs_review]
   end
   let(:total_review_stats) do
     {
@@ -106,23 +106,23 @@ RSpec.shared_examples_for 'an open event stats' do
   end
   let(:total_accepted) do
     track1_program_stats[:accepted] +
-    track2_program_stats[:accepted] +
-    no_track_program_stats[:accepted]
+      track2_program_stats[:accepted] +
+      no_track_program_stats[:accepted]
   end
   let(:total_soft_accepted) do
     track1_program_stats[:soft_accepted] +
-    track2_program_stats[:soft_accepted] +
-    no_track_program_stats[:soft_accepted]
+      track2_program_stats[:soft_accepted] +
+      no_track_program_stats[:soft_accepted]
   end
   let(:total_waitlisted) do
     track1_program_stats[:waitlisted] +
-    track2_program_stats[:waitlisted] +
-    no_track_program_stats[:waitlisted]
+      track2_program_stats[:waitlisted] +
+      no_track_program_stats[:waitlisted]
   end
   let(:total_soft_waitlisted) do
     track1_program_stats[:soft_waitlisted] +
-    track2_program_stats[:soft_waitlisted] +
-    no_track_program_stats[:soft_waitlisted]
+      track2_program_stats[:soft_waitlisted] +
+      no_track_program_stats[:soft_waitlisted]
   end
   let(:total_program_stats) do
     {

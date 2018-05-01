@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Teammate do
-
   describe "validations" do
     it "requires names and emails to be unique per event" do
       teammate1 = create(:teammate, role: "reviewer", email: 'teammate@event.com', mention_name: 'teammate')
@@ -47,7 +46,7 @@ describe Teammate do
       expect(green_gal_reviewer.ratings_count(green_event)).to eq(1)
       expect(green_gal_reviewer.ratings_count(apple_event)).to eq(0)
 
-      #total ratings overall, not scoped to event or status for comparison check
+      # total ratings overall, not scoped to event or status for comparison check
       expect(guy_user.ratings.count).to eq(3)
       expect(gal_user.ratings.count).to eq(2)
     end

@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 feature "Organizers can manage proposals" do
-
-  let(:event) { create(:event, review_tags: ['intro', 'advanced']) }
+  let(:event) { create(:event, review_tags: %w[intro advanced]) }
   let(:proposal) { create(:proposal, event: event) }
 
   let(:organizer_user) { create(:user) }
@@ -73,7 +72,6 @@ feature "Organizers can manage proposals" do
     end
 
     it "clears out the last_change array" do
-
       expect(proposal.last_change).to be_nil
     end
   end
@@ -86,7 +84,7 @@ feature "Organizers can manage proposals" do
     end
 
     it "links back button to the proposals page" do
-      back = find("a", :text => "« Return to Proposals")
+      back = find("a", text: "« Return to Proposals")
       expect(back[:href]).to eq(event_staff_program_proposals_path(event))
     end
 

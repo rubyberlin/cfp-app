@@ -4,9 +4,7 @@ class BulkTimeSlot
   attr_accessor :event, :day, :rooms, :start_times, :duration, :session_format
   validates :day, :rooms, :start_times, :duration, presence: true
 
-  def event=(event)
-    @event = event
-  end
+  attr_writer :event
 
   def day=(day)
     @day = day.to_i
@@ -33,7 +31,7 @@ class BulkTimeSlot
       start_times.each do |starts_at|
         end_time = Time.parse(starts_at) + duration.minutes
         slots << TimeSlot.new(event: event, conference_day: day, room: room,
-                              start_time: starts_at, end_time: end_time.to_s(:time) )
+                              start_time: starts_at, end_time: end_time.to_s(:time))
       end
     end
     slots
@@ -43,13 +41,10 @@ class BulkTimeSlot
     slots = build_time_slots
     TimeSlot.transaction do
       slots.each do |s|
-        unless s.save
-          errors.push(*s.errors)
-        end
+        errors.push(*s.errors) unless s.save
       end
-      raise ActiveRecord::Rollback unless errors.blank?
+      raise ActiveRecord::Rollback if errors.present?
     end
     errors.blank?
   end
-
 end

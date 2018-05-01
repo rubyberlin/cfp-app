@@ -19,6 +19,6 @@ class CreateProposals < ActiveRecord::Migration[5.0]
     end
 
     add_index :proposals, :uuid, unique: true
-    #TODO: indexes on FKs
+    # TODO: indexes on FKs
   end
 end

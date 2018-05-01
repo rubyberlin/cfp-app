@@ -30,7 +30,7 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: 'http://test.host' }
   # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.action_mailer.default_options = {from: 'cfp@example.org'}
+  config.action_mailer.default_options = { from: 'cfp@example.org' }
   config.action_mailer.perform_caching = false
 
   # Tell Action Mailer not to deliver emails to the real world.

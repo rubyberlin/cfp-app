@@ -1,5 +1,4 @@
 class Staff::ProfilesController < Staff::ApplicationController
-
   def edit
     @user = Speaker.find(params[:id]).user
   end
@@ -24,4 +23,3 @@ class Staff::ProfilesController < Staff::ApplicationController
     params.require(:user).permit(:bio, :gender, :ethnicity, :country, :name, :email)
   end
 end
-

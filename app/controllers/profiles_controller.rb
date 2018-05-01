@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    if current_user.update_attributes(user_params)
+    if current_user.update(user_params)
 
       if current_user.unconfirmed_email.present?
         flash[:danger] = I18n.t("devise.registrations.update_needs_confirmation")
@@ -27,7 +27,7 @@ class ProfilesController < ApplicationController
   def user_params
     params.require(:user).permit(:bio, :gender, :ethnicity, :country, :name,
                                  :email, :password, :password_confirmation,
-                                 teammates_attributes: [:id, :notification_preference])
+                                 teammates_attributes: %i[id notification_preference])
   end
 
   def incomplete_profile_msg

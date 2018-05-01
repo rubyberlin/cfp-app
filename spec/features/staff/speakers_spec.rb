@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 feature "Organizers can manage speakers for Program Sessions" do
-
   let(:event) { create(:event) }
 
   let(:proposal_1) { create(:proposal, event: event) }
@@ -14,24 +13,34 @@ feature "Organizers can manage speakers for Program Sessions" do
   let!(:event_staff_teammate) { create(:teammate, :organizer, user: organizer_user, event: event) }
 
   let(:speaker_user_1) { create(:user) }
-  let!(:speaker_1) { create(:speaker, proposal: proposal_1,
-                                      user: speaker_user_1) }
+  let!(:speaker_1) {
+    create(:speaker, proposal: proposal_1,
+                     user: speaker_user_1)
+  }
 
   let(:speaker_user_2) { create(:user) }
-  let!(:speaker_2) { create(:speaker, proposal: proposal_2,
-                                      user: speaker_user_2) }
+  let!(:speaker_2) {
+    create(:speaker, proposal: proposal_2,
+                     user: speaker_user_2)
+  }
 
   let(:speaker_user_3) { create(:user) }
-  let!(:speaker_3) { create(:speaker, program_session: program_session_1,
-                                      user: speaker_user_3) }
+  let!(:speaker_3) {
+    create(:speaker, program_session: program_session_1,
+                     user: speaker_user_3)
+  }
 
   let(:speaker_user_4) { create(:user) }
-  let!(:speaker_4) { create(:speaker, program_session: program_session_1,
-                                      user: speaker_user_4) }
+  let!(:speaker_4) {
+    create(:speaker, program_session: program_session_1,
+                     user: speaker_user_4)
+  }
 
   let(:speaker_user_5) { create(:user) }
-  let!(:speaker_5) { create(:speaker, program_session: program_session_2,
-                                      user: speaker_user_5) }
+  let!(:speaker_5) {
+    create(:speaker, program_session: program_session_2,
+                     user: speaker_user_5)
+  }
 
   before :each do
     logout

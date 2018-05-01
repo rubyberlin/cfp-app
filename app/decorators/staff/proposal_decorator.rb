@@ -10,14 +10,13 @@ class Staff::ProposalDecorator < ProposalDecorator
   end
 
   def state_buttons(states: nil, show_finalize: true, show_hard_reset: false, small: false)
-    btns = buttons.map do |text, state, btn_type, hidden|
-      if states.nil? || states.include?(state)
-        state_button(text, update_state_path(state),
-          hidden: hidden,
-          type: btn_type,
-          small: small)
-      end
-    end
+    btns = buttons.map { |text, state, btn_type, hidden|
+      next unless states.nil? || states.include?(state)
+      state_button(text, update_state_path(state),
+                   hidden: hidden,
+                   type: btn_type,
+                   small: small)
+    }
 
     btns << reset_state_button
     btns << hard_reset_button if show_hard_reset
@@ -28,9 +27,9 @@ class Staff::ProposalDecorator < ProposalDecorator
 
   def small_state_buttons
     state_buttons(
-        states: [ SOFT_ACCEPTED, SOFT_WAITLISTED, SOFT_REJECTED, SUBMITTED ],
-        show_finalize: false,
-        small: true
+      states: [SOFT_ACCEPTED, SOFT_WAITLISTED, SOFT_REJECTED, SUBMITTED],
+      show_finalize: false,
+      small: true
     )
   end
 
@@ -50,16 +49,16 @@ class Staff::ProposalDecorator < ProposalDecorator
 
   def delete_button
     h.button_to h.event_staff_program_proposal_path,
-      method: :delete,
-      data: {
-        confirm:
-          'This will delete this talk. Are you sure you want to do this? ' +
-          'It can not be undone.'
-      },
-      class: 'btn btn-danger navbar-btn',
-      id: 'delete' do
-        h.bang('Delete Proposal')
-      end
+                method: :delete,
+                data: {
+                  confirm:
+                    'This will delete this talk. Are you sure you want to do this? ' \
+                    'It can not be undone.'
+                },
+                class: 'btn btn-danger navbar-btn',
+                id: 'delete' do
+      h.bang('Delete Proposal')
+    end
   end
 
   def created_at
@@ -89,7 +88,7 @@ class Staff::ProposalDecorator < ProposalDecorator
                  h.event_staff_program_proposal_finalize_path(object.event, object),
                  data: {
                    confirm:
-                     'Finalizing the state will prevent any additional state changes, ' +
+                     'Finalizing the state will prevent any additional state changes, ' \
                      'and emails will be sent to all speakers. Are you sure you want to continue?'
                  },
                  type: 'btn-warning',
@@ -107,8 +106,8 @@ class Staff::ProposalDecorator < ProposalDecorator
   def hard_reset_button
     state_button('Hard Reset', update_state_path(SUBMITTED),
                  data: {
-                     confirm:
-                         "This proposal's status has been finalized. Proceed with status reset?"
+                   confirm:
+                       "This proposal's status has been finalized. Proceed with status reset?"
                  },
                  small: true,
                  type: 'btn-danger',
@@ -121,9 +120,9 @@ class Staff::ProposalDecorator < ProposalDecorator
 
   def buttons
     [
-      [ 'Accept', SOFT_ACCEPTED, 'btn-success', !object.draft?  ],
-      [ 'Waitlist', SOFT_WAITLISTED, 'btn-warning', !object.draft? ],
-      [ 'Reject', SOFT_REJECTED, 'btn-danger', !object.draft? ]
+      ['Accept', SOFT_ACCEPTED, 'btn-success', !object.draft?],
+      ['Waitlist', SOFT_WAITLISTED, 'btn-warning', !object.draft?],
+      ['Reject', SOFT_REJECTED, 'btn-danger', !object.draft?]
     ]
   end
 
@@ -133,7 +132,7 @@ class Staff::ProposalDecorator < ProposalDecorator
 
   def reset_button_hidden?
     object.draft? || object.finalized? || object.confirmed? ||
-        !h.policy(proposal).update_state?
+      !h.policy(proposal).update_state?
   end
 
   def hard_reset_button_hidden?

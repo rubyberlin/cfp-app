@@ -11,7 +11,7 @@ class Staff::EventsController < Staff::ApplicationController
     render locals: { event: @event.decorate }
   end
 
-  #Edit Speaker Notification Emails
+  # Edit Speaker Notification Emails
   def speaker_emails
     @event.initialize_speaker_emails
   end
@@ -36,8 +36,7 @@ class Staff::EventsController < Staff::ApplicationController
     end
   end
 
-  def guidelines
-  end
+  def guidelines; end
 
   def update_guidelines
     authorize_update
@@ -49,8 +48,7 @@ class Staff::EventsController < Staff::ApplicationController
     end
   end
 
-  def info
-  end
+  def info; end
 
   def update_status
     authorize_update
@@ -62,12 +60,11 @@ class Staff::EventsController < Staff::ApplicationController
     end
   end
 
-  def configuration
-  end
+  def configuration; end
 
   def update_custom_fields
     authorize_update
-    @event.update_attributes(event_params)
+    @event.update(event_params)
     respond_to do |format|
       format.js do
         render locals: { event: @event }
@@ -97,7 +94,7 @@ class Staff::EventsController < Staff::ApplicationController
 
   def update
     authorize_update
-    if @event.update_attributes(event_params)
+    if @event.update(event_params)
       if session[:target]
         redirect_to session[:target]
         session[:target].clear
@@ -137,10 +134,11 @@ class Staff::EventsController < Staff::ApplicationController
 
   def event_params
     params.require(:event).permit(
-        :name, :contact_email, :slug, :url, :valid_proposal_tags,
-        :valid_review_tags, :custom_fields_string, :state, :guidelines,
-        :closes_at, :speaker_notification_emails, :accept, :reject,
-        :waitlist, :opens_at, :start_date, :end_date)
+      :name, :contact_email, :slug, :url, :valid_proposal_tags,
+      :valid_review_tags, :custom_fields_string, :state, :guidelines,
+      :closes_at, :speaker_notification_emails, :accept, :reject,
+      :waitlist, :opens_at, :start_date, :end_date
+    )
   end
 
   def template_test_params

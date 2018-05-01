@@ -158,5 +158,4 @@ describe PublicComment do
       end
     end
   end
-
 end

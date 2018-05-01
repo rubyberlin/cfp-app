@@ -34,7 +34,6 @@ class Notification < ApplicationRecord
   def short_message
     message.truncate(50, omission: "...")
   end
-
 end
 
 # == Schema Information

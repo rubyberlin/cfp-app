@@ -1,7 +1,7 @@
 class InvitationsController < ApplicationController
-  before_action :require_proposal, only: [:create, :destroy, :resend]
-  before_action :require_speaker, only: [:create, :destroy, :resend]
-  before_action :require_pending_invitation, only: [:show, :accept, :decline, :destroy, :resend]
+  before_action :require_proposal, only: %i[create destroy resend]
+  before_action :require_speaker, only: %i[create destroy resend]
+  before_action :require_pending_invitation, only: %i[show accept decline destroy resend]
   before_action :set_session_invite, only: [:accept]
   before_action :require_user_for_accept, only: [:accept]
 
@@ -17,7 +17,7 @@ class InvitationsController < ApplicationController
 
       flash[:info] = "You have accepted your invitation! Before continuing, please take a moment to make sure your profile is complete."
       session[:target] = event_proposal_path(event_slug: @invitation.proposal.event.slug,
-                                            uuid: @invitation.proposal)
+                                             uuid: @invitation.proposal)
       redirect_to edit_profile_path
 
     else
@@ -65,7 +65,7 @@ class InvitationsController < ApplicationController
   def require_proposal
     @proposal = Proposal.find_by(uuid: params[:proposal_uuid])
     unless @proposal
-      render :template => 'errors/incorrect_token', :status => :not_found
+      render template: 'errors/incorrect_token', status: :not_found
     end
   end
 
@@ -81,7 +81,7 @@ class InvitationsController < ApplicationController
     if @invitation
       set_current_event(@invitation.proposal.event_id)
     else
-      render :template => 'errors/incorrect_token', :status => :not_found
+      render template: 'errors/incorrect_token', status: :not_found
     end
   end
 

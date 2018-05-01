@@ -3,7 +3,6 @@ require 'rails_helper'
 include Proposal::State
 
 describe ProposalDecorator do
-
   describe "#speaker_names" do
     it "returns speaker names as a comma separated string" do
       proposal = create(:proposal)

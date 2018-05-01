@@ -1,5 +1,5 @@
 class Staff::SessionFormatsController < Staff::ApplicationController
-  before_action :set_session_format, only: [:edit, :update, :destroy]
+  before_action :set_session_format, only: %i[edit update destroy]
 
   def index
     @session_formats = @event.session_formats
@@ -20,7 +20,7 @@ class Staff::SessionFormatsController < Staff::ApplicationController
   def create
     session_format = @event.session_formats.build(session_format_params)
     unless session_format.save
-      flash.now[:danger] = "There was a problem saving your session format, #{session_format.errors.full_messages.join(", ")}."
+      flash.now[:danger] = "There was a problem saving your session format, #{session_format.errors.full_messages.join(', ')}."
     end
     respond_to do |format|
       format.js do
@@ -30,8 +30,8 @@ class Staff::SessionFormatsController < Staff::ApplicationController
   end
 
   def update
-    unless @session_format.update_attributes(session_format_params)
-      flash.now[:danger] = "There was a problem updating your session format, #{@session_format.errors.full_messages.join(", ")}."
+    unless @session_format.update(session_format_params)
+      flash.now[:danger] = "There was a problem updating your session format, #{@session_format.errors.full_messages.join(', ')}."
     end
     respond_to do |format|
       format.js do
@@ -59,7 +59,6 @@ class Staff::SessionFormatsController < Staff::ApplicationController
 
   def session_format_params
     params.require(:session_format)
-        .permit(:id, :name, :description, :event_id, :duration, :public)
+          .permit(:id, :name, :description, :event_id, :duration, :public)
   end
-
 end

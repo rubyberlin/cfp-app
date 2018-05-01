@@ -2,8 +2,8 @@ class ApplicationController < ActionController::Base
   include Pundit
   include ActivateNavigation
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
-  #after_action :verify_authorized, except: :index
-  #after_action :verify_policy_scoped, only: :index
+  # after_action :verify_authorized, except: :index
+  # after_action :verify_policy_scoped, only: :index
 
   require "csv"
   # Prevent CSRF attacks by raising an exception.
@@ -29,8 +29,8 @@ class ApplicationController < ActionController::Base
       session[:pending_invite_accept_url]
     elsif !user.complete?
       edit_profile_path
-    elsif request.referrer.present? && request.referrer != new_user_session_url
-      request.referrer
+    elsif request.referer.present? && request.referer != new_user_session_url
+      request.referer
     elsif session[:target]
       session.delete(:target)
     elsif user.staff_for?(current_event)
@@ -96,18 +96,19 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:alert] = "You are not authorized to perform this action."
-    redirect_to(request.referrer || root_path)
+    redirect_to(request.referer || root_path)
   end
 
   def event_params
     params.require(:event).permit(
-        :name, :contact_email, :slug, :url, :valid_proposal_tags,
-        :valid_review_tags, :custom_fields_string, :state, :guidelines,
-        :closes_at, :speaker_notification_emails, :accept, :reject,
-        :waitlist, :opens_at, :start_date, :end_date)
+      :name, :contact_email, :slug, :url, :valid_proposal_tags,
+      :valid_review_tags, :custom_fields_string, :state, :guidelines,
+      :closes_at, :speaker_notification_emails, :accept, :reject,
+      :waitlist, :opens_at, :start_date, :end_date
+    )
   end
 
-  def render_json(object, options={})
+  def render_json(object, options = {})
     send_data(render_to_string(json: object), options)
   end
 
@@ -152,6 +153,6 @@ class ApplicationController < ActionController::Base
   end
 
   def program_tracks
-    @program_tracks ||= current_event && current_event.tracks.any? ? current_event.tracks : []
+    @program_tracks ||= current_event&.tracks&.any? ? current_event.tracks : []
   end
 end

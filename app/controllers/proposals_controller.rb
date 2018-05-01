@@ -1,27 +1,27 @@
 class ProposalsController < ApplicationController
   before_action :require_event, except: :index
   before_action :require_user
-  before_action :require_proposal, except: [ :index, :create, :new, :parse_edit_field ]
+  before_action :require_proposal, except: %i[index create new parse_edit_field]
   before_action :require_invite_or_speaker, only: [:show]
-  before_action :require_speaker, except: [ :index, :create, :new, :parse_edit_field ]
+  before_action :require_speaker, except: %i[index create new parse_edit_field]
 
   decorates_assigned :proposal
 
   def index
-    proposals = current_user.proposals.decorate.group_by {|p| p.event}
-    invitations = current_user.pending_invitations.decorate.group_by {|inv| inv.proposal.event}
+    proposals = current_user.proposals.decorate.group_by(&:event)
+    invitations = current_user.pending_invitations.decorate.group_by { |inv| inv.proposal.event }
     events = (proposals.keys | invitations.keys).uniq
 
     render locals: {
-        events: events,
-        proposals: proposals,
-        invitations: invitations
+      events: events,
+      proposals: proposals,
+      invitations: invitations
     }
   end
 
   def new
     if @event.closed?
-      redirect_to event_path (@event)
+      redirect_to event_path @event
       flash[:danger] = "The CFP is closed for proposal submissions."
       return
     end
@@ -66,7 +66,7 @@ class ProposalsController < ApplicationController
 
   def create
     if @event.closed? && @event.closes_at < 1.hour.ago
-      redirect_to event_path (@event)
+      redirect_to event_path @event
       flash[:danger] = "The CFP is closed for proposal submissions."
       return
     end
@@ -94,8 +94,7 @@ class ProposalsController < ApplicationController
     }
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if params[:confirm]
@@ -124,9 +123,9 @@ class ProposalsController < ApplicationController
   private
 
   def proposal_params
-    params.require(:proposal).permit(:title, {tags: []}, :session_format_id, :track_id, :abstract, :details, :pitch, custom_fields: @event.custom_fields,
-                                     comments_attributes: [:body, :proposal_id, :user_id],
-                                     speakers_attributes: [:bio, :id])
+    params.require(:proposal).permit(:title, { tags: [] }, :session_format_id, :track_id, :abstract, :details, :pitch, custom_fields: @event.custom_fields,
+                                                                                                                       comments_attributes: %i[body proposal_id user_id],
+                                                                                                                       speakers_attributes: %i[bio id])
   end
 
   def notes_params

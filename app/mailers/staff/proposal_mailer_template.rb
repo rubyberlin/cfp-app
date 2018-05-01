@@ -19,9 +19,9 @@ class Staff::ProposalMailerTemplate
 
   # ::tag_for_replacement::
   def replace_simple_tags
-    @template = @template.gsub(/::([^:]+?)::/) do
-      tags[$1] || $1
-    end
+    @template = @template.gsub(/::([^:]+?)::/) {
+      tags[Regexp.last_match(1)] || Regexp.last_match(1)
+    }
   end
 
   def confirmation_link
