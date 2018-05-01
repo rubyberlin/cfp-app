@@ -1,5 +1,4 @@
 module StaffHelper
-
   def show_rating_form?(proposal, rating)
     !proposal.has_speaker?(current_user) && !ratings_closed?(proposal, rating)
   end
@@ -13,7 +12,7 @@ module StaffHelper
   end
 
   def ratings_closed?(proposal, rating)
-    (proposal.finalized? && (!proposal.ratings.any? || !rating.persisted?)) || proposal.has_speaker?(current_user)
+    (proposal.finalized? && (proposal.ratings.none? || !rating.persisted?)) || proposal.has_speaker?(current_user)
   end
 
   def allow_review?(proposal)
@@ -33,9 +32,6 @@ module StaffHelper
   end
 
   def program_tracker
-    if program_mode?
-      hidden_field_tag(:program, true)
-    end
+    hidden_field_tag(:program, true) if program_mode?
   end
-
 end

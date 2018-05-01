@@ -4,7 +4,6 @@ require 'rails_helper'
 #   I want to sign out
 #   So I can protect my account from unauthorized access
 feature 'Sign out', :devise do
-
   # Scenario: User signs out successfully
   #   Given I am signed in
   #   When I sign out
@@ -18,7 +17,4 @@ feature 'Sign out', :devise do
     click_link 'Sign Out'
     expect(page).to have_content I18n.t 'devise.sessions.signed_out'
   end
-
 end
-
-

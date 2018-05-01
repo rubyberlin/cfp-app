@@ -7,5 +7,4 @@ RSpec.configure do |config|
     Warden.test_mode!
   end
   config.after { Warden.test_reset! }
-
 end

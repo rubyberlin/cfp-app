@@ -1,10 +1,10 @@
 class ProgramSession < ApplicationRecord
-  LIVE = 'live' # confirmed accepted
-  DRAFT = 'draft' # created by organizer, not ready to be published (live)
-  UNCONFIRMED_ACCEPTED = 'unconfirmed accepted' # accepted, to be confirmed by speaker
-  UNCONFIRMED_WAITLISTED = 'unconfirmed waitlisted'
-  CONFIRMED_WAITLISTED = 'confirmed waitlisted'
-  DECLINED = 'declined'
+  LIVE = 'live'.freeze # confirmed accepted
+  DRAFT = 'draft'.freeze # created by organizer, not ready to be published (live)
+  UNCONFIRMED_ACCEPTED = 'unconfirmed accepted'.freeze # accepted, to be confirmed by speaker
+  UNCONFIRMED_WAITLISTED = 'unconfirmed waitlisted'.freeze
+  CONFIRMED_WAITLISTED = 'confirmed waitlisted'.freeze
+  DECLINED = 'declined'.freeze
 
   STATES = [
     LIVE,
@@ -13,7 +13,7 @@ class ProgramSession < ApplicationRecord
     UNCONFIRMED_WAITLISTED,
     CONFIRMED_WAITLISTED,
     DECLINED
-  ]
+  ].freeze
 
   STATE_GROUPS = {
     LIVE => "program",
@@ -22,18 +22,18 @@ class ProgramSession < ApplicationRecord
     UNCONFIRMED_WAITLISTED => "waitlist",
     CONFIRMED_WAITLISTED => "waitlist",
     DECLINED => "declined"
-  }
+  }.freeze
 
   PROMOTIONS = {
     DRAFT => LIVE,
     UNCONFIRMED_WAITLISTED => UNCONFIRMED_ACCEPTED,
     CONFIRMED_WAITLISTED => LIVE
-  }
+  }.freeze
 
   CONFIRMATIONS = {
     UNCONFIRMED_WAITLISTED => CONFIRMED_WAITLISTED,
     UNCONFIRMED_ACCEPTED => LIVE
-  }
+  }.freeze
 
   belongs_to :event
   belongs_to :proposal
@@ -47,7 +47,7 @@ class ProgramSession < ApplicationRecord
 
   validates :event, :session_format, :title, :state, presence: true
 
-  validates_inclusion_of :state, in: STATES
+  validates :state, inclusion: { in: STATES }
 
   serialize :info, Hash
 
@@ -56,7 +56,7 @@ class ProgramSession < ApplicationRecord
   scope :unscheduled, -> do
     where(state: LIVE).where.not(id: TimeSlot.pluck(:program_session_id))
   end
-  scope :sorted_by_title, -> { order(:title)}
+  scope :sorted_by_title, -> { order(:title) }
   scope :live, -> { where(state: LIVE) }
   scope :draft, -> { where(state: DRAFT) }
   scope :waitlisted, -> { where(state: [CONFIRMED_WAITLISTED, UNCONFIRMED_WAITLISTED]) }
@@ -70,17 +70,16 @@ class ProgramSession < ApplicationRecord
   scope :emails, -> { joins(:speakers).pluck(:speaker_email).uniq }
 
   def self.create_from_proposal(proposal)
-    self.transaction do
+    transaction do
       ps = ProgramSession.create!(event_id: proposal.event_id,
                                   proposal_id: proposal.id,
                                   title: proposal.title,
                                   abstract: proposal.abstract,
                                   track_id: proposal.track_id,
                                   session_format_id: proposal.session_format_id,
-                                  state: proposal.waitlisted? ? UNCONFIRMED_WAITLISTED : UNCONFIRMED_ACCEPTED
-      )
+                                  state: proposal.waitlisted? ? UNCONFIRMED_WAITLISTED : UNCONFIRMED_ACCEPTED)
 
-      #attach proposal speakers to new program session
+      # attach proposal speakers to new program session
       ps.speakers << proposal.speakers
       ps.speakers.each do |speaker|
         (speaker.speaker_name = speaker.user.name) if speaker.speaker_name.blank?
@@ -109,7 +108,7 @@ class ProgramSession < ApplicationRecord
   end
 
   def promote_proposal
-    proposal && proposal.promote
+    proposal&.promote
   end
 
   def live?

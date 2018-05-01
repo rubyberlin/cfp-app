@@ -1,32 +1,31 @@
 class Teammate < ApplicationRecord
+  PENDING = "pending".freeze
+  ACCEPTED = "accepted".freeze
+  DECLINED = "declined".freeze
+  STATES = %w[pending accepted declined].freeze
 
-  PENDING = "pending"
-  ACCEPTED = "accepted"
-  DECLINED = "declined"
-  STATES = ["pending", "accepted", "declined"]
+  STAFF_ROLES = ['reviewer', 'program team', 'organizer'].freeze
 
-  STAFF_ROLES = ['reviewer', 'program team', 'organizer']
+  ALL = 'all'.freeze
+  MENTIONS = 'mentions'.freeze
+  IN_APP_ONLY = 'in_app_only'.freeze
 
-  ALL = 'all'
-  MENTIONS = 'mentions'
-  IN_APP_ONLY = 'in_app_only'
-
-  NOTIFICATION_PREFERENCES =  {
+  NOTIFICATION_PREFERENCES = {
     ALL => 'All Via Email',
     MENTIONS => 'Mention Only Via Email',
     IN_APP_ONLY => 'In App Only'
-  }
+  }.freeze
 
   belongs_to :event
   belongs_to :user
 
-  validates_uniqueness_of :email, scope: :event
-  validates_uniqueness_of :mention_name, scope: :event, allow_blank: true
+  validates :email, uniqueness: { scope: :event }
+  validates :mention_name, uniqueness: { scope: :event, allow_blank: true }
   validates :email, :event, :role, presence: true
-  validates_format_of :email, :with => /@/
-  validates_format_of :mention_name, with: /\A\w+\z/, message: "cannot include punctuation or spaces", allow_blank: true
+  validates :email, format: { with: /@/ }
+  validates :mention_name, format: { with: /\A\w+\z/, message: "cannot include punctuation or spaces", allow_blank: true }
 
-  scope :for_event, -> (event) { where(event: event) }
+  scope :for_event, ->(event) { where(event: event) }
   scope :alphabetize, -> { Teammate.joins(:user).merge(User.order(name: :asc)) }
   scope :notify, -> { where(notifications: true) }
 
@@ -60,7 +59,7 @@ class Teammate < ApplicationRecord
   end
 
   def ratings_count(current_event)
-    self.user.ratings.not_withdrawn.for_event(current_event).size
+    user.ratings.not_withdrawn.for_event(current_event).size
   end
 
   def pending?
@@ -81,7 +80,6 @@ class Teammate < ApplicationRecord
       "X"
     end
   end
-
 end
 
 # == Schema Information

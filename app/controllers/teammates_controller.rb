@@ -1,5 +1,5 @@
 class TeammatesController < ApplicationController
-  before_action :require_pending_invitation, only: [:accept, :decline]
+  before_action :require_pending_invitation, only: %i[accept decline]
   before_action :set_session_invite, only: [:accept]
   before_action :require_user_for_accept, only: [:accept]
   before_action :require_non_teammate, only: [:accept]
@@ -23,7 +23,7 @@ class TeammatesController < ApplicationController
     @teammate_invitation.decline
 
     redirect_to root_url,
-      flash: { danger: "You declined the invitation to #{current_event.name}." }
+                flash: { danger: "You declined the invitation to #{current_event.name}." }
   end
 
   private
@@ -33,7 +33,7 @@ class TeammatesController < ApplicationController
     if @teammate_invitation
       set_current_event(@teammate_invitation.event_id)
     else
-      render :template => "errors/incorrect_token", :status => :not_found
+      render template: "errors/incorrect_token", status: :not_found
     end
   end
 
@@ -60,5 +60,4 @@ class TeammatesController < ApplicationController
     session.delete :pending_invite_accept_url
     session.delete :pending_invite_email
   end
-
 end

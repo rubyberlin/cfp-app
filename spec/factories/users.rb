@@ -13,7 +13,7 @@ FactoryBot.define do
     password "12345678"
     password_confirmation "12345678"
     bio "A great Bio"
-    after(:create) { |user| user.confirm }
+    after(:create, &:confirm)
 
     trait :reviewer do
       name "John Doe Reviewer"
@@ -40,7 +40,7 @@ FactoryBot.define do
       admin true
     end
 
-    factory :organizer, traits: [ :organizer ] do
+    factory :organizer, traits: [:organizer] do
       transient do
         event { build(:event) }
       end
@@ -52,7 +52,7 @@ FactoryBot.define do
       end
     end
 
-    factory :program_team, traits: [ :program_team ] do
+    factory :program_team, traits: [:program_team] do
       transient do
         event { build(:event) }
       end
@@ -64,7 +64,7 @@ FactoryBot.define do
       end
     end
 
-    factory :reviewer, traits: [ :reviewer ] do
+    factory :reviewer, traits: [:reviewer] do
       transient do
         event { build(:event) }
       end

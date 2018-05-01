@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe EventPolicy do
-
   let(:reviewer) { create(:user, :reviewer) }
   let(:program_team) { create(:user, :program_team) }
   let(:organizer) { create(:organizer) }
@@ -31,7 +30,6 @@ RSpec.describe EventPolicy do
       org_event = organizer.organizer_events.first
       expect(subject).to permit(pundit_user(organizer), org_event)
     end
-
   end
 
   permissions :create? do
@@ -50,7 +48,6 @@ RSpec.describe EventPolicy do
     it 'allows admin users' do
       expect(subject).to permit(pundit_user(admin), event)
     end
-
   end
 
   permissions :show? do
@@ -70,7 +67,5 @@ RSpec.describe EventPolicy do
       org_event = organizer.organizer_events.first
       expect(subject).to permit(pundit_user(organizer), org_event)
     end
-
   end
-
 end

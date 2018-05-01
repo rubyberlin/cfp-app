@@ -1,7 +1,7 @@
 module SimpleForm
   module Components
     module Tooltips
-      def tooltip(wrapper_options = nil)
+      def tooltip(_wrapper_options = nil)
         unless tooltip_text.nil?
           input_html_options[:rel] ||= 'tooltip'
           input_html_options['data-toggle'] ||= 'tooltip'
@@ -18,8 +18,6 @@ module SimpleForm
           tooltip
         elsif tooltip.is_a?(Array)
           tooltip[1]
-        else
-          nil
         end
       end
 

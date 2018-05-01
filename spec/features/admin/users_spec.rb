@@ -2,13 +2,13 @@ require 'rails_helper'
 
 feature "Users Admin Dashboard" do
   let(:admin_user) { create(:user, admin: true) }
-  let!(:admin_teammate) { create(:teammate, user: admin_user, role: 'organizer')}
+  let!(:admin_teammate) { create(:teammate, user: admin_user, role: 'organizer') }
 
   let(:organizer_user) { create(:user) }
-  let!(:organizer_teammate) { create(:teammate, user: organizer_user, role: 'organizer')}
+  let!(:organizer_teammate) { create(:teammate, user: organizer_user, role: 'organizer') }
 
   let(:reviewer_user) { create(:user) }
-  let!(:reviewer_teammate) { create(:teammate, user: reviewer_user, role: 'reviewer')}
+  let!(:reviewer_teammate) { create(:teammate, user: reviewer_user, role: 'reviewer') }
 
   let(:speaker_user) { create(:user) }
   let!(:speaker) { create(:speaker, user: speaker_user) }

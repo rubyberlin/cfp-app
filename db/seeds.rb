@@ -9,19 +9,15 @@ def run
     puts "Creating seed data..."
     create_seed_data
     puts "Seeding complete."
-
-  rescue => e
+  rescue StandardError => e
     puts "Seeding halted! Error: " + e
-
   ensure
     ActionMailer::Base.perform_deliveries = perform_deliveries_orig
     puts "Mail delivery reenabled" if perform_deliveries_orig
   end
-
 end
 
 def create_seed_data
-
   pwd = "userpass"
 
   ## Users
@@ -40,7 +36,7 @@ def create_seed_data
   seed_start_date = 8.months.from_now
 
   # Core Event Info
-  seed_guidelines = %Q[
+  seed_guidelines = %(
 # SeedConf wants you!
 
 The first annual conference about seed data is happening
@@ -54,7 +50,7 @@ If your talk is about seed data in Rails apps, we want to hear about it!
 #{Faker::Hipster.paragraph(13)}
 
 #{Faker::Hipster.paragraph(6)}
-]
+)
 
   seed_event = Event.create(name: "SeedConf",
                             slug: "seedconf",
@@ -65,8 +61,8 @@ If your talk is about seed data in Rails apps, we want to hear about it!
                             start_date: seed_start_date,
                             end_date: seed_start_date + 2.days,
                             guidelines: seed_guidelines,
-                            proposal_tags: %w(beginner intermediate advanced),
-                            review_tags: %w(beginner intermediate advanced))
+                            proposal_tags: %w[beginner intermediate advanced],
+                            review_tags: %w[beginner intermediate advanced])
 
   # Session Formats
   lightning_talk   = seed_event.public_session_formats.create(name: "Lightning Talk", duration: 5, description: "Warp speed! Leave your audience breathless and thirsty for more.")
@@ -107,16 +103,14 @@ If your talk is about seed data in Rails apps, we want to hear about it!
     state: Teammate::ACCEPTED
   )
   seed_event.teammates.create(user: reviewer,
-    email: reviewer.email,
-    role: "reviewer",
-    mention_name: "reviewer",
-    state: Teammate::ACCEPTED
-  )
+                              email: reviewer.email,
+                              role: "reviewer",
+                              mention_name: "reviewer",
+                              state: Teammate::ACCEPTED)
   seed_event.teammates.create(user: speaker_reviewer,
-    email: speaker_reviewer.email,
-    role: "reviewer",
-    state: Teammate::ACCEPTED
-  ) # can't be mentioned
+                              email: speaker_reviewer.email,
+                              role: "reviewer",
+                              state: Teammate::ACCEPTED) # can't be mentioned
 
   # Proposals - there are no proposals that are either fully "accepted" or offically "not accepted"
   submitted_proposal_1 = seed_event.proposals.create(event: seed_event,
@@ -293,35 +287,35 @@ If your talk is about seed data in Rails apps, we want to hear about it!
   accepted_proposal_1.speakers.create(speaker_name: speaker_5.name, speaker_email: speaker_5.email, bio: "Prototype irure cortado consectetur driven laboru in. Bootstrapping physical computing lorem in Duis viral piverate incididunt anim. Aute SpaceTeam ullamco earned media experiential aliqua moleskine fugiat physical computing.", user: speaker_5, program_session: program_session_1, event: seed_event)
   accepted_proposal_2.speakers.create(speaker_name: speaker_2.name, speaker_email: speaker_2.email, bio: "Id fugiat ex dolor personas in ipsum actionable insight grok actionable insight amet non adipisicing. In irure pair programming sed id food-truck consequat officia reprehenderit in engaging thinker-maker-doer. Experiential irure moleskine sunt quis ideate thought leader paradigm hacker Steve Jobs. Unicorn ea Duis integrate culpa ut voluptate workflow reprehenderit officia prototype intuitive ideate.", user: speaker_2, program_session: program_session_2, event: seed_event)
 
-  #Time Slots
+  # Time Slots
 
-  time_slot_1 = seed_event.time_slots.create({
+  time_slot_1 = seed_event.time_slots.create(
     program_session: program_session_1,
     conference_day: 1,
     room: sun_room,
     start_time: "09:00",
     end_time:  "10:00",
     track: program_session_1.track
-  })
+  )
 
-  time_slot_2 = seed_event.time_slots.create({
+  time_slot_2 = seed_event.time_slots.create(
     program_session: program_session_2,
     conference_day: 2,
     room: moon_room,
     start_time: "13:00",
     end_time: "14:00",
     track: program_session_2.track
-  })
+  )
 
-  empty_slot = seed_event.time_slots.build({
+  empty_slot = seed_event.time_slots.build(
     room: sun_room,
     conference_day: 3,
     start_time: "12:00",
     end_time: "13:00",
     title: "",
     description: "",
-    presenter: "",
-  })
+    presenter: ""
+  )
 
   empty_slot.save(validate: false)
 
@@ -330,7 +324,7 @@ If your talk is about seed data in Rails apps, we want to hear about it!
   pwd = "userpass"
 
   # Core Event Info
-  sapphire_guidelines = %Q[
+  sapphire_guidelines = %(
 # SapphireConf - The place to be in 2017!
 
 The first annual conference about the hot new programming language Sapphire
@@ -340,7 +334,7 @@ If you are on the cutting edge with savvy Sapphire skills, we want you!
 
 ## #{Faker::Hipster.sentence(4)}
 #{Faker::Hipster.paragraph(20)}
-]
+)
 
   sapphire_event = Event.create(name: "SapphireConf",
                                 slug: "sapphireconf",
@@ -349,8 +343,8 @@ If you are on the cutting edge with savvy Sapphire skills, we want you!
                                 start_date: sapphire_start_date,
                                 end_date: sapphire_start_date + 1,
                                 guidelines: sapphire_guidelines,
-                                proposal_tags: %w(beginner intermediate advanced),
-                                review_tags: %w(beginner intermediate advanced))
+                                proposal_tags: %w[beginner intermediate advanced],
+                                review_tags: %w[beginner intermediate advanced])
 
   # Event Team
   sapphire_event.teammates.create(user: admin, email: admin.email, role: "organizer", state: Teammate::ACCEPTED)
@@ -361,7 +355,7 @@ If you are on the cutting edge with savvy Sapphire skills, we want you!
   pwd = "userpass"
 
   # Core Event Info
-  schedule_guidelines = %Q[
+  schedule_guidelines = %(
 # SheduleConf - The place to be in 2017!
 
 The first annual conference about Sheduling an event
@@ -371,19 +365,19 @@ If you are on the cutting edge with savvy scheduling skills, we want you!
 
 ## #{Faker::Hipster.sentence(4)}
 #{Faker::Hipster.paragraph(20)}
-]
+)
 
   schedule_event = Event.create(name: "ScheduleConf",
                                 slug: "scheduleconf",
                                 url: Faker::Internet.url,
                                 contact_email: "info@sschedule.event",
                                 opens_at: schedule_conf_open_date,
-                                closes_at: schedule_conf_open_date + 1.days,
+                                closes_at: schedule_conf_open_date + 1.day,
                                 start_date: schedule_conf_open_date + 10.days,
                                 end_date: schedule_conf_open_date + 12.days,
                                 guidelines: schedule_guidelines,
-                                proposal_tags: %w(beginner intermediate advanced),
-                                review_tags: %w(beginner intermediate advanced))
+                                proposal_tags: %w[beginner intermediate advanced],
+                                review_tags: %w[beginner intermediate advanced])
 
   # Event Team
   schedule_event.teammates.create(user: admin, email: admin.email, role: "organizer", state: Teammate::ACCEPTED)
@@ -404,7 +398,7 @@ If you are on the cutting edge with savvy scheduling skills, we want you!
 
   # Rooms
   conference_address = Faker::Address.street_address
-  4.times do |i|
+  4.times do |_i|
     schedule_event.rooms.create(name: "#{Faker::Name.last_name} Room", room_number: Faker::Number.number(3), level: 1, address: conference_address, capacity: 150)
   end
 
@@ -412,7 +406,7 @@ If you are on the cutting edge with savvy scheduling skills, we want you!
   120.times do |i|
     speaker_user = User.create(name: Faker::Name.name, email: Faker::Internet.email, password: pwd, password_confirmation: pwd, confirmed_at: Time.now)
 
-    accepted_proposal = schedule_event.proposals.create({
+    accepted_proposal = schedule_event.proposals.create(
       event: seed_event,
       uuid: "xoxoxo",
       state: "accepted",
@@ -423,96 +417,96 @@ If you are on the cutting edge with savvy scheduling skills, we want you!
       session_format: schedule_conf_formats[(i % 4)],
       track: schedule_conf_tracks[(i % 3)],
       confirmed_at: Time.current
-    })
+    )
 
-    program_session = schedule_event.program_sessions.create({
+    program_session = schedule_event.program_sessions.create(
       proposal: accepted_proposal,
       state: ProgramSession::LIVE,
       title: accepted_proposal.title,
       abstract: accepted_proposal.abstract,
       track: accepted_proposal.track,
       session_format: accepted_proposal.session_format
-    })
+    )
 
-    speaker = accepted_proposal.speakers.create({
+    speaker = accepted_proposal.speakers.create(
       speaker_name: speaker_user.name,
       speaker_email: speaker_user.email,
       bio: "I #{Faker::Company.bs}.",
       user: speaker_user,
       event: schedule_event,
       program_session: program_session
-    })
+    )
   end
 
-  #Create Time Slots for day 1
+  # Create Time Slots for day 1
   schedule_event.rooms.all.each do |room|
     # create slots for lighting sessions
-    beginning_of_block = Time.new(2018, 02, 24, 9, 0, 0, "+09:00")
+    beginning_of_block = Time.new(2018, 0o2, 24, 9, 0, 0, "+09:00")
     session_duration = 5
     5.times do |i|
       start_time = (beginning_of_block + (i * session_duration).minutes).strftime('%H:%M')
       end_time = (beginning_of_block + ((i + 1) * session_duration).minutes).strftime('%H:%M')
-      empty_slot = schedule_event.time_slots.build({
+      empty_slot = schedule_event.time_slots.build(
         room: room,
         conference_day: 1,
         start_time: start_time,
         end_time: end_time,
         title: "",
         description: "",
-        presenter: "",
-      })
+        presenter: ""
+      )
       empty_slot.save(validate: false)
     end
 
-    #create slots for short_talks
+    # create slots for short_talks
 
-    beginning_of_block = Time.new(2018, 02, 24, 10, 0, 0, "+09:00")
+    beginning_of_block = Time.new(2018, 0o2, 24, 10, 0, 0, "+09:00")
     session_duration = 30
     5.times do |i|
       start_time = (beginning_of_block + (i * session_duration).minutes).strftime('%H:%M')
       end_time = (beginning_of_block + ((i + 1) * session_duration).minutes).strftime('%H:%M')
-      empty_slot = schedule_event.time_slots.build({
+      empty_slot = schedule_event.time_slots.build(
         room: room,
         conference_day: 1,
         start_time: start_time,
         end_time: end_time,
         title: "",
         description: "",
-        presenter: "",
-      })
+        presenter: ""
+      )
       empty_slot.save(validate: false)
     end
 
-    #create slots for long_talks
+    # create slots for long_talks
 
-    beginning_of_block = Time.new(2018, 02, 24, 14, 0, 0, "+09:00")
+    beginning_of_block = Time.new(2018, 0o2, 24, 14, 0, 0, "+09:00")
     session_duration = 60
     3.times do |i|
       start_time = (beginning_of_block + (i * session_duration).minutes).strftime('%H:%M')
       end_time = (beginning_of_block + ((i + 1) * session_duration).minutes).strftime('%H:%M')
-      empty_slot = schedule_event.time_slots.build({
+      empty_slot = schedule_event.time_slots.build(
         room: room,
         conference_day: 1,
         start_time: start_time,
         end_time: end_time,
         title: "",
         description: "",
-        presenter: "",
-      })
+        presenter: ""
+      )
       empty_slot.save(validate: false)
     end
 
     # create slot for a beenote
 
-    empty_slot = schedule_event.time_slots.build({
+    empty_slot = schedule_event.time_slots.build(
       room: room,
       conference_day: 1,
       start_time: "18:00",
       end_time: "19:30",
       title: "",
       description: "",
-      presenter: "",
-    })
+      presenter: ""
+    )
     empty_slot.save(validate: false)
   end
 end

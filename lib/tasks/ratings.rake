@@ -1,6 +1,6 @@
 namespace :ratings do
   desc "Remove duplicates"
-  task :dedup => :environment do
+  task dedup: :environment do
     event = Event.where(slug: "railsconf-2014").first
 
     event.proposals.each do |proposal|

@@ -3,11 +3,11 @@ require "rails_helper"
 feature "Event Dashboard" do
   let(:event) { create(:event, name: "My Event") }
   let(:admin_user) { create(:user, admin: true) }
-  let!(:admin_teammate) { create(:teammate,
-                                   event: event,
-                                   user: admin_user,
-                                   role: "organizer"
-                                  )
+  let!(:admin_teammate) {
+    create(:teammate,
+           event: event,
+           user: admin_user,
+           role: "organizer")
   }
 
   context "An admin" do

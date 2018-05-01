@@ -14,6 +14,5 @@ FactoryBot.define do
     trait :with_long_message do
       message "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit ut nobis nemo dolore architecto aliquam."
     end
-
   end
 end

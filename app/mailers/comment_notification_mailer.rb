@@ -1,17 +1,17 @@
 class CommentNotificationMailer < ApplicationMailer
-
   def reviewer_notification(proposal, comment, users)
     @comment = comment
     @proposal = proposal
 
     # Email all reviewers of this proposal if notifications is true unless they made the comment
-    to = users.map(&:email).reject{|e| e.blank? }
+    to = users.map(&:email).reject(&:blank?)
 
     if to.any?
       mail_markdown(
-                    to: to,
-                    from: @proposal.event.contact_email,
-                    subject: "#{@proposal.event.name} CFP: New comment on '#{@proposal.title}'")
+        to: to,
+        from: @proposal.event.contact_email,
+        subject: "#{@proposal.event.name} CFP: New comment on '#{@proposal.title}'"
+      )
     end
   end
 
@@ -19,7 +19,7 @@ class CommentNotificationMailer < ApplicationMailer
     @proposal = proposal
     @comment = comment
 
-    to = users.map(&:email).reject{|e| e.blank? }
+    to = users.map(&:email).reject(&:blank?)
 
     if to.any?
       mail_markdown(to: to,
@@ -35,11 +35,10 @@ class CommentNotificationMailer < ApplicationMailer
 
     to = mentioned.email
 
-    unless to.blank?
+    if to.present?
       mail_markdown(to: to,
                     from: @proposal.event.contact_email,
                     subject: "#{@proposal.event.name} CFP: #{@comment.user.name} mentioned you on '#{@proposal.title}'")
     end
   end
-
 end

@@ -4,15 +4,17 @@ feature 'Managing Speaker Invitations' do
   let(:second_speaker_email) { 'second_speaker@example.com' }
   let(:user) { create(:user) }
   let(:event) { create(:event, state: 'open') }
-  let(:proposal) { create(:proposal,
-                          title: 'Hello there',
-                          abstract: 'Well then.',
-                          event: event)
+  let(:proposal) {
+    create(:proposal,
+           title: 'Hello there',
+           abstract: 'Well then.',
+           event: event)
   }
-  let!(:speaker) { create(:speaker,
-                         user: user,
-                         event: event,
-                         proposal: proposal)
+  let!(:speaker) {
+    create(:speaker,
+           user: user,
+           event: event,
+           proposal: proposal)
   }
 
   let(:go_to_proposal) {
@@ -29,8 +31,8 @@ feature 'Managing Speaker Invitations' do
 
     scenario "A speaker can invite another speaker" do
       click_button "Invite"
-      expect(page).
-        to(have_text(second_speaker_email))
+      expect(page)
+        .to(have_text(second_speaker_email))
     end
 
     it "emails the pending speaker" do
@@ -43,8 +45,8 @@ feature 'Managing Speaker Invitations' do
       click_button "Invite"
       fill_in "Email", with: second_speaker_email
       click_button "Invite"
-      expect(page).
-        to(have_text(second_speaker_email))
+      expect(page)
+        .to(have_text(second_speaker_email))
     end
   end
 
@@ -68,5 +70,4 @@ feature 'Managing Speaker Invitations' do
       expect(ActionMailer::Base.deliveries.last.to).to include(second_speaker_email)
     end
   end
-
 end

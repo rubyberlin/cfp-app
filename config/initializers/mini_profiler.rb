@@ -1,3 +1,1 @@
-if Rails.env == 'development'
-  Rack::MiniProfiler.config.start_hidden = true
-end
+Rack::MiniProfiler.config.start_hidden = true if Rails.env.development?

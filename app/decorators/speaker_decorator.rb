@@ -15,6 +15,6 @@ class SpeakerDecorator < ApplicationDecorator
   end
 
   def bio
-    object.bio.present? ? object.bio : object.user.try(:bio)
+    object.bio.presence || object.user.try(:bio)
   end
 end

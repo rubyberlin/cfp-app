@@ -4,6 +4,6 @@ module ProgramSessionHelper
   end
 
   def speakers_emails(session)
-    session.speakers.map{ |speaker| speaker.email }
+    session.speakers.map(&:email)
   end
 end

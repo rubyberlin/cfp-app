@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe ProgramSession do
-
   let(:proposal) { create(:proposal_with_track, :with_two_speakers) }
 
   let(:waitlisted_proposal) { create(:proposal_with_track, :with_two_speakers, state: 'waitlisted') }
@@ -11,7 +10,6 @@ describe ProgramSession do
   end
 
   describe "#create_from_proposal" do
-
     it "creates a new program session with the same title as the given proposal" do
       session = ProgramSession.create_from_proposal(proposal)
 
@@ -110,10 +108,10 @@ describe ProgramSession do
       my_proposal = create(:proposal)
       user = create(:user, name: "Fluffy", email: "fluffy@email.com")
       create(:speaker,
-              user_id: user.id,
-              event_id: my_proposal.event_id,
-              proposal_id: my_proposal.id,
-              speaker_name: "Unicorn")
+             user_id: user.id,
+             event_id: my_proposal.event_id,
+             proposal_id: my_proposal.id,
+             speaker_name: "Unicorn")
 
       ProgramSession.create_from_proposal(my_proposal)
       ps_speaker = my_proposal.speakers.first
@@ -125,7 +123,7 @@ describe ProgramSession do
 
     it "does not overwrite speaker_email if it already has a value" do
       my_proposal = create(:proposal)
-      user = create(:user, name: "Fluffy", email: "fluffy@email.com" )
+      user = create(:user, name: "Fluffy", email: "fluffy@email.com")
       create(:speaker,
              user_id: user.id,
              event_id: my_proposal.event_id,
@@ -137,12 +135,12 @@ describe ProgramSession do
 
       expect(ps_speaker.speaker_name).to eq("Fluffy")
       expect(ps_speaker.speaker_email).to eq("unicorn@email.com")
-      expect(ps_speaker.changed?).to be(false) #returns true if there are unsaved changes
+      expect(ps_speaker.changed?).to be(false) # returns true if there are unsaved changes
     end
 
     it "does not overwrite bio if it already has a value" do
       my_proposal = create(:proposal)
-      user = create(:user, name: "Fluffy", email: "fluffy@email.com", bio: "Fluffy rules all day." )
+      user = create(:user, name: "Fluffy", email: "fluffy@email.com", bio: "Fluffy rules all day.")
       create(:speaker,
              user_id: user.id,
              event_id: my_proposal.event_id,
@@ -155,7 +153,7 @@ describe ProgramSession do
       expect(ps_speaker.speaker_name).to eq("Fluffy")
       expect(ps_speaker.speaker_email).to eq("fluffy@email.com")
       expect(ps_speaker.bio).to eq("Went to Unicorniversity of Ohio.")
-      expect(ps_speaker.changed?).to be(false) #returns true if there are unsaved changes
+      expect(ps_speaker.changed?).to be(false) # returns true if there are unsaved changes
     end
 
     it "retains proposal id on each speaker" do
@@ -166,7 +164,6 @@ describe ProgramSession do
         expect(speaker.changed?).to be(false)
       end
     end
-
   end
 
   describe "#can_promote?" do
@@ -353,7 +350,6 @@ describe ProgramSession do
   end
 
   describe "#destroy" do
-
     it "destroys speakers if speaker has no proposal_id" do
       ps = create(:program_session)
       speaker = create(:speaker, event_id: ps.event_id, program_session_id: ps.id)

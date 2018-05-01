@@ -11,16 +11,16 @@ class Staff::TeammatesController < Staff::ApplicationController
     @pending_invite_count = group_count(@invitations.where(state: "pending"))
   end
 
-  def create #creating an invitation
+  def create # creating an invitation
     invitation = current_event.teammates.build(params.require(:teammate).permit(:email, :role, :mention_name))
 
     if invitation.invite
-        TeammateInvitationMailer.create(invitation).deliver_now
+      TeammateInvitationMailer.create(invitation).deliver_now
       redirect_to event_staff_teammates_path(current_event),
-        flash: { info: "Invitation to #{invitation.email} was sent."}
+                  flash: { info: "Invitation to #{invitation.email} was sent." }
     else
       redirect_to event_staff_teammates_path(current_event),
-        flash: { danger: "There was a problem sending your invitation. #{invitation.errors.full_messages.to_sentence}" }
+                  flash: { danger: "There was a problem sending your invitation. #{invitation.errors.full_messages.to_sentence}" }
     end
   end
 
@@ -38,7 +38,7 @@ class Staff::TeammatesController < Staff::ApplicationController
       end
     else
       redirect_to event_staff_teammates_path(current_event),
-        flash: { danger: "There was a problem updating #{teammate.name}. #{teammate.errors.full_messages.join(", ")}." }
+                  flash: { danger: "There was a problem updating #{teammate.name}. #{teammate.errors.full_messages.join(', ')}." }
     end
   end
 
@@ -46,18 +46,18 @@ class Staff::TeammatesController < Staff::ApplicationController
     teammate = current_event.teammates.find(params[:id])
     if teammate.destroy
       redirect_to event_staff_teammates_path(current_event),
-        flash: { info: "#{teammate.email} was removed." }
+                  flash: { info: "#{teammate.email} was removed." }
     else
       redirect_to event_staff_teammates_path(current_event),
-        flash: { danger: "There was a problem removing #{teammate.email}." }
+                  flash: { danger: "There was a problem removing #{teammate.email}." }
     end
   end
 
   private
 
   def group_count(group)
-    team_counts = {"organizer" => 0, "program team" => 0, "reviewer" => 0}
-    group.each { |t| team_counts[t.role] += 1 }
+    team_counts = { "organizer" => 0, "program team" => 0, "reviewer" => 0 }
+    group.each do |t| team_counts[t.role] += 1 end
     team_counts
   end
 
@@ -67,5 +67,4 @@ class Staff::TeammatesController < Staff::ApplicationController
       redirect_to event_staff_edit_path(@event)
     end
   end
-
 end

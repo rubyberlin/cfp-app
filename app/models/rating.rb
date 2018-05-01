@@ -2,7 +2,7 @@ class Rating < ApplicationRecord
   belongs_to :proposal
   belongs_to :user
 
-  scope :for_event, -> (event) { joins(:proposal).where("proposals.event_id = ?", event.id) }
+  scope :for_event, ->(event) { joins(:proposal).where("proposals.event_id = ?", event.id) }
   scope :not_withdrawn, -> { joins(:proposal).where("proposals.state != ?", Proposal::State::WITHDRAWN) }
 
   def teammate

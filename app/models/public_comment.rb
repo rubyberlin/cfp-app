@@ -1,5 +1,4 @@
 class PublicComment < Comment
-
   after_create :notify
 
   private
@@ -11,23 +10,21 @@ class PublicComment < Comment
   # 2. If anyone else (reviewer/program staff/organizer) leaves a comment,
   #      only the speakers get an in app and email notification.
   def notify
-    begin
-      if proposal.has_speaker?(user)
-        @users = proposal.reviewers
-        message = "Speaker commented on #{proposal.title}"
-        CommentNotificationMailer.reviewer_notification(proposal, self,
-                                    proposal.emailable_reviewers).deliver_now
-      else
-        @users = proposal.speakers.map(&:user)
-        message = "New comment on #{proposal.title}"
-        CommentNotificationMailer.speaker_notification(proposal, self, @users).deliver_now
-      end
-      @users.each do |user|
-        Notification.create_for(user, proposal: proposal, message: message)
-      end
-    rescue => e
-      logger.error("Comment Notification ran into an error: #{e.message}")
+    if proposal.has_speaker?(user)
+      @users = proposal.reviewers
+      message = "Speaker commented on #{proposal.title}"
+      CommentNotificationMailer.reviewer_notification(proposal, self,
+                                                      proposal.emailable_reviewers).deliver_now
+    else
+      @users = proposal.speakers.map(&:user)
+      message = "New comment on #{proposal.title}"
+      CommentNotificationMailer.speaker_notification(proposal, self, @users).deliver_now
     end
+    @users.each do |user|
+      Notification.create_for(user, proposal: proposal, message: message)
+    end
+  rescue StandardError => e
+    logger.error("Comment Notification ran into an error: #{e.message}")
   end
 end
 

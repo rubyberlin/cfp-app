@@ -6,11 +6,11 @@ class ProposalDecorator < ApplicationDecorator
 
   def speaker_state(small: false)
     speaker_state = if object.awaiting_confirmation?
-      'Waiting for speaker confirmation'
-    elsif state.include?('soft')
-      SUBMITTED
-    else
-      state
+                      'Waiting for speaker confirmation'
+                    elsif state.include?('soft')
+                      SUBMITTED
+                    else
+                      state
     end
 
     state_label(small: small, state: speaker_state)
@@ -18,9 +18,9 @@ class ProposalDecorator < ApplicationDecorator
 
   def reviewer_state(small: false)
     reviewer_state = if state.include?('soft')
-      SUBMITTED
-    else
-      state
+                       SUBMITTED
+                     else
+                       state
     end
 
     state_label(small: small, state: reviewer_state, show_confirmed: false)
@@ -61,12 +61,14 @@ class ProposalDecorator < ApplicationDecorator
 
   def review_tags_labels
     object.review_tags.map { |tag|
-      h.content_tag :span, tag, class: 'label label-success label-compact' }.join("\n").html_safe
+      h.content_tag :span, tag, class: 'label label-success label-compact'
+    } .join("\n").html_safe
   end
 
   def tags_labels
     object.tags.map { |tag|
-      h.content_tag :span, tag, class: 'label label-primary label-compact' }.join("\n").html_safe
+      h.content_tag :span, tag, class: 'label label-primary label-compact'
+    } .join("\n").html_safe
   end
 
   def review_tags_list
@@ -103,14 +105,14 @@ class ProposalDecorator < ApplicationDecorator
 
   def withdraw_button
     h.link_to h.bang('Withdraw Proposal'),
-      h.withdraw_event_proposal_path(uuid: object, event_slug: object.event.slug),
-      method: :post,
-      data: {
-        confirm: 'This will remove your talk from consideration and send an ' +
-                 'email to the event coordinator. Are you sure you want to do this?'
-      },
-      class: 'btn btn-warning',
-      id: 'withdraw'
+              h.withdraw_event_proposal_path(uuid: object, event_slug: object.event.slug),
+              method: :post,
+              data: {
+                confirm: 'This will remove your talk from consideration and send an ' \
+                         'email to the event coordinator. Are you sure you want to do this?'
+              },
+              class: 'btn btn-warning',
+              id: 'withdraw'
   end
 
   def confirm_button
@@ -125,14 +127,14 @@ class ProposalDecorator < ApplicationDecorator
               h.decline_event_proposal_path(uuid: object, event_slug: object.event.slug),
               method: :post,
               data: {
-                  confirm: 'This will remove your talk from consideration and notify the event staff. Are you sure you want to do this?'
+                confirm: 'This will remove your talk from consideration and notify the event staff. Are you sure you want to do this?'
               },
               class: 'btn btn-warning'
   end
 
   def confirm_link
     h.link_to 'confirmation page',
-      h.event_proposal_url(object.event, object)
+              h.event_proposal_url(object.event, object)
   end
 
   def state_label(small: false, state: nil, show_confirmed: false)
@@ -156,56 +158,56 @@ class ProposalDecorator < ApplicationDecorator
 
   def title_input(form)
     form.input :title,
-    autofocus: true,
-    maxlength: :lookup, input_html: { class: 'watched js-maxlength-alert' },
-    hint: "Publicly viewable title. Ideally catchy, interesting, essence of the talk. Limited to 60 characters."
+               autofocus: true,
+               maxlength: :lookup, input_html: { class: 'watched js-maxlength-alert' },
+               hint: "Publicly viewable title. Ideally catchy, interesting, essence of the talk. Limited to 60 characters."
   end
 
   def speaker_input(form)
     form.input :speaker
   end
 
-  def abstract_input(form, tooltip = "Proposal Abstract")
+  def abstract_input(form, _tooltip = "Proposal Abstract")
     form.input :abstract,
-      maxlength: 1000, input_html: { class: 'watched js-maxlength-alert', rows: 5 },
-      hint: 'A concise, engaging description for the public program. Limited to 1000 characters.'#, popover_icon: { content: tooltip }
+               maxlength: 1000, input_html: { class: 'watched js-maxlength-alert', rows: 5 },
+               hint: 'A concise, engaging description for the public program. Limited to 1000 characters.' # , popover_icon: { content: tooltip }
   end
 
   def standalone_track_select(tooltip)
     h.simple_form_for :proposal, remote: true do |f|
       f.input :track,
-        required: false,
-        label_html: { class: 'info-item-heading' },
-        collection: track_options,
-        include_blank: Track::NO_TRACK,
-        selected: object.track_id,
-        id: 'track',
-        input_html: {
-          class: 'proposal-track-select form-control select',
-          data: {
-            target_path: h.event_staff_program_proposal_update_track_path(object.event, object)
-          },
-        },
-        popover_icon: { content: tooltip }
+              required: false,
+              label_html: { class: 'info-item-heading' },
+              collection: track_options,
+              include_blank: Track::NO_TRACK,
+              selected: object.track_id,
+              id: 'track',
+              input_html: {
+                class: 'proposal-track-select form-control select',
+                data: {
+                  target_path: h.event_staff_program_proposal_update_track_path(object.event, object)
+                }
+              },
+              popover_icon: { content: tooltip }
     end
   end
 
   def standalone_format_select(tooltip)
     h.simple_form_for :proposal, remote: true do |f|
       f.input :format,
-        required: false,
-        label_html: { class: 'info-item-heading' },
-        collection: format_options,
-        include_blank: Track::NO_TRACK,
-        selected: object.session_format_id,
-        id: 'track',
-        input_html: {
-          class: 'proposal-format-select form-control select',
-          data: {
-            target_path: h.event_staff_program_proposal_update_session_format_path(object.event, object)
-          },
-        },
-        popover_icon: { content: tooltip }
+              required: false,
+              label_html: { class: 'info-item-heading' },
+              collection: format_options,
+              include_blank: Track::NO_TRACK,
+              selected: object.session_format_id,
+              id: 'track',
+              input_html: {
+                class: 'proposal-format-select form-control select',
+                data: {
+                  target_path: h.event_staff_program_proposal_update_session_format_path(object.event, object)
+                }
+              },
+              popover_icon: { content: tooltip }
     end
   end
 
@@ -249,5 +251,4 @@ class ProposalDecorator < ApplicationDecorator
       'label-default'
     end
   end
-
 end

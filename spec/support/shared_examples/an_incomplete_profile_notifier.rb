@@ -17,7 +17,7 @@ RSpec.shared_examples_for 'an incomplete profile notifier' do
   context 'name is missing' do
     let(:msg) { lead_in_msg + blank_name_msg + trailing_msg }
 
-    before { user.update(name: nil) }
+    before do user.update(name: nil) end
 
     it_behaves_like 'an incomplete profile flash message'
   end
@@ -41,7 +41,7 @@ RSpec.shared_examples_for 'an incomplete profile notifier' do
   context 'an unconfirmed email is present' do
     let(:msg) { lead_in_msg + unconfirmed_email_msg + trailing_msg }
 
-    before { user.update(unconfirmed_email: 'changed@email.com') }
+    before do user.update(unconfirmed_email: 'changed@email.com') end
 
     it_behaves_like 'an incomplete profile flash message'
 
@@ -50,7 +50,7 @@ RSpec.shared_examples_for 'an incomplete profile notifier' do
         lead_in_msg + unconfirmed_email_and_blank_name_msg + trailing_msg
       end
 
-      before { user.update(name: nil) }
+      before do user.update(name: nil) end
 
       it_behaves_like 'an incomplete profile flash message'
     end

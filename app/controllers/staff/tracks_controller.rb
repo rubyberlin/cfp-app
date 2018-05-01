@@ -1,6 +1,5 @@
 class Staff::TracksController < Staff::ApplicationController
-
-  before_action :set_track, only: [:edit, :update, :destroy]
+  before_action :set_track, only: %i[edit update destroy]
 
   def index
     @tracks = current_event.tracks.sort_by_name
@@ -21,7 +20,7 @@ class Staff::TracksController < Staff::ApplicationController
   def create
     track = current_event.tracks.build(track_params)
     unless track.save
-      flash.now[:danger] = "There was a problem saving your track, #{track.errors.full_messages.join(", ")}."
+      flash.now[:danger] = "There was a problem saving your track, #{track.errors.full_messages.join(', ')}."
     end
     respond_to do |format|
       format.js do
@@ -31,10 +30,10 @@ class Staff::TracksController < Staff::ApplicationController
   end
 
   def update
-    if @track.update_attributes(track_params)
+    if @track.update(track_params)
       flash.now[:success] = "#{@track.name} has been updated." # changes to guildlines are invisible
     else
-      flash.now[:danger] = "There was a problem updating your track, #{@track.errors.full_messages.join(", ")}."
+      flash.now[:danger] = "There was a problem updating your track, #{@track.errors.full_messages.join(', ')}."
     end
     respond_to do |format|
       format.js do
@@ -63,5 +62,4 @@ class Staff::TracksController < Staff::ApplicationController
   def track_params
     params.require(:track).permit(:name, :description, :guidelines)
   end
-
 end

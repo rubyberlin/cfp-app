@@ -1,7 +1,6 @@
 module ScheduleHelper
-
   def row_time(time_slot)
-    if time_slot && time_slot.start_time
+    if time_slot&.start_time
       fmt = "%l:%M%p"
       "#{time_slot.start_time.strftime(fmt)} - #{time_slot.end_time.strftime(fmt)}"
     end
@@ -10,7 +9,7 @@ module ScheduleHelper
   def grid_data
     tracks = current_event.tracks.sort_by_name.pluck(:name).map(&:parameterize)
     {
-        tracks_css: tracks
+      tracks_css: tracks
     }
   end
 
@@ -27,20 +26,17 @@ module ScheduleHelper
             new_event_staff_schedule_grid_bulk_time_slot_path(current_event, day),
             class: 'btn btn-primary btn-sm generate-grid',
             remote: true,
-            data: {toggle: 'modal', target: '#bulk-time-slot-create-dialog'}
-    )
+            data: { toggle: 'modal', target: '#bulk-time-slot-create-dialog' })
   end
 
   def cancel_bulk_preview_button(day)
     link_to('Cancel',
             cancel_event_staff_schedule_grid_bulk_time_slot_path(current_event, day),
             class: 'btn btn-default btn-sm bulk-cancel',
-            remote: true
-    )
+            remote: true)
   end
 
   def session_format_duration_options
-    current_event.session_formats.sort_by_name.map {|sf| ["#{sf.name} (#{sf.duration} min)", sf.duration]}
+    current_event.session_formats.sort_by_name.map { |sf| ["#{sf.name} (#{sf.duration} min)", sf.duration] }
   end
-
 end

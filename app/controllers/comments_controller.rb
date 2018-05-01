@@ -4,11 +4,11 @@ class CommentsController < ApplicationController
 
     comment_attributes = comment_params.merge(user: current_user)
 
-    if comment_type == 'InternalComment'
-      @comment = @proposal.internal_comments.create(comment_attributes)
-    else
-      @comment = @proposal.public_comments.create(comment_attributes)
-    end
+    @comment = if comment_type == 'InternalComment'
+                 @proposal.internal_comments.create(comment_attributes)
+               else
+                 @proposal.public_comments.create(comment_attributes)
+               end
 
     unless @comment.valid?
       flash[:danger] = "Couldn't post comment: #{@comment.errors.full_messages.to_sentence}"
@@ -20,12 +20,13 @@ class CommentsController < ApplicationController
   end
 
   private
+
   def comment_type
-    @comment_type ||= valid_comment_types.find{|t| t==params[:type]} || 'PublicComment'
+    @comment_type ||= valid_comment_types.find { |t| t == params[:type] } || 'PublicComment'
   end
 
   def valid_comment_types
-    @valid_comment_types ||= ['PublicComment', 'InternalComment']
+    @valid_comment_types ||= %w[PublicComment InternalComment]
   end
 
   def comment_params

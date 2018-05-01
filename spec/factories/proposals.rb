@@ -20,14 +20,14 @@ FactoryBot.define do
     trait :with_reviewer_public_comment do
       after(:create) do |proposal|
         reviewer = create(:user, :reviewer)
-        create(:comment, proposal: proposal, type: "PublicComment", user: reviewer, body: "Reviewer comment" )
+        create(:comment, proposal: proposal, type: "PublicComment", user: reviewer, body: "Reviewer comment")
       end
     end
 
     trait :with_organizer_public_comment do
       after(:create) do |proposal|
-        organizer = create(:organizer, event: proposal.event )
-        create(:comment, proposal: proposal, type: "PublicComment", user: organizer, body: "Organizer comment" )
+        organizer = create(:organizer, event: proposal.event)
+        create(:comment, proposal: proposal, type: "PublicComment", user: organizer, body: "Organizer comment")
       end
     end
 

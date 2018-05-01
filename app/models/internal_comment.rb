@@ -25,11 +25,13 @@ class InternalComment < Comment
 
   def notify_mentioned_event_staff
     proposal.mentioned_event_staff(mention_names, user_id).each do |mentioned|
-      teammate = mentioned.teammates.find{|t| t.event_id == proposal.event_id }
+      teammate = mentioned.teammates.find { |t| t.event_id == proposal.event_id }
       mention = "@#{teammate.mention_name}"
       Notification.create_for(mentioned, proposal: proposal, message: "#{user.name} mentioned you in a new internal comment")
-      CommentNotificationMailer.mention_notification(proposal, self, mentioned, mention)
-        .deliver_now unless teammate.notification_preference == Teammate::IN_APP_ONLY
+      unless teammate.notification_preference == Teammate::IN_APP_ONLY
+        CommentNotificationMailer.mention_notification(proposal, self, mentioned, mention)
+                                 .deliver_now
+      end
     end
   end
 end

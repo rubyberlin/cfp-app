@@ -68,10 +68,9 @@ describe ProposalsController, type: :controller do
       ProgramSession.create_from_proposal(proposal)
       allow_any_instance_of(ProposalsController).to receive(:current_user) { create(:speaker) }
       allow(controller).to receive(:require_speaker).and_return(nil)
-      post :confirm, params: {event_slug: proposal.event.slug, uuid: proposal.uuid}
+      post :confirm, params: { event_slug: proposal.event.slug, uuid: proposal.uuid }
       expect(proposal.reload).to be_confirmed
     end
-
   end
 
   describe "POST #update_notes" do
@@ -79,8 +78,8 @@ describe ProposalsController, type: :controller do
       proposal = create(:proposal, confirmation_notes: nil)
       allow_any_instance_of(ProposalsController).to receive(:current_user) { create(:speaker) }
       allow(controller).to receive(:require_speaker).and_return(nil)
-      post :update_notes, params: {event_slug: proposal.event.slug, uuid: proposal.uuid,
-           proposal: {confirmation_notes: 'notes'}}
+      post :update_notes, params: { event_slug: proposal.event.slug, uuid: proposal.uuid,
+                                    proposal: { confirmation_notes: 'notes' } }
       expect(proposal.reload.confirmation_notes).to eq('notes')
     end
   end
@@ -92,20 +91,20 @@ describe ProposalsController, type: :controller do
     before { allow(controller).to receive(:require_speaker).and_return(nil) }
 
     it "sets the state to withdrawn for unconfirmed proposals" do
-      post :withdraw, params: {event_slug: event.slug, uuid: proposal.uuid}
+      post :withdraw, params: { event_slug: event.slug, uuid: proposal.uuid }
       expect(proposal.reload).to be_withdrawn
     end
 
     it "leaves state unchanged for confirmed proposals" do
       proposal.update_attribute(:confirmed_at, Time.now)
-      post :withdraw, params: {event_slug: event.slug, uuid: proposal.uuid}
+      post :withdraw, params: { event_slug: event.slug, uuid: proposal.uuid }
       expect(proposal.reload).not_to be_withdrawn
     end
 
     it "sends an in-app notification to reviewers" do
       create(:rating, proposal: proposal, user: create(:organizer))
       expect {
-        post :withdraw, params: {event_slug: event.slug, uuid: proposal.uuid}
+        post :withdraw, params: { event_slug: event.slug, uuid: proposal.uuid }
       }.to change { Notification.count }.by(1)
     end
   end
@@ -117,33 +116,33 @@ describe ProposalsController, type: :controller do
     before { allow(controller).to receive(:require_speaker).and_return(nil) }
 
     it "sets the state to withdrawn for unconfirmed proposals" do
-      post :decline, params: {event_slug: proposal.event.slug, uuid: proposal.uuid}
+      post :decline, params: { event_slug: proposal.event.slug, uuid: proposal.uuid }
       expect(proposal.reload).to be_withdrawn
     end
 
     it "sets the state to withdrawn for confirmed proposals" do
       proposal.update_attribute(:confirmed_at, Time.now)
-      post :decline, params: {event_slug: proposal.event.slug, uuid: proposal.uuid}
+      post :decline, params: { event_slug: proposal.event.slug, uuid: proposal.uuid }
       expect(proposal.reload).to be_withdrawn
     end
 
     it "changes the proposal program session state to declined" do
-      post :decline, params: {event_slug: proposal.event.slug, uuid: proposal.uuid}
+      post :decline, params: { event_slug: proposal.event.slug, uuid: proposal.uuid }
       expect(assigns(:proposal).program_session.state).to eq('declined')
     end
   end
 
   describe 'PUT #update' do
     let(:speaker) { create(:speaker) }
-    let(:proposal) { create(:proposal, speakers: [ speaker ] ) }
+    let(:proposal) { create(:proposal, speakers: [speaker]) }
 
     before { sign_in(speaker.user) }
 
     it "updates a proposals attributes" do
       proposal.update(title: 'orig_title', pitch: 'orig_pitch')
 
-      put :update, params: {event_slug: proposal.event.slug, uuid: proposal,
-        proposal: { title: 'new_title', pitch: 'new_pitch' }}
+      put :update, params: { event_slug: proposal.event.slug, uuid: proposal,
+                             proposal: { title: 'new_title', pitch: 'new_pitch' } }
 
       expect(assigns(:proposal).title).to eq('new_title')
       expect(assigns(:proposal).pitch).to eq('new_pitch')
@@ -157,9 +156,9 @@ describe ProposalsController, type: :controller do
       create(:rating, proposal: proposal, user: organizer)
 
       expect {
-        put :update, params: {event_slug: proposal.event.slug, uuid: proposal,
-          proposal: { abstract: proposal.abstract, title: 'new_title',
-                      pitch: 'new_pitch' }}
+        put :update, params: { event_slug: proposal.event.slug, uuid: proposal,
+                               proposal: { abstract: proposal.abstract, title: 'new_title',
+                                           pitch: 'new_pitch' } }
       }.to change { Notification.count }.by(1)
     end
   end

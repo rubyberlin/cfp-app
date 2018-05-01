@@ -9,7 +9,7 @@ describe CommentsController, type: :controller do
 
     before do
       allow(Proposal).to receive(:find).and_return(proposal)
-      request.env['HTTP_REFERER'] =  referer_path
+      request.env['HTTP_REFERER'] = referer_path
     end
 
     context "Public comments" do
@@ -27,7 +27,7 @@ describe CommentsController, type: :controller do
         # expect(PublicComment).to receive(:create).and_return(comment)
         expect {
           post :create, params: params
-        }.to change {PublicComment.count}.by(1)
+        }.to change { PublicComment.count }.by(1)
       end
 
       it "returns to the referer" do
@@ -57,7 +57,7 @@ describe CommentsController, type: :controller do
     context "Internal comments" do
       let(:comment) { build(:comment, type: "InternalComment") }
       let(:params) { { internal_comment: { body: 'foo', proposal_id: proposal.id }, type: "InternalComment" } }
-      let(:reviewer) { build(:reviewer)}
+      let(:reviewer) { build(:reviewer) }
 
       before do
         allow_any_instance_of(CommentsController).to receive(:current_user) { reviewer }
@@ -67,7 +67,7 @@ describe CommentsController, type: :controller do
         # expect(InternalComment).to receive(:create).and_return(comment)
         expect {
           post :create, params: params
-        }.to change {InternalComment.count}.by(1)
+        }.to change { InternalComment.count }.by(1)
       end
 
       it "returns to the referer" do

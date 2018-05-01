@@ -53,13 +53,11 @@ class Staff::ProgramSessionDecorator < ApplicationDecorator
   def ps_data
     data = {
       track_css: track_name.try(:parameterize),
-      id: object.id,
+      id: object.id
     }
     if object.time_slot
-      data.merge!({
-        scheduled: object.time_slot.id,
-        unschedule_time_slot_path: h.event_staff_schedule_grid_time_slot_url(object.event, object.time_slot)
-      })
+      data[:scheduled] = object.time_slot.id
+      data[:unschedule_time_slot_path] = h.event_staff_schedule_grid_time_slot_url(object.event, object.time_slot)
     end
     data
   end

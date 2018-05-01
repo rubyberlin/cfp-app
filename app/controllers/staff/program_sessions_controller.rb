@@ -12,8 +12,8 @@ class Staff::ProgramSessionsController < Staff::ApplicationController
     session[:prev_page] = { name: 'Program', path: event_staff_program_sessions_path(current_event) }
 
     respond_to do |format|
-      format.html { render }
-      format.json { render_json(current_event.program_sessions.live, filename: json_filename)}
+      format.html do render end
+      format.json { render_json(current_event.program_sessions.live, filename: json_filename) }
     end
   end
 
@@ -38,7 +38,6 @@ class Staff::ProgramSessionsController < Staff::ApplicationController
       flash[:danger] = "There was a problem updating this program session."
       render :edit
     end
-
   end
 
   def new
@@ -51,9 +50,9 @@ class Staff::ProgramSessionsController < Staff::ApplicationController
     @program_session = current_event.program_sessions.build(program_session_params)
     authorize @program_session
     @program_session.state = ProgramSession::DRAFT
-    @program_session.speakers.each { |speaker| speaker.event_id = current_event.id }
+    @program_session.speakers.each do |speaker| speaker.event_id = current_event.id end
     if @program_session.save
-      redirect_to event_staff_program_session_path(current_event,  @program_session)
+      redirect_to event_staff_program_session_path(current_event, @program_session)
     else
       flash[:danger] = "Program session was unable to be saved: #{@program_session.errors.full_messages.to_sentence}"
       render :new
@@ -93,8 +92,8 @@ class Staff::ProgramSessionsController < Staff::ApplicationController
   def program_session_params
     params.require(:program_session).permit(:id, :session_format_id, :track_id, :title,
                                             :abstract, :state, :video_url, :slides_url,
-                                            speakers_attributes: [:id, :bio, :speaker_name, :speaker_email],
-                                            proposal_attributes: [:id, :confirmation_notes])
+                                            speakers_attributes: %i[id bio speaker_name speaker_email],
+                                            proposal_attributes: %i[id confirmation_notes])
   end
 
   def json_filename

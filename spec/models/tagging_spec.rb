@@ -3,19 +3,19 @@ require 'rails_helper'
 describe Tagging do
   describe '.tags_string_to_array' do
     it 'splits comma separated string into tags' do
-      expect(Tagging.tags_string_to_array('one,two,three')).to match_array ['one', 'two', 'three']
+      expect(Tagging.tags_string_to_array('one,two,three')).to match_array %w[one two three]
     end
     it 'strips leading and trailing whitespace from tags' do
-      expect(Tagging.tags_string_to_array('  one  , two , three   ')).to match_array ['one', 'two', 'three']
+      expect(Tagging.tags_string_to_array('  one  , two , three   ')).to match_array %w[one two three]
     end
     it 'allows whitespace inside a tag' do
       expect(Tagging.tags_string_to_array('one,two,third element')).to match_array ['one', 'two', 'third element']
     end
     it 'removes extra commas' do
-      expect(Tagging.tags_string_to_array(' ,  one,   ,two , ,three,')).to match_array ['one', 'two', 'three']
+      expect(Tagging.tags_string_to_array(' ,  one,   ,two , ,three,')).to match_array %w[one two three]
     end
     it 'removes duplicated tags' do
-      expect(Tagging.tags_string_to_array('one,one,two,three')).to match_array ['one', 'two', 'three']
+      expect(Tagging.tags_string_to_array('one,one,two,three')).to match_array %w[one two three]
     end
   end
 
@@ -29,14 +29,14 @@ describe Tagging do
 
     it 'gives a count for one tag' do
       create(:tagging, tag: 'intro', proposal: proposal)
-      expect(Tagging.count_by_tag(event)).to eq({"intro" => 1})
+      expect(Tagging.count_by_tag(event)).to eq("intro" => 1)
     end
 
     it 'gives a count for each tag' do
       create_list(:tagging, 4, tag: "intro", proposal: proposal)
       create_list(:tagging, 5, tag: "advanced", proposal: proposal)
 
-      expect(Tagging.count_by_tag(event)).to eq({"intro" => 4, "advanced" => 5})
+      expect(Tagging.count_by_tag(event)).to eq("intro" => 4, "advanced" => 5)
     end
 
     it "only counts tags attached to event" do

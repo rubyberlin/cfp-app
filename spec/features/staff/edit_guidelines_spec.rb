@@ -3,32 +3,35 @@ require 'rails_helper'
 feature "Event Guidelines" do
   let(:event) { create(:event, name: "My Event") }
   let(:admin_user) { create(:user, admin: true) }
-  let!(:admin_teammate) { create(:teammate,
-                                   event: event,
-                                   user: admin_user,
-                                   role: "organizer"
-                                  )
+  let!(:admin_teammate) {
+    create(:teammate,
+           event: event,
+           user: admin_user,
+           role: "organizer")
   }
 
   let(:organizer_user) { create(:user) }
-  let!(:event_staff_teammate) { create(:teammate,
-                                       event: event,
-                                       user: organizer_user,
-                                       role: "organizer")
+  let!(:event_staff_teammate) {
+    create(:teammate,
+           event: event,
+           user: organizer_user,
+           role: "organizer")
   }
 
   let(:reviewer_user) { create(:user) }
-  let!(:reviewer_teammate) { create(:teammate,
-                                      event: event,
-                                      user: reviewer_user,
-                                      role: "reviewer")
+  let!(:reviewer_teammate) {
+    create(:teammate,
+           event: event,
+           user: reviewer_user,
+           role: "reviewer")
   }
 
   let(:program_team_user) { create(:user) }
-  let!(:program_team_teammate) { create(:teammate,
-                                      event: event,
-                                      user: program_team_user,
-                                      role: "program team")
+  let!(:program_team_teammate) {
+    create(:teammate,
+           event: event,
+           user: program_team_user,
+           role: "program team")
   }
 
   context "An admin organizer" do
@@ -104,5 +107,4 @@ feature "Event Guidelines" do
       expect(page).to have_content "We want all the good talks!"
     end
   end
-
 end

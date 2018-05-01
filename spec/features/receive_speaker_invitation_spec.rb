@@ -2,18 +2,21 @@ require 'rails_helper'
 
 feature 'Speaker Invitation received' do
   let(:event) { create(:event, state: 'open') }
-  let(:proposal) { create(:proposal,
-                          title: 'Hello there',
-                          abstract: 'Well then.',
-                          event: event)
+  let(:proposal) {
+    create(:proposal,
+           title: 'Hello there',
+           abstract: 'Well then.',
+           event: event)
   }
-  let!(:knownguy_invitation) { create(:invitation,
-                             proposal: proposal,
-                             email: known_user.email)
+  let!(:knownguy_invitation) {
+    create(:invitation,
+           proposal: proposal,
+           email: known_user.email)
   }
-  let!(:newguy_invitation) { create(:invitation,
-                                   proposal: proposal,
-                                   email: "newguy@speak.er")
+  let!(:newguy_invitation) {
+    create(:invitation,
+           proposal: proposal,
+           email: "newguy@speak.er")
   }
   let(:known_user) { create(:user, email: "second@speak.er", password: "12345678") }
 

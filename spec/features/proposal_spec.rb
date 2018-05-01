@@ -4,8 +4,8 @@ feature "Proposals" do
   let!(:user) { create(:user) }
   let!(:event) { create(:event, state: 'open') }
   let!(:closed_event) { create(:event, state: 'closed') }
-  let!(:session_format) { create(:session_format, name: 'Only format')}
-  let(:session_format2) { create(:session_format, name: '2nd format')}
+  let!(:session_format) { create(:session_format, name: 'Only format') }
+  let(:session_format2) { create(:session_format, name: '2nd format') }
 
   let(:go_to_new_proposal) { visit new_event_proposal_path(event_slug: event.slug) }
 
@@ -87,7 +87,7 @@ feature "Proposals" do
     end
 
     context "with Session Formats" do
-      #Default if one Session Format that it is auto-selected
+      # Default if one Session Format that it is auto-selected
       it "doesn't show session format validation if one session format" do
         go_to_new_proposal
         create_invalid_proposal
@@ -214,7 +214,6 @@ feature "Proposals" do
         expect(page).not_to have_link('Confirm my participation')
       end
     end
-
   end
 
   context "when deleted" do
@@ -251,7 +250,6 @@ feature "Proposals" do
   end
 
   context "when declined" do
-
     before do
       @proposal = create(:proposal, state: Proposal::State::ACCEPTED)
       speaker = create(:speaker, proposal: @proposal, user: user)

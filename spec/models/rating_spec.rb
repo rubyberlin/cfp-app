@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe Rating do
-
   it 'can scope by Event' do
     event1 = create :event, name: 'RubyConf 2013'
     event2 = create :event, name: 'RubyConf 2014'
@@ -16,5 +15,4 @@ describe Rating do
     expect(Rating.for_event(event1).count).to eq(1)
     expect(Rating.for_event(event2).count).to eq(2)
   end
-
 end

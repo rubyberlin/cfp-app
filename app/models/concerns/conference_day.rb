@@ -2,10 +2,10 @@ class ConferenceDay
   attr_reader :conf_slots
 
   def initialize(day, event)
-    start_times = TimeSlot.where(conference_day: day, event_id: event.id).pluck(:start_time).uniq.sort_by { |start_time| start_time }
-    @conf_slots = start_times.map do |start_time|
+    start_times = TimeSlot.where(conference_day: day, event_id: event.id).pluck(:start_time).uniq.sort
+    @conf_slots = start_times.map { |start_time|
       ConferenceDaySlot.new(day, start_time, event)
-    end
+    }
   end
 
   def session_empty?(session, index, time_slot)

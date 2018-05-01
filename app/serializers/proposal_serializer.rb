@@ -2,11 +2,9 @@ class ProposalSerializer < ActiveModel::Serializer
   attributes :title, :abstract, :review_tags, :id, :track, :video_url, :slides_url, :custom_fields
   has_many :speakers
 
-  def review_tags
-    object.review_tags
-  end
+  delegate :review_tags, to: :object
 
   def track
-    object.track.name if object.track
+    object.track&.name
   end
 end

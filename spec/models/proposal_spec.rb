@@ -20,7 +20,6 @@ describe Proposal do
       rated.each { |proposal| create(:rating, proposal: proposal) }
 
       expect(Proposal.rated).to match_array(rated)
-
     end
   end
 
@@ -68,11 +67,11 @@ describe Proposal do
       user1 = create(:user, email: 'user1@test.com')
       user2 = create(:user, email: 'user2@test.com')
 
-      create(:proposal, speakers: [ create(:speaker, user: user1) ])
-      create(:proposal, speakers: [ create(:speaker, user: user2) ])
+      create(:proposal, speakers: [create(:speaker, user: user1)])
+      create(:proposal, speakers: [create(:speaker, user: user2)])
 
       emails = Proposal.all.emails
-      expect(emails).to match_array([ user1.email, user2.email ])
+      expect(emails).to match_array([user1.email, user2.email])
     end
   end
 
@@ -80,8 +79,8 @@ describe Proposal do
     let(:proposal) { build(:proposal, title: 'Dioramas!', abstract: 'Are great!') }
 
     it 'sets a UUID before creation' do
-      expect(Digest::SHA1).to receive(:hexdigest) { 'greendalecollege'}
-      expect{proposal.save}.to change{proposal.uuid}.from(nil).to('greendalec')
+      expect(Digest::SHA1).to receive(:hexdigest) { 'greendalecollege' }
+      expect { proposal.save }.to change { proposal.uuid }.from(nil).to('greendalec')
     end
 
     it "limits abstracts to 1000 characters or less" do
@@ -148,7 +147,6 @@ describe Proposal do
       unconfirmed_accepted_proposal = create(:proposal, state: Proposal::ACCEPTED)
       confirmed_accepted_proposal = create(:proposal, state: Proposal::ACCEPTED, confirmed_at: DateTime.now)
 
-
       Proposal.all.each do |prop|
         create(:program_session, proposal: prop)
         expect(prop.program_session).to receive(:confirm)
@@ -176,9 +174,8 @@ describe Proposal do
       create(:proposal, state: Proposal::SOFT_WAITLISTED)
       create(:proposal, state: Proposal::SOFT_REJECTED)
 
-
       Proposal.all.each do |prop|
-        expect{ prop.promote }.not_to change(prop, :state)
+        expect { prop.promote }.not_to change(prop, :state)
       end
     end
   end
@@ -199,8 +196,8 @@ describe Proposal do
   describe "state changing" do
     describe "#finalized?" do
       it "returns false for all soft states" do
-        soft_states = [ SOFT_ACCEPTED, SOFT_WAITLISTED,
-                        SOFT_REJECTED, SUBMITTED ]
+        soft_states = [SOFT_ACCEPTED, SOFT_WAITLISTED,
+                       SOFT_REJECTED, SUBMITTED]
 
         soft_states.each do |state|
           proposal = create(:proposal, state: state)
@@ -220,7 +217,7 @@ describe Proposal do
 
     describe "#becomes_program_session?" do
       it "returns true for WAITLISTED and  ACCEPTED" do
-        states = [ ACCEPTED, WAITLISTED ]
+        states = [ACCEPTED, WAITLISTED]
 
         states.each do |state|
           proposal = create(:proposal, state: state)
@@ -229,7 +226,7 @@ describe Proposal do
       end
 
       it "returns false for SUBMITTED and REJECTED" do
-        states = [ SUBMITTED, REJECTED ]
+        states = [SUBMITTED, REJECTED]
 
         states.each do |state|
           proposal = create(:proposal, state: state)
@@ -259,9 +256,7 @@ describe Proposal do
         rejected_proposal = create(:proposal, state: SOFT_REJECTED)
         submitted_proposal = create(:proposal, state: SUBMITTED)
 
-        Proposal.all.each do |prop|
-          prop.finalize
-        end
+        Proposal.all.each(&:finalize)
 
         expect(waitlisted_proposal.reload.program_session.state).to eq('unconfirmed waitlisted')
         expect(accepted_proposal.reload.program_session.state).to eq('unconfirmed accepted')
@@ -298,57 +293,55 @@ describe Proposal do
     let(:proposal) { create(:proposal, title: 't') }
 
     context "proposal tags" do
-
       it 'creates taggings from the tags array' do
-        proposal.tags = ['one', 'two', 'three']
-        expect(proposal.proposal_taggings).to match_tags(['one', 'two', 'three'])
+        proposal.tags = %w[one two three]
+        expect(proposal.proposal_taggings).to match_tags(%w[one two three])
       end
 
       it 'adds taggings added to the tags array' do
-        proposal.tags = ['one', 'two']
-        expect(proposal.proposal_taggings).to match_tags(['one', 'two'])
+        proposal.tags = %w[one two]
+        expect(proposal.proposal_taggings).to match_tags(%w[one two])
 
-        proposal.tags = ['one', 'two', 'three']
-        expect(proposal.proposal_taggings).to match_tags(['one', 'two', 'three'])
+        proposal.tags = %w[one two three]
+        expect(proposal.proposal_taggings).to match_tags(%w[one two three])
       end
 
       it 'removes taggings removed from the tags array' do
-        proposal.tags = ['one', 'two', 'three']
-        expect(proposal.proposal_taggings).to match_tags(['one', 'two', 'three'])
-        proposal.tags = ['one', 'two']
-        expect(proposal.proposal_taggings).to match_tags(['one', 'two'])
+        proposal.tags = %w[one two three]
+        expect(proposal.proposal_taggings).to match_tags(%w[one two three])
+        proposal.tags = %w[one two]
+        expect(proposal.proposal_taggings).to match_tags(%w[one two])
       end
 
       it 'prevents duplicate taggings' do
-        proposal.tags = ['one', 'two', 'three', 'one', 'two', 'three']
-        expect(proposal.proposal_taggings).to match_tags(['one', 'two', 'three'])
+        proposal.tags = %w[one two three one two three]
+        expect(proposal.proposal_taggings).to match_tags(%w[one two three])
       end
     end
 
     context "review tags" do
-
       it 'creates taggings from the review_tags array' do
-        proposal.review_tags = ['one', 'two', 'three']
-        expect(proposal.review_taggings).to match_tags(['one', 'two', 'three'])
+        proposal.review_tags = %w[one two three]
+        expect(proposal.review_taggings).to match_tags(%w[one two three])
       end
 
       it 'adds taggings added to the tags array' do
-        proposal.review_tags = ['one', 'two']
-        expect(proposal.review_taggings).to match_tags(['one', 'two'])
-        proposal.review_tags = ['one', 'two', 'three']
-        expect(proposal.review_taggings).to match_tags(['one', 'two', 'three'])
+        proposal.review_tags = %w[one two]
+        expect(proposal.review_taggings).to match_tags(%w[one two])
+        proposal.review_tags = %w[one two three]
+        expect(proposal.review_taggings).to match_tags(%w[one two three])
       end
 
       it 'removes taggings removed from the tags array' do
-        proposal.review_tags = ['one', 'two', 'three']
-        expect(proposal.review_taggings).to match_tags(['one', 'two', 'three'])
-        proposal.review_tags = ['one', 'two']
-        expect(proposal.review_taggings).to match_tags(['one', 'two'])
+        proposal.review_tags = %w[one two three]
+        expect(proposal.review_taggings).to match_tags(%w[one two three])
+        proposal.review_tags = %w[one two]
+        expect(proposal.review_taggings).to match_tags(%w[one two])
       end
 
       it 'prevents duplicate taggings' do
-        proposal.review_tags = ['one', 'two', 'three', 'one', 'two', 'three']
-        expect(proposal.review_taggings).to match_tags(['one', 'two', 'three'])
+        proposal.review_tags = %w[one two three one two three]
+        expect(proposal.review_taggings).to match_tags(%w[one two three])
       end
     end
   end
@@ -356,16 +349,16 @@ describe Proposal do
   describe "#save" do
     let(:proposal) { create(:proposal, title: 't') }
     before do
-      proposal.tags = ['one', 'two', 'three']
-      proposal.review_tags = ['four', 'five', 'six']
+      proposal.tags = %w[one two three]
+      proposal.review_tags = %w[four five six]
       proposal.save
       proposal.reload
     end
     it 'creates proposal_tags' do
-      expect(proposal.tags).to match_array ['one', 'two', 'three']
+      expect(proposal.tags).to match_array %w[one two three]
     end
     it 'creates review_tags' do
-      expect(proposal.review_tags).to match_array ['four', 'five', 'six']
+      expect(proposal.review_tags).to match_array %w[four five six]
     end
     it "clears proposal_tags if attribute is empty array" do
       proposal.tags = [""] # this is the form param when nothing is checked
@@ -383,13 +376,13 @@ describe Proposal do
       proposal.tags = nil # this is the form param if not in form at all
       proposal.save
       proposal.reload
-      expect(proposal.tags).to match_array ['one', 'two', 'three']
+      expect(proposal.tags).to match_array %w[one two three]
     end
     it "doesn't reset review_tags if attribute not set" do
       proposal.review_tags = nil # this is the form param if not in form at all
       proposal.save
       proposal.reload
-      expect(proposal.review_tags).to match_array ['four', 'five', 'six']
+      expect(proposal.review_tags).to match_array %w[four five six]
     end
   end
 
@@ -400,14 +393,14 @@ describe Proposal do
     describe ".last_change" do
       describe "when role organizer" do
         it "is cleared" do
-          proposal.update_attributes(title: 'Organizer Edited Title', updating_user: organizer)
+          proposal.update(title: 'Organizer Edited Title', updating_user: organizer)
           expect(proposal.last_change).to be_nil
         end
       end
 
       describe "when not role organizer" do
         it "is set to the attributes that were just updated" do
-          proposal.update_attributes(title: 'Edited Title')
+          proposal.update(title: 'Edited Title')
           expect(proposal.last_change).to eq(["title"])
         end
       end
@@ -448,7 +441,7 @@ describe Proposal do
         { scores: [1, 1, 3, 5, 5], result: 1.78885 },
         { scores: [2, 3, 4, 5, 1], result: 1.41421 },
         { scores: [4, 5, 1, 2], result: 1.58113 },
-        { scores: [4], result: 0 },
+        { scores: [4], result: 0 }
       ]
 
       values.each do |value|
@@ -477,7 +470,7 @@ describe Proposal do
       create(:rating, user: reviewer, proposal: proposal)
       proposal.public_comments.create(attributes_for(:comment, user: organizer))
 
-      expect(proposal.reviewers).to match_array([ reviewer, organizer ])
+      expect(proposal.reviewers).to match_array([reviewer, organizer])
     end
 
     it "does not return uninvolved reviewers" do
@@ -488,7 +481,7 @@ describe Proposal do
       create(:rating, user: reviewer, proposal: proposal)
       proposal.public_comments.create(attributes_for(:comment, user: reviewer))
 
-      expect(proposal.reviewers).to match_array([ reviewer ])
+      expect(proposal.reviewers).to match_array([reviewer])
     end
   end
 
@@ -513,7 +506,7 @@ describe Proposal do
     end
 
     it 'returns only reviewers with all emails turned on' do
-      expect(proposal.emailable_reviewers).to match_array([ reviewer ])
+      expect(proposal.emailable_reviewers).to match_array([reviewer])
     end
   end
 

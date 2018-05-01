@@ -10,7 +10,6 @@ feature "Teammate Invitation received" do
 
   context "User who is not signed in" do
     describe "accepts invitation" do
-
       it "is redirected to the login page with a message" do
         visit accept_teammate_path(knownguy_invitation.token)
         expect(page).to have_content("To accept your invitation, you must log in or create an account.")
@@ -159,5 +158,4 @@ feature "Teammate Invitation received" do
       expect(page).to have_text("Events")
     end
   end
-
 end

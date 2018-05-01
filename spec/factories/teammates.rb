@@ -27,6 +27,5 @@ FactoryBot.define do
     trait :organizer do
       role "organizer"
     end
-
   end
 end

@@ -1,7 +1,7 @@
 class Staff::RoomsController < Staff::ApplicationController
   include ScheduleSupport
 
-  before_action :set_room, only: [:update, :destroy]
+  before_action :set_room, only: %i[update destroy]
 
   def index
     @rooms = current_event.rooms.grid_order
@@ -10,7 +10,7 @@ class Staff::RoomsController < Staff::ApplicationController
   def create
     room = current_event.rooms.build(room_params)
     unless room.save
-      flash.now[:danger] = "There was a problem saving your room, #{room.errors.full_messages.join(", ")}"
+      flash.now[:danger] = "There was a problem saving your room, #{room.errors.full_messages.join(', ')}"
     end
     respond_to do |format|
       format.js do
@@ -20,8 +20,8 @@ class Staff::RoomsController < Staff::ApplicationController
   end
 
   def update
-    unless @room.update_attributes(room_params)
-      flash.now[:danger] = "There was a problem updating your room, #{@room.errors.full_messages.join(", ")}."
+    unless @room.update(room_params)
+      flash.now[:danger] = "There was a problem updating your room, #{@room.errors.full_messages.join(', ')}."
     end
     respond_to do |format|
       format.js do
@@ -52,5 +52,4 @@ class Staff::RoomsController < Staff::ApplicationController
   def set_room
     @room = current_event.rooms.find(params[:id])
   end
-
 end

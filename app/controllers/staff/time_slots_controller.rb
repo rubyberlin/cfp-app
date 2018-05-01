@@ -1,7 +1,7 @@
 class Staff::TimeSlotsController < Staff::ApplicationController
   include ScheduleSupport
 
-  before_action :set_time_slot, only: [:edit, :update, :destroy]
+  before_action :set_time_slot, only: %i[edit update destroy]
   before_action :set_time_slots, only: :index
 
   helper_method :time_slot_decorated
@@ -11,7 +11,7 @@ class Staff::TimeSlotsController < Staff::ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.csv { send_data time_slots.to_csv }
+      format.csv do send_data time_slots.to_csv end
       # note: we don't use the decorator with the json output
       format.json { render_json(@time_slots, filename: json_filename) }
     end
@@ -53,11 +53,10 @@ class Staff::TimeSlotsController < Staff::ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    if @time_slot.update_attributes(time_slot_params)
+    if @time_slot.update(time_slot_params)
       flash.now[:info] = "Time slot updated."
     else
       flash.now[:danger] = "There was a problem saving this time slot."
@@ -90,7 +89,7 @@ class Staff::TimeSlotsController < Staff::ApplicationController
 
   def set_time_slots
     @time_slots = current_event.time_slots.grid_order
-                      .includes(:room, program_session: { proposal: {speakers: :user }})
+                               .includes(:room, program_session: { proposal: { speakers: :user } })
   end
 
   def time_slot_decorated

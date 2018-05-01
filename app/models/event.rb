@@ -1,5 +1,4 @@
 class Event < ApplicationRecord
-
   has_many :teammates, dependent: :destroy
   has_many :staff, through: :teammates, source: :user
   has_many :proposals, dependent: :destroy
@@ -12,7 +11,7 @@ class Event < ApplicationRecord
   has_many :taggings, through: :proposals
   has_many :ratings, through: :proposals
 
-  has_many :public_session_formats, ->{ where(public: true) }, class_name: SessionFormat
+  has_many :public_session_formats, -> { where(public: true) }, class_name: SessionFormat
 
   accepts_nested_attributes_for :proposals
 
@@ -26,11 +25,10 @@ class Event < ApplicationRecord
   store_accessor :speaker_notification_emails, :reject
   store_accessor :speaker_notification_emails, :waitlist
 
-
   scope :a_to_z, -> { order('name ASC') }
   scope :closes_up, -> { order('closes_at ASC') }
   scope :live, -> { where("state = 'open' and (closes_at is null or closes_at > ?)", Time.current) }
-  scope :not_draft, -> { where "state != 'draft'"}
+  scope :not_draft, -> { where "state != 'draft'" }
 
   validates :name, presence: true
   validates :slug, presence: true, uniqueness: true
@@ -41,7 +39,7 @@ class Event < ApplicationRecord
 
   STATUSES = { open: 'open',
                draft: 'draft',
-               closed: 'closed' }
+               closed: 'closed' }.freeze
 
   def to_param
     slug
@@ -60,9 +58,7 @@ class Event < ApplicationRecord
 
   def remove_speaker_email_template(template)
     attr = SpeakerEmailTemplate::TYPES.find { |type| type == template }
-    if attr
-      update_attribute(attr, "")
-    end
+    update_attribute(attr, "") if attr
   end
 
   def public_tags?
@@ -90,7 +86,7 @@ class Event < ApplicationRecord
   end
 
   def custom_fields_string=(custom_fields_string)
-    self.custom_fields = self.custom_fields_string_to_array(custom_fields_string)
+    self.custom_fields = custom_fields_string_to_array(custom_fields_string)
   end
 
   def custom_fields_string_to_array(string)
@@ -102,7 +98,7 @@ class Event < ApplicationRecord
   end
 
   def fields
-    self.proposals.column_names.join(', ')
+    proposals.column_names.join(', ')
   end
 
   def multiple_tracks?
@@ -153,9 +149,7 @@ class Event < ApplicationRecord
     missing_prereqs << "Event must have a start date" unless start_date
     missing_prereqs << "Event must have a end date" unless end_date
 
-    unless rooms.size > 0
-      missing_prereqs << "Event must have at least one room"
-    end
+    missing_prereqs << "Event must have at least one room" if rooms.empty?
 
     missing_prereqs
   end
@@ -163,13 +157,13 @@ class Event < ApplicationRecord
   def incomplete_checklist_items
     missing_items = []
 
-    missing_items << "Event must have a url" unless url.present?
+    missing_items << "Event must have a url" if url.blank?
     missing_items << "Event must have a start date" unless start_date
     missing_items << "Event must have an end date" unless end_date
-    missing_items << "Event must have a contact email" unless contact_email.present?
+    missing_items << "Event must have a contact email" if contact_email.blank?
     missing_items << "Event must have a CFP closes at date set for a future date" unless closes_at && (closes_at > Time.current)
-    missing_items << "Event must have at least one public session format" unless public_session_formats.present?
-    missing_items << "Event must have guidelines" unless guidelines.present?
+    missing_items << "Event must have at least one public session format" if public_session_formats.blank?
+    missing_items << "Event must have guidelines" if guidelines.blank?
 
     missing_items
   end
@@ -185,15 +179,11 @@ class Event < ApplicationRecord
   end
 
   def archive
-    if current?
-      update_attribute(:archived, true)
-    end
+    update_attribute(:archived, true) if current?
   end
 
   def unarchive
-    if archived?
-      update_attribute(:archived, false)
-    end
+    update_attribute(:archived, false) if archived?
   end
 
   def current?
@@ -214,7 +204,7 @@ class Event < ApplicationRecord
 
   def url_must_be_valid
     uri = URI.parse(url)
-    unless uri.kind_of?(URI::HTTP) || uri.kind_of?(URI::HTTPS)
+    unless uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
       errors.add(:url, "must start with http:// or https://")
     end
   rescue URI::InvalidURIError

@@ -11,15 +11,15 @@ class Staff::ProposalReviewsController < Staff::ApplicationController
     set_title('Review Proposals')
 
     proposals = policy_scope(Proposal)
-                    .includes(:proposal_taggings, :review_taggings, :ratings,
-                              :internal_comments, :public_comments)
+                .includes(:proposal_taggings, :review_taggings, :ratings,
+                          :internal_comments, :public_comments)
 
-    proposals.to_a.sort_by! { |p| [p.ratings.present? ? 1 : 0, p.created_at] }
+    proposals.to_a.sort_by! do |p| [p.ratings.present? ? 1 : 0, p.created_at] end
     proposals = Staff::ProposalDecorator.decorate_collection(proposals)
 
     render locals: {
-             proposals: proposals
-           }
+      proposals: proposals
+    }
   end
 
   def show
@@ -51,10 +51,10 @@ class Staff::ProposalReviewsController < Staff::ApplicationController
     tags = params[:proposal][:review_tags].downcase
     params[:proposal][:review_tags] = Tagging.tags_string_to_array(tags)
 
-    unless @proposal.update_attributes(proposal_review_tags_params)
-      flash[:danger] = 'There was a problem saving the proposal.'
-    else
+    if @proposal.update(proposal_review_tags_params)
       @proposal.reload
+    else
+      flash[:danger] = 'There was a problem saving the proposal.'
     end
   end
 
@@ -65,8 +65,6 @@ class Staff::ProposalReviewsController < Staff::ApplicationController
   end
 
   def track_program_use
-    if params[:program]
-      enable_staff_program_subnav
-    end
+    enable_staff_program_subnav if params[:program]
   end
 end

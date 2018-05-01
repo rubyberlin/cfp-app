@@ -1,7 +1,6 @@
 class Staff::TimeSlotsDecorator < Draper::CollectionDecorator
   def to_csv
     CSV.generate do |csv|
-
       columns = {
         conference_day: 'Conference Day',
         start_time: 'Start Time',

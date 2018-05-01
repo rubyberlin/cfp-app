@@ -19,7 +19,7 @@ class Schedule
   end
 
   def date_from_day(day)
-    event.start_date + (day-1).days
+    event.start_date + (day - 1).days
   end
 
   def rooms
@@ -46,9 +46,9 @@ class Schedule
 
   def init_slots
     slots_by_day = event.time_slots.grid_order
-        .includes(:room, :track, program_session: :speakers)
+                        .includes(:room, :track, program_session: :speakers)
     slots_by_day = slots_by_day.group_by(&:conference_day)
-    slots_by_day.each {|d, slots| slots_by_day[d] = slots.group_by(&:room)}
+    slots_by_day.each do |d, slots| slots_by_day[d] = slots.group_by(&:room) end
     slots_by_day
   end
 end

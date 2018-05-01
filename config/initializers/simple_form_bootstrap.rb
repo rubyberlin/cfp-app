@@ -4,7 +4,7 @@ SimpleForm.setup do |config|
   config.boolean_label_class = nil
 
   config.wrappers :vertical_form, tag: 'div', class: 'form-group',
-      error_class: 'field_with_errors' do |b|
+                                  error_class: 'field_with_errors' do |b|
 
     b.use :html5
     b.use :placeholder
@@ -111,7 +111,7 @@ SimpleForm.setup do |config|
   end
 
   # Added support for help icon
-  config.label_text = lambda { |label, required, explicit_label, icon| "#{label} #{required} #{icon}" }
+  config.label_text = lambda { |label, required, _explicit_label, icon| "#{label} #{required} #{icon}" }
 
   # Wrappers for forms and inputs using the Bootstrap toolkit.
   # Check the Bootstrap docs (http://getbootstrap.com)

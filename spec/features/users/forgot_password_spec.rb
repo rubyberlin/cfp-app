@@ -4,7 +4,6 @@ require 'rails_helper'
 #   I want to forgot password
 #   So I can visit protected areas of the site
 feature 'Forgot Password', :devise do
-
   # Scenario: User cannot forgot password if not registered
   #   Given I do not exist as a user
   #   When I forgot password with valid credentials
@@ -35,5 +34,4 @@ feature 'Forgot Password', :devise do
     forgot_password('invalid@email.com')
     expect(page).to have_content "Email *\n" + I18n.t('errors.messages.not_found')
   end
-
 end
