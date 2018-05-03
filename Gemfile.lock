@@ -427,7 +427,7 @@ DEPENDENCIES
   erubis
   factory_bot_rails (~> 4.8)
   faker
-  foreman
+  foreman (~> 0.84)
   groupdate
   guard
   guard-livereload (~> 2.1.1)
