@@ -45,7 +45,7 @@ gem 'groupdate'
 gem 'nokogiri', '~> 1.8.1'
 
 group :development do
-  gem 'foreman'
+  gem 'foreman', '~> 0.84', require: false
   gem 'rubocop', '~> 0.55', require: false
 
   gem 'annotate'
