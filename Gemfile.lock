@@ -424,7 +424,6 @@ DEPENDENCIES
   devise (~> 4.4.3)
   dotenv-rails
   draper (~> 3.0.1)
-  erubis
   factory_bot_rails (~> 4.8)
   faker
   foreman (~> 0.84)
