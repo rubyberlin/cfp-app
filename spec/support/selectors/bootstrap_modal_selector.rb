@@ -1,3 +1,5 @@
+# rubocop:disable Rails/DynamicFindBy
+
 ##
 #
 # Select Bootstrap Modal
@@ -65,3 +67,5 @@ Capybara.add_selector(:bs_modal) do
     node[:class].split(/\s+/).include?(CSS_CLASSES[:open]) && node.visible?
   end
 end
+
+# rubocop:enable Rails/DynamicFindBy
