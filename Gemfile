@@ -46,6 +46,7 @@ gem 'nokogiri', '~> 1.8.1'
 
 group :development do
   gem 'foreman'
+  gem 'rubocop', '~> 0.55', require: false
 
   gem 'annotate'
   gem 'html2haml', '~> 2.2.0'
