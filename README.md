@@ -1,6 +1,11 @@
 # CFP app
 **Ruby Berlin fork**
 
+[![Build Status](https://travis-ci.org/rubyberlin/cfp-app.svg?branch=master)](https://travis-ci.org/rubyberlin/cfp-app)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8e6b212aa3fce9b53789/maintainability)](https://codeclimate.com/github/rubyberlin/cfp-app/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/8e6b212aa3fce9b53789/test_coverage)](https://codeclimate.com/github/rubyberlin/cfp-app/test_coverage)
+[![Depfu](https://badges.depfu.com/badges/4a6559613fd7736ea16f5f005a2363f5/overview.svg)](https://depfu.com/github/rubyberlin/cfp-app)
+
 ## Overview
 
 This is a Ruby on Rails application that lets you manage your conference’s call for proposals (CFP), program and schedule. This repo is a fork of the [Ruby Central CFP-App](https://github.com/rubycentral/cfp-app), which has been used to run CFPs for RailsConf and RubyConf. Ruby Berlin has used this fork to run the [Isle of Ruby 2018](http://2018.isleofruby.org/) CFP.
