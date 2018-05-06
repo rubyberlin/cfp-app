@@ -8,17 +8,10 @@ gem 'pg'
 
 gem 'puma', '~> 3.11.4'
 
-gem 'bootstrap-multiselect-rails', '~> 0.9.9'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'chartkick'
-gem 'jquery-datatables-rails'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'rails-assets-momentjs', source: 'https://rails-assets.org'
 gem 'sass-rails', '~> 5.0.4'
-gem 'selectize-rails'
 gem 'uglifier', '>= 1.3.0'
-gem 'underscore-rails'
 
 gem 'webpacker', '~> 3.5'
 
