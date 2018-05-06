@@ -20,6 +20,8 @@ gem 'selectize-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'underscore-rails'
 
+gem 'webpacker', '~> 3.5'
+
 gem 'devise',             '~> 4.4.3'
 gem 'omniauth',           '~> 1.8.1'
 gem 'omniauth-github'
