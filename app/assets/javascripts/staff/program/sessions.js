@@ -1,3 +1,5 @@
+import { cfpDataTable } from '../../base';
+
 $(function() {
 
   cfpDataTable('#program-sessions.datatable',

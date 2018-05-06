@@ -1,3 +1,5 @@
+import { cfpDataTable } from '../../base';
+
 $(function() {
 
   cfpDataTable('#organizer-proposals-selection.datatable', [ 'text', 'text', 'text', null, 'text', 'text', 'text', 'text' ]);

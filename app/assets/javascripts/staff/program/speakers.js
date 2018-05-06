@@ -1,3 +1,5 @@
+import { cfpDataTable } from '../../base';
+
 $(document).ready(function() {
 
   cfpDataTable('.datatable.speaker-list', [ 'text', 'text', 'text', null, 'text' ]);

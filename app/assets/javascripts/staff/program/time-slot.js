@@ -1,3 +1,5 @@
+import { cfpDataTable } from '../../base';
+
 (function($, window) {
   if (typeof(window.Schedule) === 'undefined') {
     window.Schedule = {};
