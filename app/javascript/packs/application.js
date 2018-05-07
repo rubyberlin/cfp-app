@@ -53,7 +53,7 @@ import 'selectize/dist/css/selectize.css'
 import 'selectize/dist/css/selectize.default.css'
 import 'selectize'
 
-import 'palette.js'
+import 'google-palette'
 
 import 'admin/event_teammates.js'
 import 'admin/events.js'

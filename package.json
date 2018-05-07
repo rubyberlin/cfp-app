@@ -14,6 +14,7 @@
     "chart.js": "^2.7.2",
     "chartkick": "^2.3.5",
     "datatables.net-bs": "1.10.10",
+    "google-palette": "^1.1.0",
     "jquery": "^1.12.3",
     "jquery-ui": "1.12.1",
     "jquery-ui-timepicker-addon": "^1.6.3",
