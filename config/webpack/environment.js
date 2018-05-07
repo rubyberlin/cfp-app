@@ -30,4 +30,9 @@ environment.plugins.prepend(
   })
 )
 
+environment.plugins.prepend(
+  'momentLocales',
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+)
+
 module.exports = environment
