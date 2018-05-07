@@ -41,10 +41,10 @@ install:
   - yarn install --frozen-lockfile
 
 before_script:
-  - RAILS_ENV=test bundle exec rails assets:precompile
+  - RAILS_ENV=test ./bin/rake assets:precompile
   - ./cc-test-reporter before-build
 
-script: bundle exec rake db:create db:migrate spec
+script: ./bin/rake db:create db:migrate spec
 
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
