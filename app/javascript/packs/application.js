@@ -14,7 +14,7 @@ import 'jquery-ui/themes/base/core.css'
 import 'jquery-ui/themes/base/autocomplete.css'
 import 'jquery-ui/themes/base/menu.css'
 import 'jquery-ui/themes/base/theme.css'
-// import '../../assets/stylesheets/vendor/_jquery-ui-1.10.3.custom.min'
+// import 'vendor/_jquery-ui-1.10.3.custom.min'
 
 import 'jquery-ui/themes/base/datepicker.css'
 import 'jquery-ui/ui/widgets/datepicker'
@@ -29,7 +29,7 @@ import 'datatables.net-bs/css/dataTables.bootstrap.css'
 import datatables from 'datatables.net-bs'
 datatables(window, $)
 
-import 'jquery.dataTables.columnFilter'
+import 'vendor/jquery.dataTables.columnFilter'
 
 $.fn.dataTableExt.oApi.fnSortNeutral = oSettings => {
   oSettings.aaSorting = []
@@ -41,8 +41,8 @@ $.fn.dataTableExt.oApi.fnSortNeutral = oSettings => {
 import 'jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css'
 import 'jquery-ui-timepicker-addon'
 
-import '../../assets/stylesheets/vendor/jquery.mentionsInput.scss'
-import 'jquery.mentionsInput'
+import 'vendor/jquery.mentionsInput.scss'
+import 'vendor/jquery.mentionsInput'
 
 import 'bootstrap-multiselect/dist/css/bootstrap-multiselect.css'
 import 'bootstrap-multiselect'
