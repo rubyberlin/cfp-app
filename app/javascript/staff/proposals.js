@@ -1,3 +1,5 @@
+import { cfpDataTable } from '../base';
+
 $(document).ready(function () {
 
   $.datepicker.regional[""].dateFormat = 'yy-mm-dd ';
@@ -43,6 +45,7 @@ $(document).ready(function () {
   $('table input').addClass('form-control');
 
   $('.multiselect').multiselect({
+    enableHTML: true,
     buttonClass: 'btn btn-default',
     buttonText: function (options, select) {
       if (options.length == 0) {
