@@ -1,0 +1,45 @@
+// vendor styles
+@import "../styles/base/variables";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+// base application styles
+@import "../styles/base/mixins";
+@import "../styles/base/base";
+@import "../styles/base/layout";
+@import "../styles/base/helper_classes";
+@import "../styles/base/typography";
+
+// page specific styles
+// @import "../styles/pages/*";
+
+// module styles
+@import "../styles/modules/badge";
+@import "../styles/modules/buttons";
+@import "../styles/modules/calendar";
+// @import "../styles/modules/coderay";
+@import "../styles/modules/dashboard";
+@import "../styles/modules/data_tables";
+@import "../styles/modules/discussions";
+@import "../styles/modules/events";
+@import "../styles/modules/forms";
+@import "../styles/modules/icons";
+@import "../styles/modules/labels";
+@import "../styles/modules/navbar";
+@import "../styles/modules/markdown";
+@import "../styles/modules/news";
+@import "../styles/modules/notification";
+@import "../styles/modules/event-teammate-invitations";
+@import "../styles/modules/program-session";
+@import "../styles/modules/proposal";
+@import "../styles/modules/profile";
+@import "../styles/modules/ratings";
+@import "../styles/modules/schedule";
+@import "../styles/modules/selection";
+@import "../styles/modules/time-slot";
+@import "../styles/modules/social-buttons";
+@import "../styles/modules/shortcuts";
+@import "../styles/modules/speaker";
+@import "../styles/modules/stats";
+@import "../styles/modules/tooltips";
+@import "../styles/modules/widgets";
+@import "../styles/modules/teammates";
