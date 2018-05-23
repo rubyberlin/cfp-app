@@ -11,7 +11,6 @@
     "@rails/webpacker": "3.5",
     "bootstrap-multiselect": "^0.9.13-1",
     "bootstrap-sass": "^3.3.7",
-    "chart.js": "^2.7.2",
     "chartkick": "^2.3.5",
     "datatables.net-bs": "1.10.10",
     "google-palette": "^1.1.0",
