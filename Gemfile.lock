@@ -65,8 +65,6 @@ GEM
       rake (>= 10.4, < 13.0)
     arel (8.0.0)
     ast (2.4.0)
-    autoprefixer-rails (6.6.0)
-      execjs
     bcrypt (3.1.11)
     better_errors (2.4.0)
       coderay (>= 1.0.0)
@@ -74,9 +72,6 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.7)
-      autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
     builder (3.2.3)
     capybara (3.1.0)
       addressable
@@ -124,7 +119,6 @@ GEM
     erubi (1.7.1)
     erubis (2.7.0)
     eventmachine (1.2.6)
-    execjs (2.7.0)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
     factory_bot_rails (4.8.2)
@@ -330,17 +324,6 @@ GEM
     ruby_parser (3.11.0)
       sexp_processor (~> 4.9)
     rubyzip (1.2.1)
-    sass (3.5.6)
-      sass-listen (~> 4.0.0)
-    sass-listen (4.0.0)
-      rb-fsevent (~> 0.9, >= 0.9.4)
-      rb-inotify (~> 0.9, >= 0.9.7)
-    sass-rails (5.0.7)
-      railties (>= 4.0.0, < 6)
-      sass (~> 3.1)
-      sprockets (>= 2.8, < 4.0)
-      sprockets-rails (>= 2.0, < 4.0)
-      tilt (>= 1.1, < 3)
     selenium-webdriver (3.12.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
@@ -402,7 +385,6 @@ DEPENDENCIES
   annotate
   better_errors
   binding_of_caller
-  bootstrap-sass (~> 3.3.6)
   capybara (~> 3.0)
   capybara_table!
   chartkick
@@ -441,7 +423,6 @@ DEPENDENCIES
   responders (~> 2.4.0)
   rspec-rails
   rubocop (~> 0.55)
-  sass-rails (~> 5.0.4)
   selenium-webdriver
   simple_form (~> 3.5.0)
   simplecov

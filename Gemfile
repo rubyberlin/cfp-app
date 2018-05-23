@@ -8,9 +8,7 @@ gem 'pg'
 
 gem 'puma', '~> 3.11.4'
 
-gem 'bootstrap-sass', '~> 3.3.6'
 gem 'chartkick'
-gem 'sass-rails', '~> 5.0.4'
 
 gem 'webpacker', '~> 3.5'
 
