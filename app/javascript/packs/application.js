@@ -55,6 +55,9 @@ import 'selectize'
 
 import 'google-palette'
 
+import Chartkick from 'chartkick'
+window.Chartkick = Chartkick
+
 import 'admin/event_teammates.js'
 import 'admin/events.js'
 import 'admin/users.js'
