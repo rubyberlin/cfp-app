@@ -58,6 +58,8 @@ import 'google-palette'
 import Chartkick from 'chartkick'
 window.Chartkick = Chartkick
 
+import 'vendor/coderay.css.erb'
+
 import 'admin/event_teammates.js'
 import 'admin/events.js'
 import 'admin/users.js'

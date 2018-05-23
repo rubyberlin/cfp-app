@@ -1,6 +1,11 @@
 const { environment } = require('@rails/webpacker')
 const erb = require('./loaders/erb')
+const coderay = require('./loaders/coderay')
 const webpack = require('webpack')
+
+environment.loaders.append('erb', erb)
+
+environment.loaders.append('coderay', coderay)
 
 environment.loaders.append('jqueryLibs', {
   test: [
@@ -55,5 +60,4 @@ environment.plugins.append(
   })
 )
 
-environment.loaders.append('erb', erb)
 module.exports = environment
