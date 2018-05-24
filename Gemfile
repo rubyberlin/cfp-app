@@ -35,6 +35,8 @@ gem 'groupdate'
 
 gem 'nokogiri', '~> 1.8.1'
 
+gem 'bootsnap', '>= 1.1.0', require: false
+
 group :development do
   gem 'foreman', '~> 0.84', require: false
   gem 'rubocop', '~> 0.55', require: false
