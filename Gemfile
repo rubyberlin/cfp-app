@@ -50,8 +50,10 @@ group :development do
   gem 'rack-mini-profiler'
 
   gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec', require: false
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
 
   gem 'guard'
   gem 'guard-livereload', '~> 2.1.1'
