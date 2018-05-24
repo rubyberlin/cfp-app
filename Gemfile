@@ -76,7 +76,7 @@ group :test do
   gem 'capybara_table', git: 'https://github.com/myabc/capybara_table.git'
   gem 'selenium-webdriver'
 
-  gem 'database_cleaner', '~> 1.6.0'
+  gem 'database_cleaner', '~> 1.7.0'
 
   gem 'rails-controller-testing'
   gem 'timecop'
