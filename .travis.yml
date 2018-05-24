@@ -9,6 +9,7 @@ rvm:
 addons:
   postgresql: "9.6"
   apt:
+    update: true
     packages:
       - google-chrome-stable
 
