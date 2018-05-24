@@ -9,6 +9,7 @@ require 'capybara/rspec'
 require 'capybara_table/rspec'
 require 'pundit/rspec'
 require 'selenium/webdriver'
+require 'draper/test/rspec_integration'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
