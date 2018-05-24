@@ -11,21 +11,21 @@
     "@rails/webpacker": "3.5",
     "bootstrap-multiselect": "^0.9.13-1",
     "bootstrap-sass": "^3.3.7",
-    "chart.js": "^2.7.2",
     "chartkick": "^2.3.5",
     "datatables.net-bs": "1.10.10",
+    "expose-loader": "^0.7.5",
     "google-palette": "^1.1.0",
+    "imports-loader": "^0.8.0",
     "jquery": "^1.12.3",
     "jquery-ui": "1.12.1",
     "jquery-ui-timepicker-addon": "^1.6.3",
     "jquery-ujs": "^1.2.2",
     "moment": "2.17.1",
+    "rails-erb-loader": "^5.4.2",
     "selectize": "0.12.4",
     "underscore": "1.8.3"
   },
   "devDependencies": {
-    "expose-loader": "^0.7.5",
-    "imports-loader": "^0.8.0",
     "webpack-dev-server": "2.11.2"
   }
 }

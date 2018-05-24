@@ -48,6 +48,4 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   I18n.enforce_available_locales = false
-
-  config.assets.debug = true
 end

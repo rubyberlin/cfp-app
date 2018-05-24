@@ -14,7 +14,6 @@ import 'jquery-ui/themes/base/core.css'
 import 'jquery-ui/themes/base/autocomplete.css'
 import 'jquery-ui/themes/base/menu.css'
 import 'jquery-ui/themes/base/theme.css'
-// import 'vendor/_jquery-ui-1.10.3.custom.min'
 
 import 'jquery-ui/themes/base/datepicker.css'
 import 'jquery-ui/ui/widgets/datepicker'
@@ -54,6 +53,11 @@ import 'selectize/dist/css/selectize.default.css'
 import 'selectize'
 
 import 'google-palette'
+
+import Chartkick from 'chartkick'
+window.Chartkick = Chartkick
+
+import 'vendor/coderay.css.erb'
 
 import 'admin/event_teammates.js'
 import 'admin/events.js'
