@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.4.4'
 
-gem 'rails', '5.1.6'
+gem 'rails', '5.2.0'
 
 gem 'pg'
 
@@ -25,7 +25,7 @@ gem 'country_select', '~> 1.3.1'
 gem 'haml', '~> 5.0.4'
 gem 'haml-rails', '~> 1.0.0'
 gem 'redcarpet', '~> 3.4.0'
-gem 'simple_form', '~> 3.5.0'
+gem 'simple_form', '~> 4.0.0'
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'draper', '~> 3.0.1'
@@ -34,6 +34,8 @@ gem 'responders', '~> 2.4.0'
 gem 'groupdate'
 
 gem 'nokogiri', '~> 1.8.1'
+
+gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development do
   gem 'foreman', '~> 0.84', require: false
@@ -48,8 +50,10 @@ group :development do
   gem 'rack-mini-profiler'
 
   gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec', require: false
-  gem 'web-console', '~> 2.0'
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
 
   gem 'guard'
   gem 'guard-livereload', '~> 2.1.1'
