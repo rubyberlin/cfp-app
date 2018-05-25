@@ -26,7 +26,7 @@ import 'jquery-ui/themes/base/slider.css'
 import 'jquery-ui/ui/widgets/slider'
 
 import 'jquery-ujs'
-import 'bootstrap-sass'
+import 'bootstrap'
 
 import 'datatables.net-bs/css/dataTables.bootstrap.css'
 import datatables from 'datatables.net-bs'
