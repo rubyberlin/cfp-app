@@ -102,6 +102,4 @@ Rails.application.configure do
   config.exceptions_app = routes
 
   config.time_zone = ENV.fetch('TIMEZONE') { 'Pacific Time (US & Canada)' }
-
-  Rack::Timeout.timeout = 15
 end

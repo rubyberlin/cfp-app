@@ -45,6 +45,10 @@
     "TWITTER_SECRET": {
       "description": "Twitter application secret",
       "required": true
+    },
+    "RACK_TIMEOUT_SERVICE_TIMEOUT": {
+      "description": "Service Timeout value passed to Rack::TimeOut",
+      "value": "15"
     }
   }
 }
