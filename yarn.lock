@@ -3097,10 +3097,6 @@ isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
 
-jquery-migrate@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/jquery-migrate/-/jquery-migrate-3.0.1.tgz#141de3abfe6d301baaa4130b0ec7b9a839845e72"
-
 jquery-ui-timepicker-addon@^1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/jquery-ui-timepicker-addon/-/jquery-ui-timepicker-addon-1.6.3.tgz#8037c39b0b630282dd0b37dd8ad7fc5e1163377f"

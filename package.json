@@ -17,7 +17,6 @@
     "google-palette": "^1.1.0",
     "imports-loader": "^0.8.0",
     "jquery": "^3.3.1",
-    "jquery-migrate": "^3.0.1",
     "jquery-ui": "1.12.1",
     "jquery-ui-timepicker-addon": "^1.6.3",
     "jquery-ujs": "^1.2.2",
