@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function() {
     if ($('#rating-form').length) {
         showRating()
         listenForRatingChange()

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function() {
   $('.status-button').on('click', () => {
     $('.status-dropdown').show();
     $('.btn-nav').hide();

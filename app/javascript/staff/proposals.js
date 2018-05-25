@@ -1,6 +1,6 @@
 import { cfpDataTable } from '../base';
 
-$(document).ready(function () {
+$(function() {
 
   $.datepicker.regional[""].dateFormat = 'yy-mm-dd ';
   $.datepicker.setDefaults($.datepicker.regional['']);

@@ -1,6 +1,6 @@
 import { cfpDataTable } from '../../base';
 
-$(document).ready(function () {
+$(function() {
 
   cfpDataTable('#organizer-proposals.datatable', ['number', 'number', 'number',
         'text', 'text', null, 'text', 'text', 'text', 'text', null],

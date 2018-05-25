@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
   $('.template-exit-preview-btn, .template-preview, .template-edit, .email-markup-help').hide();
   $('.template-save-btn, .template-remove-btn, .template-cancel-btn').hide();
 

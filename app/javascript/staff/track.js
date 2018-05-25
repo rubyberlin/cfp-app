@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function() {
     if ($('select#track-select').length) {
         filterTableByTrack()
         $(document).on('change', '.track-select', filterTableByTrack)
