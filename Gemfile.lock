@@ -87,12 +87,16 @@ GEM
       rack (>= 1.6.0)
       rack-test (>= 0.6.3)
       xpath (~> 3.0)
+    capybara-chromedriver-logger (0.2.0)
+      capybara
+      colorize
     case_transform (0.2)
       activesupport
     chartkick (2.3.4)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.2)
+    colorize (0.8.1)
     concurrent-ruby (1.0.5)
     countries (0.9.3)
       currencies (~> 0.4.2)
@@ -402,6 +406,7 @@ DEPENDENCIES
   binding_of_caller
   bootsnap (>= 1.1.0)
   capybara (~> 3.0)
+  capybara-chromedriver-logger
   capybara_table!
   chartkick
   coderay (~> 1.0)

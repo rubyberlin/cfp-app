@@ -73,6 +73,7 @@ end
 
 group :test do
   gem 'capybara', '~> 3.0'
+  gem 'capybara-chromedriver-logger'
   gem 'capybara_table', git: 'https://github.com/myabc/capybara_table.git'
   gem 'selenium-webdriver'
 
