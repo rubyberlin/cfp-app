@@ -21,7 +21,7 @@ feature "A user sees correct information for the current event and their role" d
     signin(normal_user.email, normal_user.password)
     expect(current_path).to eq(event_path(event_1.slug))
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link(event_1.name)
       expect(page).to_not have_link("My Proposals")
       expect(page).to have_link("", href: "/notifications")
@@ -38,13 +38,13 @@ feature "A user sees correct information for the current event and their role" d
     proposal.speakers << speaker
     visit root_path
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link("My Proposals")
     end
 
     [proposals_path, notifications_path, profile_path].each do |path|
       visit path
-      within ".navbar" do
+      within ".cfp-navbar" do
         expect(page).to have_link(event_1.name)
       end
     end
@@ -57,7 +57,7 @@ feature "A user sees correct information for the current event and their role" d
     signin(normal_user.email, normal_user.password)
     expect(current_path).to eq(events_path)
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link("CFP App")
       expect(page).to_not have_link("My Proposals")
       expect(page).to have_link("", href: "/notifications")
@@ -69,7 +69,7 @@ feature "A user sees correct information for the current event and their role" d
 
     click_on(event_1.name)
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link(event_1.name)
       expect(page).to_not have_link(event_2.name)
       expect(page).to_not have_link("CFPApp")
@@ -78,20 +78,20 @@ feature "A user sees correct information for the current event and their role" d
     visit root_path
     visit proposals_path
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link(event_1.name)
     end
 
     visit root_path
     click_on(event_2.name)
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link(event_2.name)
     end
 
     visit notifications_path
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link(event_2.name)
     end
 
@@ -101,7 +101,7 @@ feature "A user sees correct information for the current event and their role" d
 
     visit proposals_path
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link(event_2.name)
     end
   end
@@ -112,7 +112,7 @@ feature "A user sees correct information for the current event and their role" d
 
     signin(normal_user.email, normal_user.password)
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_content("CFP App")
       expect(page).to have_link("", href: "/notifications")
       expect(page).to have_link(normal_user.name)
@@ -126,7 +126,7 @@ feature "A user sees correct information for the current event and their role" d
     click_on event_2.name
     expect(current_path).to eq(event_path(event_2))
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_content(event_2.name)
       expect(page).to have_link("", href: "/notifications")
       expect(page).to have_content(normal_user.name)
@@ -136,7 +136,7 @@ feature "A user sees correct information for the current event and their role" d
     click_on event_1.name
     expect(current_path).to eq(event_path(event_1.slug))
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_content(event_1.name)
       expect(page).to have_link("", href: "/notifications")
       expect(page).to have_content(normal_user.name)
@@ -152,7 +152,7 @@ feature "A user sees correct information for the current event and their role" d
 
     click_on event_1.name
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link(event_1.name)
       expect(page).to have_link(reviewer_user.name)
       expect(page).to_not have_link("My Proposals")
@@ -162,13 +162,13 @@ feature "A user sees correct information for the current event and their role" d
 
     click_on "Review"
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link(event_1.name)
     end
 
     click_on "Dashboard"
 
-    within ".subnavbar" do
+    within ".cfp-subnavbar" do
       expect(page).to have_content("Dashboard")
       expect(page).to have_content("Info")
       expect(page).to have_content("Team")
@@ -181,7 +181,7 @@ feature "A user sees correct information for the current event and their role" d
 
     visit event_path(event_2.slug)
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_link(event_2.name)
       expect(page).to have_link(reviewer_user.name)
       expect(page).to_not have_link("My Proposals")
@@ -200,7 +200,7 @@ feature "A user sees correct information for the current event and their role" d
 
     visit event_path(event_2.slug)
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_content(event_2.name)
       expect(page).to_not have_link("My Proposals")
       expect(page).to have_content("Review")
@@ -213,11 +213,11 @@ feature "A user sees correct information for the current event and their role" d
 
     click_on "Dashboard"
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_content(event_2.name)
     end
 
-    within ".subnavbar" do
+    within ".cfp-subnavbar" do
       expect(page).to have_content("Dashboard")
       expect(page).to have_content("Info")
       expect(page).to have_content("Team")
@@ -233,7 +233,7 @@ feature "A user sees correct information for the current event and their role" d
     proposal.speakers << speaker
     visit event_path(event_1.slug)
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_content(event_1.name)
       expect(page).to have_content("My Proposals")
       expect(page).to have_link("", href: "/notifications")
@@ -254,7 +254,7 @@ feature "A user sees correct information for the current event and their role" d
 
     visit event_path(event_1.slug)
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_content(event_1.name)
       expect(page).to have_content("Users")
       expect(page).to have_content("Admin")
@@ -269,7 +269,7 @@ feature "A user sees correct information for the current event and their role" d
     click_on "Admin"
     click_on "Events"
 
-    within ".navbar" do
+    within ".cfp-navbar" do
       expect(page).to have_content(event_1.name)
     end
 

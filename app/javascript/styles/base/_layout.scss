@@ -1,6 +1,4 @@
 body {
-  padding-top: $navbar-height;
-
   // flexbox for sticky footer
   min-height: 100vh;
   display: flex;
@@ -35,6 +33,7 @@ body {
 }
 
 .main {
+  margin-top: $navbar-height;
   padding-bottom: $spacer;
   flex: 1;
 }

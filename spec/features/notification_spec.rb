@@ -11,7 +11,7 @@ feature "User's can interact with notifications" do
       scenario "can see notifications link if no unread notifications" do
         notification.mark_as_read
         visit root_path
-        within ".navbar" do
+        within ".cfp-navbar" do
           expect(page).to have_link("", href: "/notifications")
         end
 
@@ -22,7 +22,7 @@ feature "User's can interact with notifications" do
 
       scenario "can see notifications count if unread notifications exist" do
         visit root_path
-        within ".navbar" do
+        within ".cfp-navbar" do
           expect(page).to have_link("", href: "/notifications")
           expect(page).to have_content("1")
         end
@@ -34,7 +34,7 @@ feature "User's can interact with notifications" do
         end
 
         visit root_path
-        within ".navbar" do
+        within ".cfp-navbar" do
           expect(page).to have_link("", href: "/notifications")
           expect(page).to have_content("1")
           click_link("Notifications Toggle")
@@ -50,7 +50,7 @@ feature "User's can interact with notifications" do
 
       scenario "can view all their notifications from dropdown link" do
         visit root_path
-        within ".navbar" do
+        within ".cfp-navbar" do
           click_link("Notifications Toggle")
           click_link("View all notifications")
         end
@@ -61,7 +61,7 @@ feature "User's can interact with notifications" do
       scenario "can mark all notifications as read from dropdown link" do
         expect(user.notifications.unread.length).to eq(1)
         visit root_path
-        within ".navbar" do
+        within ".cfp-navbar" do
           click_link("Mark all as read")
         end
         expect(user.notifications.unread.length).to eq(0)
@@ -74,7 +74,7 @@ feature "User's can interact with notifications" do
 
         expect(user.notifications.unread.length).to eq(11)
         visit root_path
-        within ".navbar" do
+        within ".cfp-navbar" do
           click_link("1 More Unread")
         end
 

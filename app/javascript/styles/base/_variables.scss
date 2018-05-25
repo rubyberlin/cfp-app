@@ -96,7 +96,7 @@ $zindex-dropdown:          1000 !default;
 $zindex-popover:           1060 !default;
 $zindex-tooltip:           1070 !default;
 $zindex-navbar-fixed:      1030 !default;
-$zindex-subnavbar:         1020 !default;
+$zindex-cfp-subnavbar:     1020 !default;
 $zindex-modal-background:  1040 !default;
 $zindex-modal:             1050 !default;
 $zindex-alert:             1080 !default;
@@ -107,8 +107,7 @@ $zindex-alert:             1080 !default;
 //##
 
 // Basics of a navbar
-$navbar-height:                    44px !default;
-$navbar-padding-x:        floor((30px / 2)) !default;
+$navbar-height:                    3.5rem;
 
 $navbar-default-color:             $white !default;
 $navbar-default-bg:                $brand-primary !default;

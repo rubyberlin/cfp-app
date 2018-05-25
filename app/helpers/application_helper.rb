@@ -116,4 +116,11 @@ module ApplicationHelper
   def admin_nav?
     current_user.admin?
   end
+
+  def dropdown_item_link(link, &block)
+    link_inner_html = capture_haml(link, &block)
+    link_to_unless_current(link_inner_html, link, class: 'dropdown-item') do
+      content_tag(:span, link_inner_html, class: 'dropdown-item active')
+    end
+  end
 end

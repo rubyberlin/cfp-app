@@ -11,24 +11,24 @@
       .widget-content
         .tabbable
           %ul.nav.nav-tabs
-            %li.active
-              %a{"data-toggle" => "tab", :href => "#colors-tab"} Headers/Colors
-            %li
-              %a{"data-toggle" => "tab", :href => "#formcontrols"} Form Controls
-            %li
-              %a{"data-toggle" => "tab", :href => "#jscontrols"} Alerts/Modals
-            %li
-              %a{"data-toggle" => "tab", :href => "#buttons-examples"} Buttons
-            %li
-              %a{"data-toggle" => "tab", :href => "#tables-examples"} Tables
-            %li
-              %a{"data-toggle" => "tab", :href => "#discussion-example"} Discussions
-            %li
-              %a{"data-toggle" => "tab", :href => "#shortcuts-example"} Shortcuts / Stats
-            %li
-              %a{"data-toggle" => "tab", :href => "#cal-news-example"} Calendar / News
-            %li
-              %a{"data-toggle" => "tab", :href => "#ui-components"} UI Elements
+            %li.nav-item
+              %a.nav-link.active{"data-toggle" => "tab", :href => "#colors-tab"} Headers/Colors
+            %li.nav-item
+              %a.nav-link{"data-toggle" => "tab", :href => "#formcontrols"} Form Controls
+            %li.nav-item
+              %a.nav-link{"data-toggle" => "tab", :href => "#jscontrols"} Alerts/Modals
+            %li.nav-item
+              %a.nav-link{"data-toggle" => "tab", :href => "#buttons-examples"} Buttons
+            %li.nav-item
+              %a.nav-link{"data-toggle" => "tab", :href => "#tables-examples"} Tables
+            %li.nav-item
+              %a.nav-link{"data-toggle" => "tab", :href => "#discussion-example"} Discussions
+            %li.nav-item
+              %a.nav-link{"data-toggle" => "tab", :href => "#shortcuts-example"} Shortcuts / Stats
+            %li.nav-item
+              %a.nav-link{"data-toggle" => "tab", :href => "#cal-news-example"} Calendar / News
+            %li.nav-item
+              %a.nav-link{"data-toggle" => "tab", :href => "#ui-components"} UI Elements
 
 
           .tab-content
@@ -211,14 +211,14 @@
                             Action
                             %span.caret
                           %ul.dropdown-menu
-                            %li
+                            %li.dropdown-item
                               %a{:href => "#"} Action
-                            %li
+                            %li.dropdown-item
                               %a{:href => "#"} Another action
-                            %li
+                            %li.dropdown-item
                               %a{:href => "#"} Something else here
-                            %li.divider{:role => "separator"}
-                            %li
+                            %li.dropdown-divider{role: "separator"}
+                            %li.dropdown-item
                               %a{:href => "#"} Separated link
                         %input.form-control{"aria-label" => "...", :type => "text"}
 
@@ -232,14 +232,14 @@
                               Action
                               %span.caret
                             %ul.dropdown-menu.dropdown-menu-right
-                              %li
+                              %li.dropdown-item
                                 %a{:href => "#"} Action
-                              %li
+                              %li.dropdown-item
                                 %a{:href => "#"} Another action
-                              %li
+                              %li.dropdown-item
                                 %a{:href => "#"} Something else here
-                              %li.divider{:role => "separator"}
-                              %li
+                              %li.dropdown-divider{role: "separator"}
+                              %li.dropdown-item
                                 %a{:href => "#"} Separated link
                           / /btn-group
                       / /input-group
@@ -255,20 +255,20 @@
                         %a.btn.btn-primary.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                           %span.caret
                         %ul.dropdown-menu
-                          %li
+                          %li.dropdown-item
                             %a{:href => "#"}
                               %i.glyphicon.glyphicon-pencil
                               Edit
-                          %li
+                          %li.dropdown-item
                             %a{:href => "#"}
                               %i.glyphicon.glyphicon-trash
                               Delete
-                          %li
+                          %li.dropdown-item
                             %a{:href => "#"}
                               %i.glyphicon.glyphicon-ban-circle
                               Ban
-                          %li.divider
-                          %li
+                          %li.dropdown-divider
+                          %li.dropdown-item
                             %a{:href => "#"}
                               %i.i
                               Make admin
@@ -636,15 +636,15 @@
                                 %a#dLabel.dropdown-toggle{"data-target" => "#", "data-toggle" => "dropdown", :href => "#", :role => "button"}
                                   %span.caret
                                 %ul.dropdown-menu{"aria-labelledby" => "dLabel", :role => "menu"}
-                                  %li
+                                  %li.dropdown-item
                                     %a{:href => "#"}
                                       %i.glyphicon.glyphicon-share-alt.icon-large
                                       Reply
-                                  %li
+                                  %li.dropdown-item
                                     %a{:href => "#"}
                                       %i.glyphicon.glyphicon-trash.icon-large
                                       Delete
-                                  %li
+                                  %li.dropdown-item
                                     %a{:href => "#"}
                                       %i.glyphicon.glyphicon-share.icon-large
                                       Share
