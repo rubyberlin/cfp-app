@@ -48,8 +48,8 @@
   }
 
   li.dropdown > a {
-    padding-bottom:    $navbar-padding-vertical;
-    padding-top:    $navbar-padding-vertical;
+    padding-bottom: $navbar-padding-y;
+    padding-top:    $navbar-padding-y;
   }
 }
 
@@ -91,7 +91,7 @@
           font-weight: bold;
           height: 100%;
           padding: 0 15px;
-          @include transition(color .15s ease-in-out);
+          transition: color .15s ease-in-out;
           &:hover {
             color: $gray-dark;
             text-decoration: none;

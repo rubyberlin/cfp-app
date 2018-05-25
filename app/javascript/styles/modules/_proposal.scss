@@ -55,7 +55,7 @@
 .other-proposal-rating,
 .other-proposal-format,
 .other-proposal-track {
-  font-size: $font-size-small;
+  font-size: $font-size-sm;
 }
 
 .other_proposal_tags {
@@ -111,11 +111,11 @@ span.disabled-state {
 .callout {
   border-left: solid darken(#dff0d8, 10%) 5px;
   background-color: lighten(#dff0d8, 5%);
-  padding: $padding-base-horizontal;
+  padding: $input-btn-padding-x;
 
   .callout-title {
     @extend .control-label;
-    margin-bottom: $padding-large-vertical * 2;
+    margin-bottom: $spacer * 2;
   }
 }
 
@@ -150,7 +150,7 @@ div.col-md-4 {
 #cancel-format-editing,
 #cancel-track-editing {
   color: $bright-blue;
-  font-size: $font-size-large;
+  font-size: $font-size-lg;
   margin-left: 5px;
   padding: 0;
 }
@@ -198,7 +198,7 @@ div.col-md-4 {
 
 // Refactored proposals list items
 .proposal-info-bar {
-  padding-bottom: $padding-large-vertical;
+  padding-bottom: $spacer;
 
   i.fa {
     position:relative;
@@ -207,7 +207,7 @@ div.col-md-4 {
 
   .proposal-title {
     margin-top: 0;
-    margin-bottom: $padding-base-vertical;
+    margin-bottom: $input-btn-padding-y;
     font-weight: bold;
   }
 
@@ -217,7 +217,7 @@ div.col-md-4 {
 
     .proposal-meta-item {
       display: inline-block;
-      margin-right: $padding-base-horizontal;
+      margin-right: $input-btn-padding-x;
 
       strong {
         font-size: $font-size-xs;
@@ -242,12 +242,12 @@ div.col-md-4 {
 
     .proposal-description {
       line-height: 1;
-      margin-bottom: $padding-base-vertical * 2;
+      margin-bottom: $input-btn-padding-y * 2;
     }
   }
 
   .proposal-status {
-    padding-bottom: $padding-large-vertical;
+    padding-bottom: $spacer;
 
     .label {
       margin-right: 0;
@@ -255,7 +255,7 @@ div.col-md-4 {
   }
 
   .invitation-status {
-    padding-bottom: $padding-large-vertical;
+    padding-bottom: $spacer;
 
     .label {
       margin-right: 0;
@@ -263,7 +263,7 @@ div.col-md-4 {
   }
 
   .page-header & {
-    padding-top: $padding-large-vertical;
+    padding-top: $spacer;
     padding-bottom: 0;
   }
 }

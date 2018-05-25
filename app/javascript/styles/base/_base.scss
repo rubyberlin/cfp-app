@@ -5,8 +5,7 @@
   z-index: $zindex-alert;
 }
 
-@media (min-width: $screen-md) {
-
+@include media-breakpoint-up(md) {
   .alert {
     width: 50%;
   }

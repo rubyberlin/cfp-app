@@ -1,4 +1,3 @@
-$bootstrap-sass-asset-helper: false !default;
 //
 // Variables
 // --------------------------------------------------
@@ -58,12 +57,9 @@ $link-hover-decoration: underline !default;
 
 $font-family-sans-serif:  "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 
-$font-size-base:          14px !default;
-$font-size-large:         ceil(($font-size-base * 1.25)) !default; // ~18px
-$font-size-small:         ceil(($font-size-base * 0.85)) !default; // ~12px
-$font-size-xs:            ceil(($font-size-base * 0.75)) !default; // ~11px
-$font-size-compact:       ceil(($font-size-base * 0.6)) !default;  // ~9px
-
+$font-size-base:    1rem !default; // Assumes the browser default, typically `16px`
+$font-size-xs:      ($font-size-base * .75) !default;
+$font-size-compact: ($font-size-base * .6) !default;
 
 //== Iconography
 //
@@ -112,7 +108,7 @@ $zindex-alert:             1080 !default;
 
 // Basics of a navbar
 $navbar-height:                    44px !default;
-$navbar-padding-horizontal:        floor((30px / 2)) !default;
+$navbar-padding-x:        floor((30px / 2)) !default;
 
 $navbar-default-color:             $white !default;
 $navbar-default-bg:                $brand-primary !default;

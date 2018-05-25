@@ -9,19 +9,19 @@
     border-bottom: 1px solid $gray-lighter;
 
     .new-speaker {
-      margin-bottom: $padding-small-vertical;
+      margin-bottom: $input-btn-padding-y;
     }
   }
 
   .session-speaker-header {
-    margin-top: $padding-small-vertical;
+    margin-top: $input-btn-padding-y;
   }
 
   .edit-session-speaker,
   .remove-session-speaker {
     .btn {
       width: 100%;
-      margin-bottom: $padding-small-vertical;
+      margin-bottom: $input-btn-padding-y;
     }
   }
 }
@@ -60,6 +60,6 @@ table#program-sessions {
     bottom: 0;
     height: 5px;
     background-color: $link-hover-color;
-    border-radius: $border-radius-base;
+    border-radius: $border-radius;
   }
 }

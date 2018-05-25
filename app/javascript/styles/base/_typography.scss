@@ -1,7 +1,7 @@
 // Text modules
 // Include any overrides to Bootstrap typography here
 .meta-text {
-  font-size: $font-size-small;
+  font-size: $font-size-sm;
   color: $gray;
 }
 
@@ -31,7 +31,7 @@
 // Reset to left-align on smaller screens
 .text-right-responsive,
 .text-center-responsive {
-  @media (max-width: 767px) {
+  @include media-breakpoint-down(sm) {
     text-align: left;
   }
 }
