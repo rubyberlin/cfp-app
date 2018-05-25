@@ -12,7 +12,7 @@ This is a Ruby on Rails application that lets you manage your conference’s cal
 
 The fork currently differs relatively little from the original. It includes a number of dependency updates, minor refactorings and UI improvements that are not yet available in the original. It is envisaged that the codebase will diverge further in the future. Additional features are planned, as well as some modifications to review, feedback and scheduling workflows to better suit the needs of conferences run by Ruby Berlin e.V.
 
-The CFP app does not currently provide a public-facing website for your conference. However you may also be interested in our [Activites app](https://github.com/isleofruby/isleofruby-activities) (a deep integration with the CFP app is still in planning).
+The CFP app does not currently provide a public-facing website for your conference. However you may also be interested in our [Activities app](https://github.com/isleofruby/isleofruby-activities) (a deep integration with the CFP app is still in planning).
 
 At a high level the CFP app allows speakers to submit and manage their proposals for your event. Organizers can create a group of reviewers that blindly review and rate talks. Organizers can then select talks to be accepted into the program including a waitlist of proposals. Finally organizers can create a schedule and slot confirmed talks. You’ll find a detailed description of the features and workflows of the CFP app under the section ‘How to use the CFP app’
 
