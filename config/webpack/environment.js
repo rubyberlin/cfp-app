@@ -11,6 +11,7 @@ environment.loaders.append('jqueryLibs', {
   test: [
     require.resolve('datatables.net-bs'),
     require.resolve('datatables.net'),
+    require.resolve('jquery-migrate'),
     require.resolve('jquery-ui-timepicker-addon')
   ],
   use: 'imports-loader?define=>false'
