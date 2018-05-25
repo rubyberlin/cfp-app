@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
 
   autocompleteNode = $('#autocomplete-email');
   if (autocompleteNode.length > 0) {

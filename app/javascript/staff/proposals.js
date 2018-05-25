@@ -1,6 +1,6 @@
 import { cfpDataTable } from '../base';
 
-$(document).ready(function () {
+$(function() {
 
   $.datepicker.regional[""].dateFormat = 'yy-mm-dd ';
   $.datepicker.setDefaults($.datepicker.regional['']);
@@ -38,7 +38,7 @@ $(document).ready(function () {
     }
   }
 
-  $("#sort_reset").click(function () {
+  $("#sort_reset").on('click', () => {
     oTable.fnSortNeutral();
   });
 

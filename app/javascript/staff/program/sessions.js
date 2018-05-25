@@ -10,7 +10,7 @@ $(function() {
   );
 });
 
-$(document).ready(function () {
+$(function() {
     if ($("#program-sessions.datatable").length > 0) {
         filterProgramSessionsBy("program")
 

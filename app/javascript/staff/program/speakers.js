@@ -1,6 +1,6 @@
 import { cfpDataTable } from '../../base';
 
-$(document).ready(function() {
+$(function() {
 
   cfpDataTable('.datatable.speaker-list', [ 'text', 'text', 'text', null, 'text' ]);
 

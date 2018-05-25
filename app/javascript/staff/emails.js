@@ -1,8 +1,8 @@
-$(document).ready(function() {
+$(function() {
   $('.template-exit-preview-btn, .template-preview, .template-edit, .email-markup-help').hide();
   $('.template-save-btn, .template-remove-btn, .template-cancel-btn').hide();
 
-  $('.template-preview-btn').click(function(e) {
+  $('.template-preview-btn').on('click', function(e) {
     e.preventDefault();
     $parent = $(this).parents('.template-section');
     $parent.find('.template-short, .template-edit').hide();
@@ -12,7 +12,7 @@ $(document).ready(function() {
     $('.email-markup-help').show();
   });
 
-  $('.template-exit-preview-btn').click(function(e) {
+  $('.template-exit-preview-btn').on('click', function(e) {
     e.preventDefault();
     $parent = $(this).parents('.template-section');
     $('.email-markup-help').hide();
@@ -22,7 +22,7 @@ $(document).ready(function() {
     $parent.find('.template-preview-btn').show();
   });
 
-  $('.template-edit-btn').click(function(e) {
+  $('.template-edit-btn').on('click', function(e) {
     e.preventDefault();
     $('.template-section').hide();
     $parent = $(this).parents('.template-section');
@@ -35,7 +35,7 @@ $(document).ready(function() {
     $parent.find('.template-save-btn, .template-remove-btn, .template-cancel-btn').show();
   });
 
-  $('.modal-content').keypress(function(e){
+  $('.modal-content').on('keypress', function(e){
     if(e.which == 13) {
       $(this).find('form').submit();
       e.preventDefault();

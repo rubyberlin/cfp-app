@@ -131,6 +131,6 @@ import { cfpDataTable } from '../../base';
 
 })(jQuery, window);
 
-$(document).ready(function() {
+$(function() {
   window.Schedule.TimeSlots.initTable();
 });

@@ -76,6 +76,10 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
+  config.after(:each, type: :feature) do
+    Capybara::Chromedriver::Logger::TestHooks.after_example! unless Capybara.current_driver == :rack_test
+  end
+
   config.append_after(:each) do
     DatabaseCleaner.clean
   end

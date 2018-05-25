@@ -59,7 +59,7 @@
     assignTrackColor($slot.find('.draggable-session-card, .custom-session-card'))
 
     if (!$slot.hasClass('preview')) {
-      $slot.click(onTimeSlotClick);
+      $slot.on('click', onTimeSlotClick);
     }
 
     $slot.droppable({
@@ -138,7 +138,7 @@
     $format.change(function(ev) {
       $duration.val($format.val());
     });
-    $duration.keyup(function(ev) {
+    $duration.on('keyup', function(ev) {
       if ($duration.is(':focus')) {
         $format.val('');
       }

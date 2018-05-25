@@ -126,13 +126,13 @@
             var index = i;
 
             if (bIsNumber && !oTable.fnSettings().oFeatures.bServerSide) {
-                input.keyup(function () {
+                input.on('keyup', function () {
                     /* Filter on the column all numbers that starts with the entered value */
                     oTable.fnFilter('^' + this.value, _fnColumnIndex(index), true, false); //Issue 37
                     fnOnFiltered();
                 });
             } else {
-                input.keyup(function () {
+                input.on('keyup', function () {
                     if (oTable.fnSettings().oFeatures.bServerSide && iFilterLength != 0) {
                         //If filter length is set in the server-side processing mode
                         //Check has the user entered at least iFilterLength new characters
@@ -159,13 +159,13 @@
                 });
             }
 
-            input.focus(function () {
+            input.on('focus', function () {
                 if ($(this).hasClass("search_init")) {
                     $(this).removeClass("search_init");
                     this.value = "";
                 }
             });
-            input.blur(function () {
+            input.on('blur', function () {
                 if (this.value == "") {
                     $(this).addClass("search_init");
                     this.value = asInitVals[index];
@@ -227,7 +227,7 @@
 
 
 
-            $('#' + sFromId + ',#' + sToId, th).keyup(function () {
+            $('#' + sFromId + ',#' + sToId, th).on('keyup', function () {
 
                 var iMin = document.getElementById(sFromId).value * 1;
                 var iMax = document.getElementById(sToId).value * 1;
@@ -417,7 +417,7 @@
       var select = $(r + '</ul></div>');
       th.html(select);
       th.wrapInner('<span class="filterColumn filter_select" />');
-      select.find('li').click(function () {
+      select.find('li').on('click', function () {
         oTable.fnFilter($(this).data('value'), index);
       });
     }
@@ -548,7 +548,7 @@
             });
 
 
-            $('#' + buttonId).click(function () {
+            $('#' + buttonId).on('click', function () {
 
                 $('#' + checkToggleDiv).dialog('open');
                 var target = $(this);

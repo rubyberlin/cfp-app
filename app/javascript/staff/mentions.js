@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function() {
     $('textarea.mention').mentionsInput({
         showAvatars: false,
         minChars: 1,

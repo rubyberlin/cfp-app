@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
   $('body').popover({selector: "[data-toggle~='popover']", html: true, trigger: 'manual'});
 
   // Manually show the popover for clicked-on element, and dismiss all

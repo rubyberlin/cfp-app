@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
   $("#gravatar-alert").tooltip();
   $('body').tooltip({selector: "[data-toggle~='tooltip']", html: true});
 
