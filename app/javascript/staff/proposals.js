@@ -38,7 +38,7 @@ $(document).ready(function () {
     }
   }
 
-  $("#sort_reset").click(function () {
+  $("#sort_reset").on('click', () => {
     oTable.fnSortNeutral();
   });
 

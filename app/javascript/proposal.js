@@ -2,7 +2,7 @@ $(function() {
   var preview = $('#proposal-preview');
   if (preview.length > 0) {
     var url = preview.data('remote-url');
-    $('.watched').blur(function() {
+    $('.watched').on('blur', function() {
       $.ajax({
         data: {
           id: this.id,
@@ -13,7 +13,7 @@ $(function() {
     });
   }
 
-  $('.js-maxlength-alert').keyup(function() {
+  $('.js-maxlength-alert').on('keyup', function() {
     var maxlength = $(this).attr('maxlength');
     var current_length = $(this).val().length;
     if (current_length > maxlength) {
@@ -21,39 +21,39 @@ $(function() {
     }
   });
 
-  $('.speaker-invite-button').click(function() {
+  $('.speaker-invite-button').on('click', () => {
     $('.speaker-invite-form').toggle();
   });
 
   // Track editing
-  $('#edit-track-icon').click(function() {
+  $('#edit-track-icon').on('click', () => {
     $('#current-track').hide();
     $('#edit-track-wrapper').show();
   });
 
-  $('#cancel-track-editing').click(function() {
+  $('#cancel-track-editing').on('click', () => {
     $('#edit-track-wrapper').hide();
     $('#current-track').show();
   });
 
   // Format editing
-  $('#edit-format-icon').click(function() {
+  $('#edit-format-icon').on('click', () => {
     $('#current-format').hide();
     $('#edit-format-wrapper').show();
   });
 
-  $('#cancel-format-editing').click(function() {
+  $('#cancel-format-editing').on('click', () => {
     $('#edit-format-wrapper').hide();
     $('#current-format').show();
   });
 
   // Reviewer tags editing
-  $('#edit-tags-icon').click(function() {
+  $('#edit-tags-icon').on('click', () => {
     $('.proposal-reviewer-tags, #edit-tags-icon').toggle();
     $('#review-tags-form-wrapper').slideToggle();
   });
 
-  $('#cancel-tags-editing').click(function() {
+  $('#cancel-tags-editing').on('click', () => {
     $('#review-tags-form-wrapper').toggle();
     $('.proposal-reviewer-tags, #edit-tags-icon').toggle();
   });
