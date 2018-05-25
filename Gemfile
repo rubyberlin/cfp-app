@@ -56,7 +56,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
 
   gem 'guard'
-  gem 'guard-livereload', '~> 2.1.1'
+  gem 'guard-livereload', '~> 2.5.2'
   gem 'guard-rspec'
   gem 'pry-rails'
   gem 'pry-remote'
