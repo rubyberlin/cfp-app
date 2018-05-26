@@ -23,7 +23,7 @@
   .col-md-8
     %h3
       Sessions
-      %span.badge= sessions.count
+      %span.badge.badge-pill.badge-secondary= sessions.count
   .col-md-4.text-right
     - if current_user.organizer_for_event?(current_event)
       = link_to event_staff_program_sessions_path(format: "json"), class: "btn btn-info btn-sm" do
@@ -37,15 +37,15 @@
       .tab#program
         %h4
           Program
-          %span.badge= sessions.object.program.count
+          %span.badge.badge-pill.badge-secondary= sessions.object.program.count
       .tab#waitlist
         %h4
           Waitlist
-          %span.badge= sessions.object.waitlisted.count
+          %span.badge.badge-pill.badge-secondary= sessions.object.waitlisted.count
       .tab#declined
         %h4
           Declined
-          %span.badge= sessions.object.declined.count
+          %span.badge.badge-pill.badge-secondary= sessions.object.declined.count
       .indicator
 .row
   .col-md-12

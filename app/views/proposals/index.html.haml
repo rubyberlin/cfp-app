@@ -54,7 +54,7 @@
                             = invitation.proposal.speakers.collect { |speaker| speaker.name }.join(', ')
                       .flex-item.flex-item-fixed.flex-item-padded.flex-item-right
                         .invitation-status
-                          = invitation.state_label
+                          = invitation.state_badge
                         - if invitation.pending?
                           .proposal-meta.invite-btns
                             = invitation.decline_button(small: true)

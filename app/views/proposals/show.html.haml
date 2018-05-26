@@ -56,7 +56,7 @@
               -if proposal.tags.present?
                 .proposal-meta-item
                   .info-item-heading Tags
-                  #{proposal.tags_labels}
+                  #{proposal.tags_badges}
           .col-sm-4
             .col-sm-6.no-pad-left
               .proposal-meta-item.text-left
@@ -86,7 +86,7 @@
                   .clearfix
                     %ul.invitation
                       %li
-                        = invitation.state_label
+                        = invitation.state_badge
                         = invitation.email
                         .pull-right
                           - unless invitation.declined?

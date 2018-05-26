@@ -52,7 +52,7 @@
     .col-md-6
       .program-session-item
         %h3.col-form-label Status
-        %p.session-status #{program_session.state_label(large: true)}
+        %p.session-status #{program_session.state_badge(large: true)}
       .program-session-item
         - if program_session.proposal.present?
           .proposal-link

@@ -49,7 +49,7 @@
               -if proposal.tags.present?
                 .proposal-meta-item
                   .info-item-heading Tags
-                  #{proposal.tags_labels}
+                  #{proposal.tags_badges}
           .col-sm-4
             .col-sm-6.no-pad-left
               .proposal-meta-item.full-width
@@ -80,7 +80,7 @@
               .info-item-heading Reviewer Tags
               .proposal-reviewer-tags
                 -if proposal.review_tags.present?
-                  #{proposal.review_tags_labels}
+                  #{proposal.review_tags_badges}
                 -else
                   %em None
               - if allow_review?(proposal)

@@ -23,10 +23,10 @@
     .event-info.event-info-dense
       %span
         Total Rated:
-        %span.badge.badge-info=event.proposals_rated_overall_message
+        %span.badge.badge-pill.badge-info=event.proposals_rated_overall_message
       %span
         You've rated:
-        %span.badge.badge-info=event.proposals_you_rated_message
+        %span.badge.badge-pill.badge-info=event.proposals_you_rated_message
   .col-sm-6.text-right
     %small.text-right <em>Hint:</em> Hold <kbd>shift</kbd> to sort by multiple columns
 .row
@@ -72,15 +72,15 @@
               = proposal.ratings.size
             %td.title
               = proposal.title_link_for_review
-              = state_label(small: true) if proposal.withdrawn?
+              = state_badge(small: true) if proposal.withdrawn?
             %td.session-format
               = proposal.session_format_name
             %td.track
               = proposal.track_name
             %td.tags
-              = proposal.tags_labels
+              = proposal.tags_badges
             %td.review-tags
-              = proposal.review_tags_labels
+              = proposal.review_tags_badges
             %td.comment-count
               = proposal.comment_count
             %td.created-at

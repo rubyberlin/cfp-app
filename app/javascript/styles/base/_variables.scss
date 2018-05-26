@@ -191,26 +191,19 @@ $popover-arrow-outer-color:           fade_in($popover-border-color, 0.05) !defa
 //** Popover outer arrow fallback color
 $popover-arrow-outer-fallback-color:  darken($popover-fallback-border-color, 20%) !default;
 
+// Badges
 
-//== Labels
-//
-//##
+$badge-border-radius: 0;
 
-//** Default label background color
-$label-default-bg:            $gray-lighter !default;
-$label-default-text:          $gray !default;
-//** Primary label background color
-$label-primary-bg:            $bright-blue !default;
-$label-primary-text:          #fff !default;
-//** Success label background color
-$label-success-bg:            $state-success-bg !default;
-$label-success-text:          $state-success-text !default;
-//** Info label background color
-$label-info-bg:               $state-info-bg !default;
-$label-info-text:          $state-info-text !default;
-//** Warning label background color
-$label-warning-bg:            $state-warning-bg !default;
-$label-warning-text:          $state-warning-text !default;
-//** Danger label background color
-$label-danger-bg:             $state-danger-bg !default;
-$label-danger-text:          $state-danger-text !default;
+//** Primary badge background color
+$badge-primary-bg:            $bright-blue !default;
+//** Secondary badge background color
+$badge-secondary-bg:          $gray-lighter !default;
+//** Success badge background color
+$badge-success-bg:            $state-success-bg !default;
+//** Info badge background color
+$badge-info-bg:               $state-info-bg !default;
+//** Warning badge background color
+$badge-warning-bg:            $state-warning-bg !default;
+//** Danger badge background color
+$badge-danger-bg:             $state-danger-bg !default;

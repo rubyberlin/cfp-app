@@ -1,7 +1,7 @@
 %li.notifications-link.nav-item.dropdown
   %a.nav-link{title: "Notifications Toggle", href: "#", data: { toggle: "dropdown" } }
     %i.fa.fa-envelope
-    %span.badge= current_user.notifications.unread.length if current_user.notifications.unread.any?
+    %span.badge.badge-pill.badge-secondary= current_user.notifications.unread.length if current_user.notifications.unread.any?
 
   %ul.dropdown-menu.dropdown-menu-right.notifications-dropdown
     - if current_user.notifications.unread.any?

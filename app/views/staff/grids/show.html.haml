@@ -8,7 +8,7 @@
             .counts-container
               .total.time-slots
                 %span.title Time slots
-                %span.badge= "#{@counts[day][:scheduled]}/#{@counts[day][:total]}"
+                %span.badge.badge-pill.badge-secondary= "#{@counts[day][:scheduled]}/#{@counts[day][:total]}"
   .row
     .col-md-12
       .tab-content

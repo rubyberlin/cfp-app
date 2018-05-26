@@ -139,19 +139,19 @@ $event-draft-border:  $state-info-border;
 $event-draft-text:    $state-info-text;
 
 .event-status-badge {
-  @extend .label;
+  @extend .badge;
 }
 
 .event-status-open {
-  @extend .label-success;
+  @extend .badge-success;
 }
 
 .event-status-draft {
-  @extend .label-info;
+  @extend .badge-info;
 }
 
 .event-status-closed {
-  @extend .label-default;
+  @extend .badge-secondary;
 }
 
 .template-section {

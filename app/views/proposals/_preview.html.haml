@@ -15,6 +15,6 @@
           -if proposal.tags.present?
             .proposal-meta-item
               %strong Tags:
-              %span #{proposal.tags_labels}
+              %span #{proposal.tags_badges}
       %br
       = render partial: 'proposals/contents', locals: { proposal: proposal }

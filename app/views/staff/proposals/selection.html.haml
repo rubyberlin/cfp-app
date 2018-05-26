@@ -27,10 +27,10 @@
     %ul.selection-counts
       %li.total.soft-accepted
         %span Accepted
-        %span.badge= @all_accepted_count
+        %span.badge.badge-pill.badge-secondary= @all_accepted_count
       %li.total.soft-waitlisted
         %span Waitlisted
-        %span.badge= @all_waitlisted_count
+        %span.badge.badge-pill.badge-secondary= @all_waitlisted_count
   .col-sm-4.text-right
     %small.text-right <em>Hint:</em> Hold <kbd>shift</kbd> to sort by multiple columns
 
@@ -64,8 +64,8 @@
             %td= proposal.title_link
             %td= proposal.track_name
             %td= proposal.session_format_name
-            %td= proposal.review_tags_labels
+            %td= proposal.review_tags_badges
             %td
-              %span.proposal-status= proposal.state_label(small: true, show_confirmed: true)
+              %span.proposal-status= proposal.state_badge(small: true, show_confirmed: true)
             %td
               %span.state-buttons= proposal.small_state_buttons

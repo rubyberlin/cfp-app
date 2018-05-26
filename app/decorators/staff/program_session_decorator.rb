@@ -2,11 +2,11 @@ class Staff::ProgramSessionDecorator < ApplicationDecorator
   decorates_association :speakers
   delegate_all
 
-  def state_label(large: false, state: nil)
+  def state_badge(large: false, state: nil)
     state ||= self.state
 
-    classes = "label #{state_class(state)}"
-    classes += ' label-large' if large
+    classes = "badge #{state_class(state)}"
+    classes += ' badge-large' if large
 
     h.content_tag :span, state, class: classes
   end
@@ -22,19 +22,19 @@ class Staff::ProgramSessionDecorator < ApplicationDecorator
   def state_class(state)
     case state
     when ProgramSession::LIVE
-      'label-success'
+      'badge-success'
     when ProgramSession::DRAFT
-      'label-default'
+      'badge-secondary'
     when ProgramSession::UNCONFIRMED_ACCEPTED
-      'label-info'
+      'badge-info'
     when ProgramSession::UNCONFIRMED_WAITLISTED
-      'label-warning'
+      'badge-warning'
     when ProgramSession::CONFIRMED_WAITLISTED
-      'label-warning'
+      'badge-warning'
     when ProgramSession::DECLINED
-      'label-danger'
+      'badge-danger'
     else
-      'label-default'
+      'badge-secondary'
     end
   end
 

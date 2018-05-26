@@ -13,7 +13,7 @@ class ProposalDecorator < ApplicationDecorator
                       state
     end
 
-    state_label(small: small, state: speaker_state)
+    state_badge(small: small, state: speaker_state)
   end
 
   def reviewer_state(small: false)
@@ -23,7 +23,7 @@ class ProposalDecorator < ApplicationDecorator
                        state
     end
 
-    state_label(small: small, state: reviewer_state, show_confirmed: false)
+    state_badge(small: small, state: reviewer_state, show_confirmed: false)
   end
 
   def state
@@ -59,15 +59,15 @@ class ProposalDecorator < ApplicationDecorator
     object.track.try(:name) || no_track_name_for_speakers
   end
 
-  def review_tags_labels
+  def review_tags_badges
     object.review_tags.map { |tag|
-      h.content_tag :span, tag, class: 'label label-success label-compact'
+      h.content_tag :span, tag, class: 'badge badge-success badge-compact'
     } .join("\n").html_safe
   end
 
-  def tags_labels
+  def tags_badges
     object.tags.map { |tag|
-      h.content_tag :span, tag, class: 'label label-primary label-compact'
+      h.content_tag :span, tag, class: 'badge badge-primary badge-compact'
     } .join("\n").html_safe
   end
 
@@ -137,11 +137,11 @@ class ProposalDecorator < ApplicationDecorator
               h.event_proposal_url(object.event, object)
   end
 
-  def state_label(small: false, state: nil, show_confirmed: false)
+  def state_badge(small: false, state: nil, show_confirmed: false)
     state ||= self.state
 
-    classes = "label #{state_class(state)}"
-    classes += ' label-mini' if small
+    classes = "badge #{state_class(state)}"
+    classes += ' badge-mini' if small
 
     state += ' & confirmed' if proposal.confirmed? && show_confirmed
 
@@ -233,22 +233,22 @@ class ProposalDecorator < ApplicationDecorator
     case state
     when NOT_ACCEPTED
       if h.current_user.reviewer_for_event?(object.event)
-        'label-danger'
+        'badge-danger'
       else
-        'label-info'
+        'badge-info'
       end
     when SOFT_REJECTED
-      'label-danger'
+      'badge-danger'
     when SOFT_WAITLISTED
-      'label-warning'
+      'badge-warning'
     when WITHDRAWN
-      'label-warning'
+      'badge-warning'
     when ACCEPTED
-      'label-success'
+      'badge-success'
     when SOFT_ACCEPTED
-      'label-success'
+      'badge-success'
     else
-      'label-default'
+      'badge-secondary'
     end
   end
 end
