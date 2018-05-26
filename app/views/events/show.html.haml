@@ -43,13 +43,13 @@
           %div
             = link_to "Submit a proposal", new_event_proposal_path, class: "btn btn-primary"
       - elsif event.closed?
-        .panel-body
+        .card-body
           %p
             The CFP closed on
             %strong= event.closes_at(:long_with_zone)
           %p Thank you for all submitted proposals!
       - elsif event.draft?
-        .panel-body
+        .card-body
           %p The CFP has not yet opened.  
           %p Please check back soon!
 

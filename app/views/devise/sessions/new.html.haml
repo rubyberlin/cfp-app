@@ -3,17 +3,21 @@
     %h2 Sign In With
 
 .row
-  = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  = simple_form_for(resource,
+      as:   resource_name,
+      url:  session_path(resource_name),
+      html: { class: 'col-sm-12' }) do |f|
 
-    .form-inputs
+    .row
       .col-sm-5.col-centered
-        .well.clearfix
-          = f.error_notification
-          = f.input :email, required: false, autofocus: true, wrapper_html: {class: "col-sm-12"}
-          = f.input :password, required: false, wrapper_html: {class: "col-sm-12"}
-          = f.input :remember_me, as: :boolean, wrapper: :inline_boolean if devise_mapping.rememberable?
+        .card
+          .card-body
+            = f.error_notification
+            = f.input :email, required: false, autofocus: true, wrapper_html: {class: "col-sm-12"}
+            = f.input :password, required: false, wrapper_html: {class: "col-sm-12"}
+            = f.input :remember_me, as: :boolean, wrapper: :inline_boolean if devise_mapping.rememberable?
 
-          .form-group.col-sm-12
-            = f.button :submit, "Log in", class: "btn btn-primary"
+            .form-group.col-sm-12
+              = f.button :submit, "Log in", class: "btn btn-primary"
 
-          .form-group= render "devise/shared/links"
+            .form-group= render "devise/shared/links"
