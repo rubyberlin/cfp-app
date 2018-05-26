@@ -28,8 +28,8 @@ import 'jquery-ui/ui/widgets/slider'
 import 'jquery-ujs'
 import 'bootstrap'
 
-import 'datatables.net-bs/css/dataTables.bootstrap.css'
-import datatables from 'datatables.net-bs'
+import 'datatables.net-bs4/css/dataTables.bootstrap4.css'
+import datatables from 'datatables.net-bs4'
 datatables(window, $)
 
 import 'vendor/jquery.dataTables.columnFilter'

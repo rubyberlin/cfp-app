@@ -9,7 +9,7 @@ environment.loaders.append('coderay', coderay)
 
 environment.loaders.append('jqueryLibs', {
   test: [
-    require.resolve('datatables.net-bs'),
+    require.resolve('datatables.net-bs4'),
     require.resolve('datatables.net'),
     require.resolve('jquery-ui-timepicker-addon')
   ],
