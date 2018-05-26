@@ -81,7 +81,7 @@
           .col-md-8
             - if proposal.invitations_enabled?(current_user)
               - if invitations.any?
-                %h4.control-label Invited Speakers
+                %h4.col-form-label Invited Speakers
                 - invitations.each do |invitation|
                   .clearfix
                     %ul.invitation
@@ -104,7 +104,7 @@
                 = link_to "Invite a Speaker", "#", class: "btn btn-success btn-sm speaker-invite-btn",
                   data: { toggle: "modal", target: "#new-speaker-invitation" },
                   id: "invite-new-speaker"
-                %p.help-block You may invite other speakers to your proposal.
+                %p.form-text You may invite other speakers to your proposal.
 
     - if proposal.has_speaker?(current_user)
       .col-md-4
@@ -129,6 +129,6 @@
           .widget-content
             = render partial: 'proposals/comments',
               locals: { proposal: proposal, comments: proposal.public_comments }
-        %p.help-block Have questions or feedback on your proposal? The comments allow you to anonymously converse with the review committee.
+        %p.form-text Have questions or feedback on your proposal? The comments allow you to anonymously converse with the review committee.
 
 = render partial: 'proposals/speaker_invitations/new_dialog', locals: { event: event, proposal: proposal }

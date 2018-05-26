@@ -38,7 +38,7 @@ $(function() {
     $('#' + selectName + '-name').html(opt);
     $('#edit-' + selectName + '-wrapper')
       .hide()
-      .find(".control-label").last().remove();
+      .find(".col-form-label").last().remove();
     $('#current-' + selectName).show();
     setupPopovers()
   }

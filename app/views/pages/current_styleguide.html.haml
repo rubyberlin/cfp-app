@@ -126,66 +126,65 @@
                         Notifications
                         %span.badge 42
             #formcontrols.tab-pane
-              %form#edit-profile.form-horizontal
+              %form#edit-profile
                 %fieldset
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "username"} Username
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "username"} Username
                     .col-sm-10
                       %input#username.disabled.form-control{:disabled => "", :type => "text", :value => "Example"}
-                        %p.help-block Your username is for logging in and cannot be changed.
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "firstname"} First Name
+                        %p.form-text Your username is for logging in and cannot be changed.
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "firstname"} First Name
                     .col-sm-10
                       %input#firstname.form-control{:type => "text", :value => "John"}
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "lastname"} Last Name
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "lastname"} Last Name
                     .col-sm-10
                       %input#lastname.form-control{:type => "text", :value => "Donga"}
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "email"} Email Address
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "email"} Email Address
                     .col-sm-10
                       %input#email.form-control{:type => "text", :value => "john.donga@egrappler.com"}
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "password1"} Password
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "password1"} Password
                     .col-sm-10
                       %input#password1.form-control{:type => "password", :value => "thisispassword"}
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "password2"} Confirm
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "password2"} Confirm
                     .col-sm-10
                       %input#password2.form-control{:type => "password", :value => "thisispassword"}
-                  .form-group
-                    .col-sm-12
-                      %label.control-label.col-sm-2 Checkboxes
-                      .col-sm-8
-                        %label.checkbox-inline
-                          %input{:type => "checkbox"}
-                            Option 01
-                        %label.checkbox-inline
-                          %input{:type => "checkbox"}
-                            Option 02
-                  .form-group
-                    .col-sm-12
-                      %label.control-label.col-sm-2 Radio Buttons
-                      .col-sm-8
-                        %label.radio-inline
-                          %input{:name => "radiobtns", :type => "radio"}
-                            Option 01
-                        %label.radio-inline
-                          %input{:name => "radiobtns", :type => "radio"}
-                            Option 02
-                    / /col-sm-12
+                  .form-group.row
+                    %label.col-form-label.col-sm-2 Checkboxes
+                    .col-sm-8
+                      .form-check.form-check-inline
+                        %input#checkboxOption1.form-check-input{:type => "checkbox"}
+                        %label.form-check-label{ for: 'checkboxOption1 '} Option 01
+                      .form-check.form-check-inline
+                        %input#checkboxOption2.form-check-input{:type => "checkbox"}
+                        %label.form-check-label{ for: 'checkboxOption2 '} Option 02
+                  .form-group.row
+                    %label.col-form-label.col-sm-2 Radio Buttons
+                    .col-sm-8
+                      .form-check.form-check-inline
+                        %input#radioOption1.form-check-input{:name => "radiobtns", :type => "radio"}
+                        %label.form-check-label{ for: 'radioOption1 '} Option 01
+                      .form-check.form-check-inline
+                        %input#radioOption2.form-check-input{:name => "radiobtns", :type => "radio"}
+                        %label.form-check-label{ for: 'radioOption2 '} Option 02
                   / /form-group
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "radiobtns"} Combined Textbox
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "radiobtns"} Combined Textbox
                     .col-sm-8
                       .input-group.col-sm-5
-                        %span.input-group-addon $
+                        .input-group-prepend
+                          %span.input-group-text $
                         %input#appendedPrependedInput.form-control{:type => "text"}
-                          %span.input-group-addon .00
+                        .input-group-append
+                          %span.input-group-text .00
                     / /col-sm-8
                   / /form-group
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "radiobtns"} Textbox with Button Front
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "radiobtns"} Textbox with Button Front
                     .col-sm-6
                       .input-group
                         %span.input-group-btn
@@ -194,16 +193,16 @@
                       / /input-group
                     / /.col-lg-6
                   / /form-group
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "radiobtns"} Textbox with Button Back
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "radiobtns"} Textbox with Button Back
                     .col-sm-6
                       .input-group
                         %input#appendedInputButton.form-control{:type => "text"}
                           %span.input-group-btn
                             %button.btn.btn-secondary{:type => "button"} Go!
                   / /form-group
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "radiobtns"} Textbox with Dropdown Front
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "radiobtns"} Textbox with Dropdown Front
                     .col-sm-6
                       .input-group
                         .input-group-btn
@@ -222,8 +221,8 @@
                               %a{:href => "#"} Separated link
                         %input.form-control{"aria-label" => "...", :type => "text"}
 
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "radiobtns"} Textbox with Dropdown Back
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "radiobtns"} Textbox with Dropdown Back
                     .col-sm-6
                       .input-group
                         %input.form-control{"aria-label" => "...", :type => "text"}
@@ -245,8 +244,8 @@
                       / /input-group
                     / /.col-lg-6
                   / /form-group
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "radiobtns"} Dropdown in a button group
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "radiobtns"} Dropdown in a button group
                     .col-sm-6
                       .btn-group
                         %a.btn.btn-primary{:href => "#"}
@@ -272,8 +271,8 @@
                             %a{:href => "#"}
                               %i.i
                               Make admin
-                  .form-group
-                    %label.control-label.col-sm-2{:for => "radiobtns"} Button sizes
+                  .form-group.row
+                    %label.col-form-label.col-sm-2{:for => "radiobtns"} Button sizes
                     .col-sm-8
                       %a.btn.btn-secondary.btn-lg{:href => "#"}
                         %i.glyphicon.glyphicon-star
@@ -287,7 +286,7 @@
                     / /col-sm-8
                   / /form-group
                   %br/
-                  .form-group
+                  .form-group.row
                     .col-sm-12
                       %button.btn Cancel
                       %button.btn.btn-primary{:type => "submit"} Save
@@ -297,7 +296,7 @@
               %form#edit-profile2.form-vertical
                 %fieldset
                   .form-group
-                    %label.control-label Alerts
+                    %label.col-form-label Alerts
                     .controls
                       .alert.alert-danger
                         %button.close{"data-dismiss" => "alert", :type => "button"} &times;
@@ -315,7 +314,7 @@
                     / /controls
                   / /form-group
                   .form-group
-                    %label.control-label Progress Bars
+                    %label.col-form-label Progress Bars
                     .row
                       .col-sm-12
                         .progress
@@ -358,7 +357,7 @@
                           .progress-bar.progress-bar-danger.progress-bar-striped.active{"aria-valuemax" => "100", "aria-valuemin" => "0", "aria-valuenow" => "95", :role => "progressbar", :style => "width: 95%;"} 95%
                   / /form-group
                   .form-group
-                    %label.control-label Modals
+                    %label.col-form-label Modals
                     .controls
                       / Button to trigger modal
                       %a.btn.btn-secondary{"data-toggle" => "modal", :href => "#myModal", :role => "button"}
@@ -387,9 +386,9 @@
                   %h3 Buttons
                 .widget-content
                   .form-group
-                    %label.control-label Buttons
+                    %label.col-form-label Buttons
                     .controls
-                      %button.btn.btn-secondary Default
+                      %button.btn.btn-secondary-outline Default
                       %button.btn.btn-primary{:type => "submit"} Save
                       %button.btn.btn-info Info
                       %button.btn.btn-danger Danger
@@ -398,7 +397,7 @@
                       %button.btn.btn-success Success
                       %button.btn.btn-link Cancel
                   .form-group
-                    %button.btn.btn-sm.btn-secondary Default
+                    %button.btn.btn-sm.btn-secondary-outline Default
                     %button.btn.btn-primary.btn-sm{:type => "submit"} Save
                     %button.btn.btn-sm.btn-info Info
                     %button.btn.btn-sm.btn-danger Danger
@@ -407,7 +406,7 @@
                     %button.btn.btn-sm.btn-success Success
                     %button.btn.btn-sm.btn-link Cancel
                   .form-group
-                    %button.btn.btn-lg.btn-secondary Default
+                    %button.btn.btn-lg.btn-secondary-outline Default
                     %button.btn.btn-primary.btn-lg{:type => "submit"} Save
                     %button.btn.btn-lg.btn-info Info
                     %button.btn.btn-lg.btn-danger Danger
@@ -417,7 +416,7 @@
                     %button.btn.btn-lg.btn-link Cancel
                   %br/
                   .form-group
-                    %label.control-label{:for => "radiobtns"} Button sizes
+                    %label.col-form-label{:for => "radiobtns"} Button sizes
                     .row
                       .col-sm-8
                         %a.btn.btn-secondary.btn-lg{:href => "#"}
@@ -433,24 +432,24 @@
                   / /form-group
                   %br/
                   .form-group
-                    %label.control-label Social Buttons
+                    %label.col-form-label Social Buttons
                     .controls
-                      %button.btn.btn-secondary.btn-facebook-alt
+                      %button.btn.btn-secondary-outline.btn-facebook-alt
                         %i.fa.fa-facebook
                         Facebook
-                      %button.btn.btn-secondary.btn-twitter-alt
+                      %button.btn.btn-secondary-outline.btn-twitter-alt
                         %i.fa.fa-twitter
                         Twitter
-                      %button.btn.btn-secondary.btn-google-alt
+                      %button.btn.btn-secondary-outline.btn-google-alt
                         %i.fa.fa-google-plus
                         Google+
-                      %button.btn.btn-secondary.btn-linkedin-alt
+                      %button.btn.btn-secondary-outline.btn-linkedin-alt
                         %i.fa.fa-linkedin
                         Linked In
-                      %button.btn.btn-secondary.btn-pinterest-alt
+                      %button.btn.btn-secondary-outline.btn-pinterest-alt
                         %i.fa.fa-pinterest
                         Pinterest
-                      %button.btn.btn-secondary.btn-github-alt
+                      %button.btn.btn-secondary-outline.btn-github-alt
                         %i.fa.fa-github
                         Github
                     / /controls

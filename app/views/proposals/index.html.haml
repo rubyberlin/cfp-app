@@ -7,7 +7,7 @@
   .col-md-12.proposals
     - if proposals.blank? && invitations.blank?
       .widget.widget-card.text-center
-        %h2.control-label You don't have any proposals.
+        %h2.col-form-label You don't have any proposals.
 
     - events.each do |event|
       - talks = proposals[event] || []

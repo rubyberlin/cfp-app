@@ -1,24 +1,24 @@
 .proposal-section
-  %h3.control-label Abstract
+  %h3.col-form-label Abstract
   .markdown{ data: { 'field-id' => 'proposal_abstract' } }
     = proposal.abstract_markdown
 
 %h2.fieldset-legend For Review Committee
 
 .proposal-section
-  %h3.control-label Details
+  %h3.col-form-label Details
   .markdown{ data: { 'field-id' => 'proposal_details' } }
     = proposal.details_markdown
 
 .proposal-section
-  %h3.control-label Pitch
+  %h3.col-form-label Pitch
   .markdown{ data: { 'field-id' => 'proposal_pitch' } }
     =proposal.pitch_markdown
 
 - if proposal.custom_fields.any?
   - proposal.proposal_data[:custom_fields].select do |key,value|
     .proposal-section
-      %h3.control-label= key.capitalize
+      %h3.col-form-label= key.capitalize
       %div
       = value.capitalize
       %div

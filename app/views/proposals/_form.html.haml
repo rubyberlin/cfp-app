@@ -28,7 +28,7 @@
 
   - if event.public_tags?
     .form-group
-      %h3.control-label
+      %h3.col-form-label
         Tags
       = f.select :tags,
         options_for_select(event.proposal_tags, proposal.object.tags),

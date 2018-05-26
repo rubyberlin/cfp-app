@@ -1,12 +1,19 @@
-.form-inline
-  = f.input :conference_day, collection: 1..event.days, label: 'Day'
-  = f.input :room_id, collection: current_event.rooms, include_blank: true
-.form-inline
-  = f.input :start_time, as: :string, input_html: { value: time_slot.start_time, class: 'start-time' }
-  = f.input :end_time, as: :string, input_html: { value: time_slot.end_time, class: 'end-time' }
-.length-label
-  %span.bold Length:
-  %span.length="#{time_slot.session_duration}"
+.form-row
+  = f.input :conference_day, collection: 1..event.days, label: 'Day',
+      wrapper_html: { class: 'col-sm-6' }
+  = f.input :room_id, collection: current_event.rooms, include_blank: true,
+      wrapper_html: { class: 'col-sm-6' }
+.form-row
+  = f.input :start_time, as: :string,
+      input_html: { value: time_slot.start_time, class: 'start-time' },
+      wrapper_html: { class: 'col-sm-4' }
+  = f.input :end_time, as: :string,
+      input_html: { value: time_slot.end_time, class: 'end-time' },
+      wrapper_html: { class: 'col-sm-4' }
+  .form-group.col-sm-4
+    = label_tag :time_slot_length, 'Length', class: 'form-control-label'
+    = text_field_tag :time_slot_length, time_slot.session_duration,
+        readonly: true, class: 'form-control-plaintext'
 = f.input :program_session_id, collection: time_slot.unscheduled_program_sessions,
   input_html: { class: 'available-proposals' }
 .selected-session-info

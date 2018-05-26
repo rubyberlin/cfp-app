@@ -63,7 +63,7 @@ import { cfpDataTable } from '../../base';
   }
 
   function updateLength($container) {
-    var $length = $('.length-label .length');
+    var $length = $('#time_slot_length');
     var start = document.getElementById('time_slot_start_time').value;
     var end = document.getElementById('time_slot_end_time').value;
 
@@ -71,7 +71,7 @@ import { cfpDataTable } from '../../base';
       var s = moment(start, 'h:mm a');
       var e = moment(end, 'h:mm a');
       var diff = e.diff(s, 'minutes');
-      $length.text(diff + ' minutes');
+      $length.val(diff + ' minutes');
     }
   }
 

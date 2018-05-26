@@ -98,11 +98,6 @@ ul {
   margin-top: 2.3em;
 }
 
-.btn.save-comment {
-  width: 105px;
-  float: right;
-}
-
 span.disabled-state {
   padding: 3px 20px;
   color: grey;
@@ -114,7 +109,7 @@ span.disabled-state {
   padding: $input-btn-padding-x;
 
   .callout-title {
-    @extend .control-label;
+    @extend .col-form-label;
     margin-bottom: $spacer * 2;
   }
 }

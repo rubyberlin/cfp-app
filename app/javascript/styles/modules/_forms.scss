@@ -10,7 +10,7 @@
   .form-control {
     background-color: #edd1d1;
   }
-  label, .help-block {
+  label, .form-text {
     color: darken(#edd1d1, 50%);
   }
 }
@@ -31,7 +31,7 @@ span[title="required"] {
   color: darken(#edd1d1, 50%);
 }
 
-.control-label {
+.col-form-label {
   display: block;
   max-width: 100%;
   margin-bottom: 5px;
