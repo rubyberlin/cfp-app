@@ -20,7 +20,7 @@
           placeholder: "Bio for the event program", rows: 7, maxlength: 500
           %p.help-block Bio is limited to 500 characters.
 
-      .row.col-md-12.form-submit.btn-toolbar
-        %button.pull-right.btn.btn-success{:type => "submit"} Save
-        = link_to("Cancel", event_staff_program_speaker_path(current_event, @speaker), class: "button pull-right btn btn-danger")
-
+      .row
+        .col-md-12.form-submit
+          %button.pull-right.btn.btn-success{:type => "submit"} Save
+          = link_to("Cancel", event_staff_program_speaker_path(current_event, @speaker), class: "cancel-form pull-right btn btn-danger")

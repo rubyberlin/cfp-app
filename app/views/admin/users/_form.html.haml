@@ -21,7 +21,7 @@
         - else
           Email
 
-  .row.col-md-12.form-submit
-    .btn-toolbar
-      = link_to "Cancel", admin_users_path, class: "button btn btn-danger pull-right"
-      %button.pull-right.btn.btn-success{:type => "submit"} Save
+  .row
+    .col-md-12.form-submit
+      = link_to "Cancel", admin_users_path, class: "btn btn-danger pull-right"
+      %button.pull-right.mr-2.btn.btn-success{:type => "submit"} Save
