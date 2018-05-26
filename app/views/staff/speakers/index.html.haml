@@ -52,4 +52,4 @@
             - if current_user.organizer_for_event?(current_event)
               %td{ id: "speaker-action-buttons-#{speaker.id}" }
                 %span>
-                  = link_to "Edit", edit_event_staff_program_speaker_path(current_event, speaker), class: "btn btn-primary btn-xs"
+                  = link_to "Edit", edit_event_staff_program_speaker_path(current_event, speaker), class: "btn btn-primary btn-sm"

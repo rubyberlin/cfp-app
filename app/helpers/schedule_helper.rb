@@ -32,7 +32,7 @@ module ScheduleHelper
   def cancel_bulk_preview_button(day)
     link_to('Cancel',
             cancel_event_staff_schedule_grid_bulk_time_slot_path(current_event, day),
-            class: 'btn btn-default btn-sm bulk-cancel',
+            class: 'btn btn-secondary btn-sm bulk-cancel',
             remote: true)
   end
 

@@ -116,7 +116,7 @@
                       %a{href: "#"}
                         inbox
                         %span.badge 42
-                      %button.btn.btn-default{type: "button"}
+                      %button.btn.btn-secondary{type: "button"}
                         Messages
                         %span.badge 4
                       %button.btn.btn-primary{type: "button"}
@@ -189,7 +189,7 @@
                     .col-sm-6
                       .input-group
                         %span.input-group-btn
-                          %button.btn.btn-default{:type => "button"} Go!
+                          %button.btn.btn-secondary{:type => "button"} Go!
                         %input.form-control{:placeholder => "Search for...", :type => "text"}
                       / /input-group
                     / /.col-lg-6
@@ -200,14 +200,14 @@
                       .input-group
                         %input#appendedInputButton.form-control{:type => "text"}
                           %span.input-group-btn
-                            %button.btn.btn-default{:type => "button"} Go!
+                            %button.btn.btn-secondary{:type => "button"} Go!
                   / /form-group
                   .form-group
                     %label.control-label.col-sm-2{:for => "radiobtns"} Textbox with Dropdown Front
                     .col-sm-6
                       .input-group
                         .input-group-btn
-                          %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                          %button.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                             Action
                             %span.caret
                           %ul.dropdown-menu
@@ -228,7 +228,7 @@
                       .input-group
                         %input.form-control{"aria-label" => "...", :type => "text"}
                           .input-group-btn
-                            %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+                            %button.btn.btn-secondary.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
                               Action
                               %span.caret
                             %ul.dropdown-menu.dropdown-menu-right
@@ -275,16 +275,13 @@
                   .form-group
                     %label.control-label.col-sm-2{:for => "radiobtns"} Button sizes
                     .col-sm-8
-                      %a.btn.btn-default.btn-lg{:href => "#"}
+                      %a.btn.btn-secondary.btn-lg{:href => "#"}
                         %i.glyphicon.glyphicon-star
                         Star
-                      %a.btn.btn-default{:href => "#"}
+                      %a.btn.btn-secondary{:href => "#"}
                         %i.glyphicon.glyphicon-star
                         Star
-                      %a.btn.btn-default.btn-sm{:href => "#"}
-                        %i.glyphicon.glyphicon-star
-                        Star
-                      %a.btn.btn-default.btn-xs{:href => "#"}
+                      %a.btn.btn-secondary.btn-sm{:href => "#"}
                         %i.glyphicon.glyphicon-star
                         Star
                     / /col-sm-8
@@ -364,7 +361,7 @@
                     %label.control-label Modals
                     .controls
                       / Button to trigger modal
-                      %a.btn.btn-default{"data-toggle" => "modal", :href => "#myModal", :role => "button"}
+                      %a.btn.btn-secondary{"data-toggle" => "modal", :href => "#myModal", :role => "button"}
                         %i.glyphicon.glyphicon-modal-window
                         Launch demo modal
                       / Modal
@@ -392,7 +389,7 @@
                   .form-group
                     %label.control-label Buttons
                     .controls
-                      %button.btn.btn-default Default
+                      %button.btn.btn-secondary Default
                       %button.btn.btn-primary{:type => "submit"} Save
                       %button.btn.btn-info Info
                       %button.btn.btn-danger Danger
@@ -401,16 +398,7 @@
                       %button.btn.btn-success Success
                       %button.btn.btn-link Cancel
                   .form-group
-                    %button.btn.btn-xs.btn-default Default
-                    %button.btn.btn-primary.btn-xs{:type => "submit"} Save
-                    %button.btn.btn-xs.btn-info Info
-                    %button.btn.btn-xs.btn-danger Danger
-                    %button.btn.btn-xs.btn-warning Warning
-                    %button.btn.btn-xs.btn-invert Invert
-                    %button.btn.btn-xs.btn-success Success
-                    %button.btn.btn-xs.btn-link Cancel
-                  .form-group
-                    %button.btn.btn-sm.btn-default Default
+                    %button.btn.btn-sm.btn-secondary Default
                     %button.btn.btn-primary.btn-sm{:type => "submit"} Save
                     %button.btn.btn-sm.btn-info Info
                     %button.btn.btn-sm.btn-danger Danger
@@ -419,7 +407,7 @@
                     %button.btn.btn-sm.btn-success Success
                     %button.btn.btn-sm.btn-link Cancel
                   .form-group
-                    %button.btn.btn-lg.btn-default Default
+                    %button.btn.btn-lg.btn-secondary Default
                     %button.btn.btn-primary.btn-lg{:type => "submit"} Save
                     %button.btn.btn-lg.btn-info Info
                     %button.btn.btn-lg.btn-danger Danger
@@ -432,16 +420,13 @@
                     %label.control-label{:for => "radiobtns"} Button sizes
                     .row
                       .col-sm-8
-                        %a.btn.btn-default.btn-lg{:href => "#"}
+                        %a.btn.btn-secondary.btn-lg{:href => "#"}
                           %i.glyphicon.glyphicon-star
                           Star
-                        %a.btn.btn-default{:href => "#"}
+                        %a.btn.btn-secondary{:href => "#"}
                           %i.glyphicon.glyphicon-star
                           Star
-                        %a.btn.btn-default.btn-sm{:href => "#"}
-                          %i.glyphicon.glyphicon-star
-                          Star
-                        %a.btn.btn-default.btn-xs{:href => "#"}
+                        %a.btn.btn-secondary.btn-sm{:href => "#"}
                           %i.glyphicon.glyphicon-star
                           Star
                       / /col-sm-8
@@ -450,22 +435,22 @@
                   .form-group
                     %label.control-label Social Buttons
                     .controls
-                      %button.btn.btn-default.btn-facebook-alt
+                      %button.btn.btn-secondary.btn-facebook-alt
                         %i.fa.fa-facebook
                         Facebook
-                      %button.btn.btn-default.btn-twitter-alt
+                      %button.btn.btn-secondary.btn-twitter-alt
                         %i.fa.fa-twitter
                         Twitter
-                      %button.btn.btn-default.btn-google-alt
+                      %button.btn.btn-secondary.btn-google-alt
                         %i.fa.fa-google-plus
                         Google+
-                      %button.btn.btn-default.btn-linkedin-alt
+                      %button.btn.btn-secondary.btn-linkedin-alt
                         %i.fa.fa-linkedin
                         Linked In
-                      %button.btn.btn-default.btn-pinterest-alt
+                      %button.btn.btn-secondary.btn-pinterest-alt
                         %i.fa.fa-pinterest
                         Pinterest
-                      %button.btn.btn-default.btn-github-alt
+                      %button.btn.btn-secondary.btn-github-alt
                         %i.fa.fa-github
                         Github
                     / /controls
@@ -679,24 +664,24 @@
 
             #ui-components.tab-pane
               %h3 Event Info
-              
+
               .row
                 .col-md-4
                   .event-info.event-info-dense
                     %strong.event-title SeedConf
-                    %span.event-meta 
+                    %span.event-meta
                       %i.fa.fa-fw.fa-calendar
                       March 13, 2017
-                    %span.event-meta 
+                    %span.event-meta
                       %i.fa.fa-fw.fa-map-marker
                       Phoenix, AZ
                 .col-md-4
                   .event-info.event-info-block
                     %strong.event-title SeedConf
-                    %span.event-meta 
+                    %span.event-meta
                       %i.fa.fa-fw.fa-calendar
                       March 13, 2017
-                    %span.event-meta 
+                    %span.event-meta
                       %i.fa.fa-fw.fa-map-marker
                       Phoenix, AZ
                     %span.event-meta= link_to("http://seedconf.com")
@@ -707,14 +692,14 @@
                       CFP OPEN
                     .panel-body
                       %dl
-                        %dt.event-label CFP closes: 
+                        %dt.event-label CFP closes:
                         %dd.event-callout January 7, 2017 at 09:30pm MST
                         %dd
                           %strong 6 months left to submit your proposal
                       %div
                         = link_to 'Submit a proposal', '#', class: 'btn btn-primary'
               %h3 Event Status Badges
-              
+
               .event-status-badge.event-status-open CFP OPEN
               .event-status-badge.event-status-closed CFP CLOSED
               .event-status-badge.event-status-draft CFP DRAFT

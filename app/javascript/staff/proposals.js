@@ -46,7 +46,7 @@ $(function() {
 
   $('.multiselect').multiselect({
     enableHTML: true,
-    buttonClass: 'btn btn-default',
+    buttonClass: 'btn btn-secondary',
     buttonText: function (options, select) {
       if (options.length == 0) {
         return 'None selected <b class="caret"></b>';

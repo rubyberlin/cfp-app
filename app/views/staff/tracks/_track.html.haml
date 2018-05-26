@@ -18,9 +18,9 @@
     %td
       .pull-right
         = link_to "Edit", edit_event_staff_track_path(event, track), remote: true,
-          class: "btn btn-primary btn-xs"
+          class: "btn btn-primary btn-sm"
         = link_to "Remove", event_staff_track_path(event, track),
           method: :delete,
           remote: true,
           data: { confirm: "Are you sure you want to remove this track?" },
-          class: "btn btn-danger btn-xs"
+          class: "btn btn-danger btn-sm"

@@ -76,10 +76,10 @@ class Staff::ProposalDecorator < ProposalDecorator
   private
 
   def state_button(text, path, opts = {})
-    opts = { method: :post, remote: :true, type: 'btn-default', hidden: false }.merge(opts)
+    opts = { method: :post, remote: :true, type: 'btn-secondary', hidden: false }.merge(opts)
 
     opts[:class] = "#{opts[:class]} btn #{opts[:type]} " + (opts[:hidden] ? 'hidden' : '')
-    opts[:class] += opts[:small] ? ' btn-xs' : ' btn-sm'
+    opts[:class] += opts[:small] ? ' btn-sm' : ''
     h.link_to(text, path, opts)
   end
 
@@ -99,7 +99,7 @@ class Staff::ProposalDecorator < ProposalDecorator
 
   def reset_state_button
     state_button('Reset Status', update_state_path(SUBMITTED),
-                 type: 'btn-default',
+                 type: 'btn-secondary',
                  hidden: reset_button_hidden?)
   end
 
