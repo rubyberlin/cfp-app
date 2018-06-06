@@ -21,7 +21,7 @@ gem 'pundit'
 
 gem 'actionview-encoded_mail_to'
 gem 'coderay', '~> 1.0'
-gem 'country_select', '~> 1.3.1'
+gem 'country_select', '~> 3.1.1'
 gem 'haml', '~> 5.0.4'
 gem 'haml-rails', '~> 1.0.0'
 gem 'redcarpet', '~> 3.4.0'
