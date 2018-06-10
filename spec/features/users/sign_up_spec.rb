@@ -10,7 +10,7 @@ feature 'Sign Up', :devise do
   #   Then I see an empty credentials message
   scenario 'user cannot sign up with empty password' do
     sign_up_with('test@example.com', '', '')
-    expect(page).to have_content "Password *\ncan't be blank"
+    expect(page).to have_content "Password *\nPassword can't be blank"
   end
 
   # Scenario: User cannot sign up if invalid email
@@ -19,7 +19,7 @@ feature 'Sign Up', :devise do
   #   Then I see an invalid credentials message
   scenario 'user cannot sign up with invalid email' do
     sign_up_with('test', '12341234', '12341234')
-    expect(page).to have_content "Email *\nis invalid"
+    expect(page).to have_content "Email *\nEmail is invalid"
   end
 
   # Scenario: User cannot sign up if no email
@@ -28,7 +28,7 @@ feature 'Sign Up', :devise do
   #   Then I see an invalid credentials message
   scenario 'user cannot sign up with an empty email' do
     sign_up_with('', '12341234', '12341234')
-    expect(page).to have_content "Email *\ncan't be blank"
+    expect(page).to have_content "Email *\nEmail can't be blank"
   end
 
   # Scenario: User cannot sign up if no email
@@ -37,7 +37,7 @@ feature 'Sign Up', :devise do
   #   Then I see an invalid credentials message
   scenario 'user cannot sign up with invalid password' do
     sign_up_with('test@example.com', '1234', '1234')
-    expect(page).to have_content "Password *\nis too short"
+    expect(page).to have_content "Password *\nPassword is too short"
   end
 
   # Scenario: User can sign in with valid credentials
