@@ -13,7 +13,7 @@
 Capybara.add_selector(:bs_modal) do
   CSS_CLASSES = {
     base:     %(modal),
-    open:     %(in),
+    open:     %(show),
     content:  %(modal-content),
     header:   %(modal-header),
     body:     %(modal-body),
