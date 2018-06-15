@@ -78,7 +78,7 @@ class Staff::ProposalDecorator < ProposalDecorator
   def state_button(text, path, opts = {})
     opts = { method: :post, remote: :true, type: 'btn-secondary', hidden: false }.merge(opts)
 
-    opts[:class] = "#{opts[:class]} btn #{opts[:type]} " + (opts[:hidden] ? 'hidden' : '')
+    opts[:class] = "#{opts[:class]} btn #{opts[:type]} " + (opts[:hidden] ? 'd-none' : '')
     opts[:class] += opts[:small] ? ' btn-sm' : ''
     h.link_to(text, path, opts)
   end

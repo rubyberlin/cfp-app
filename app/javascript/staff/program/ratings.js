@@ -71,19 +71,19 @@ function hidePreviewDelete() {
 
 function toggleComments(rating, programTracker) {
     if (!rating && !programTracker.val()) {
-        $(".internal-comments").addClass("hidden")
+        $(".internal-comments").addClass('d-none')
     } else {
-        $(".internal-comments").removeClass("hidden")
+        $(".internal-comments").removeClass('d-none')
     }
 }
 
 function toggleCommentsAndRatings(e) {
     e.preventDefault()
     $.each($(this).find("i"), function () {
-        $(this).toggleClass('hidden')
+        $(this).toggleClass('d-none')
     })
-    $(".internal-comments").toggleClass("hidden")
-    $("#show-ratings").toggleClass("hidden")
+    $(".internal-comments").toggleClass('d-none')
+    $("#show-ratings").toggleClass('d-none')
 }
 
 function setupPopover() {

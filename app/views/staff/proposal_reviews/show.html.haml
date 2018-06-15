@@ -115,7 +115,7 @@
         .widget-content
           = render partial: 'shared/proposals/rating_form', locals: { event: event, proposal: proposal, rating: rating }
 
-        .internal-comments{ class: !rating.persisted? ? "hidden" : nil }
+        .internal-comments{ class: !rating.persisted? ? 'd-none' : nil }
           .widget-header
             %i.fa.fa-comments
             %h3.comments-heading= pluralize(proposal.internal_comments.count, 'Internal Comment')

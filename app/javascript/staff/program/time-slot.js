@@ -54,11 +54,11 @@ import { cfpDataTable } from '../../base';
     $info.find('.duration').html(data['duration'] + " minutes");
 
     if ($selected.val() === '') {
-      $fields.removeClass('hidden');
-      $info.addClass('hidden');
+      $fields.removeClass('d-none');
+      $info.addClass('d-none');
     } else {
-      $fields.addClass('hidden');
-      $info.removeClass('hidden');
+      $fields.addClass('d-none');
+      $info.removeClass('d-none');
     }
   }
 

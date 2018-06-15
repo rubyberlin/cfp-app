@@ -77,7 +77,7 @@ class Staff::TimeSlotDecorator < Draper::Decorator
   end
 
   def supplemental_fields_visibility_css
-    object.program_session.present? ? 'hidden' : ''
+    object.program_session.present? ? 'd-none' : ''
   end
 
   def cell_data_attr

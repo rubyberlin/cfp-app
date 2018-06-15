@@ -24,7 +24,7 @@ import palette from 'google-palette';
 
     function toggleUnscheduledSessionsWidget(e) {
         e.preventDefault()
-        $('.unscheduled-sessions-widget, .search-sessions-wrapper').toggleClass('hidden')
+        $('.unscheduled-sessions-widget, .search-sessions-wrapper').toggleClass('d-none')
     }
 
     function filterSessions() {
@@ -34,9 +34,9 @@ import palette from 'google-palette';
         for (var i = 0; i < items.length; i++) {
             var itemText = $(items[i]).text().toLowerCase()
             if (itemText.indexOf(query) > -1) {
-                $(items[i]).removeClass('hidden')
+                $(items[i]).removeClass('d-none')
             } else {
-                $(items[i]).addClass('hidden')
+                $(items[i]).addClass('d-none')
             }
         }
     }

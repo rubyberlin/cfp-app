@@ -3,7 +3,7 @@ if ($('table.proposal-list').length > 0) {
 
   var row = $('tr[data-proposal-id=<%= proposal.id %>]');
 
-  row.find(".state-buttons .btn").toggleClass("hidden");
+  row.find(".state-buttons .btn").toggleClass('d-none');
   row.find(".proposal-status").html('<%=j proposal.state_badge(small: true, show_confirmed: true) %>');
 
 } else {

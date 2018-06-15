@@ -21,7 +21,7 @@
             id: 'add-time-slot'
   .row
     .col-md-12
-      #time-slot-prereqs.clearfix{ class: has_missing_requirements?(event) ? '' : 'hidden' }
+      #time-slot-prereqs.clearfix{ class: has_missing_requirements?(event) ? '' : 'd-none' }
         %h5.text-danger{ id: 'missing-prereq-head' }
           The following must be resolved before adding a new time slot:
         %ul#missing-prereq-messages.list-group
