@@ -116,7 +116,7 @@
           }
         }
         &.active {
-          border-bottom: 3px solid $brand-primary;
+          border-bottom: 3px solid theme-color('primary');
           > a {
             color: $gray-darker;
           }

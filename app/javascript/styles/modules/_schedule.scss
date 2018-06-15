@@ -302,7 +302,7 @@ body .custom-session-card {
 
     &.preview {
       cursor: default;
-      background: $brand-info;
+      background: theme-color('info');
       .title {
         color: #fff;
       }

@@ -9,10 +9,10 @@
       color: $white;
     }
     .set {
-      background-color: $brand-success;
+      background-color: theme-color('success');
     }
     .missing {
-      background-color: $brand-danger;
+      background-color: theme-color('danger');
     }
     .optional a {
       color: $black;

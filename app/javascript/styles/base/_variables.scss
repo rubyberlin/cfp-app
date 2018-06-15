@@ -25,14 +25,17 @@ $gray-light:             #b2afaa !default; //lighten($gray-base, 46.7%) !default
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 $beige:                  #f9f6f1;
 
-$brand-primary:         $ruby-central-red !default; //darken(#428bca, 6.5%) !default; // #337ab7
-$brand-success:         $green !default;
-$brand-info:            $bright-blue !default;
-$brand-info-alt:        $dark-blue !default;
-$brand-warning:         lighten($gold, 20%) !default ; //$dark-red;
-$brand-danger:          adjust-color($dark-red, $lightness: 30%, $saturation: 30%) !default;
-$brand-accent:          $gold !default;
-$brand-gray:            #ccc;
+$theme-colors: (
+  'primary':      $ruby-central-red, //darken(#428bca, 6.5%) !default; // #337ab7
+  'primary-btn':  $dark-blue,
+  'success':      $green,
+  'info':         $bright-blue,
+  'info-alt':     $dark-blue,
+  'warning':      lighten($gold, 20%), //$dark-red;
+  'danger':       adjust-color($dark-red, $lightness: 30%, $saturation: 30%),
+  'accent':       $gold,
+  'gray':         #ccc
+);
 
 //== Scaffolding
 //
@@ -76,11 +79,10 @@ $icon-font-name:          "glyphicons-halflings-regular" !default;
 //** Element ID within SVG icon file.
 $icon-font-svg-id:        "glyphicons_halflingsregular" !default;
 
-$btn-primary-bg:                 $brand-info-alt !default;
-
+$btn-primary-bg:               theme-color('info-alt') !default;
 
 $btn-gray-color:               #000 !default;
-$btn-gray-bg:                  $brand-gray !default;
+$btn-gray-bg:                  theme-color('gray') !default;
 $btn-gray-border:              darken($btn-gray-bg, 5%) !default;
 
 
@@ -110,7 +112,7 @@ $zindex-alert:             1080 !default;
 $navbar-height:                    3.5rem;
 
 $navbar-default-color:             $white !default;
-$navbar-default-bg:                $brand-primary !default;
+$navbar-default-bg:                theme-color('primary') !default;
 $navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
 
 // Navbar links
@@ -129,19 +131,19 @@ $navbar-default-link-disabled-bg:          transparent !default;
 //## Define colors for form feedback states and, by default, alerts.
 
 $state-success-text:             #3c763d !default;
-$state-success-bg:               lighten($brand-success, 50%) !default;
+$state-success-bg:               lighten(theme-color('success'), 50%) !default;
 $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
 
 $state-info-text:                #31708f !default;
-$state-info-bg:                  lighten($brand-info, 35%) !default;
+$state-info-bg:                  lighten(theme-color('info'), 35%) !default;
 $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
 
 $state-warning-text:             #8a6d3b !default;
-$state-warning-bg:               lighten($brand-warning, 15%) !default; //#fcf8e3;
+$state-warning-bg:               lighten(theme-color('warning'), 15%) !default; //#fcf8e3;
 $state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
 
 $state-danger-text:              #a94442 !default;
-$state-danger-bg:                lighten($brand-danger, 50%) !default;
+$state-danger-bg:                lighten(theme-color('danger'), 50%) !default;
 $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
 
 
@@ -154,7 +156,7 @@ $tooltip-max-width:           200px !default;
 //** Tooltip text color
 $tooltip-color:               #fff !default;
 //** Tooltip background color
-$tooltip-bg:                  $brand-primary !default;
+$tooltip-bg:                  theme-color('primary') !default;
 $tooltip-opacity:             .95 !default;
 
 //** Tooltip arrow width

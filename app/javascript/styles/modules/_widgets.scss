@@ -12,7 +12,7 @@
   }
 
   &.confirmation {
-    border: 2px solid $brand_danger;
+    border: 2px solid theme-color('danger');
   }
 
   .widget-header {
@@ -165,6 +165,6 @@
   &.widget-card-alt,
   &.widget-card-alt .widget-header,
   &.widget-card-alt .widget-content {
-    background: lighten($brand-info, 45%);
+    background: lighten(theme-color('info'), 45%);
   }
 }

@@ -42,7 +42,7 @@ textarea.mention {
 
   .speaker-comment &    { border-color: $bright-blue; }
   .reviewer-comment &   { border-color: $gray-light; }
-  .organizer-comment &  { border-color: $brand-primary; }
+  .organizer-comment &  { border-color: theme-color('primary'); }
 
   // comment info bar
   .info {
@@ -67,7 +67,7 @@ textarea.mention {
 
     .speaker-comment &    { color: $bright-blue; }
     .reviewer-comment &   { color: $gray; }
-    .organizer-comment &  { color: $brand-primary; }
+    .organizer-comment &  { color: theme-color('primary'); }
   }
 
   .time {

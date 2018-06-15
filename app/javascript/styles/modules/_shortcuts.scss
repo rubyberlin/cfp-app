@@ -27,7 +27,7 @@
 }
 
 .shortcuts .shortcut:hover {
-  background: $brand-primary;
+  background: theme-color('primary');
 }
 
 .shortcuts .shortcut:hover span{
