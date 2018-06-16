@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 (function($, window) {
   if (typeof(window.Schedule) === 'undefined') {
     window.Schedule = {};
