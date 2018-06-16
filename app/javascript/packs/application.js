@@ -46,8 +46,6 @@ import 'vendor/jquery.mentionsInput'
 import 'bootstrap-multiselect/dist/css/bootstrap-multiselect.css'
 import 'bootstrap-multiselect'
 
-import 'moment'
-
 import 'selectize/dist/css/selectize.css'
 import 'selectize/dist/css/selectize.default.css'
 import 'selectize'

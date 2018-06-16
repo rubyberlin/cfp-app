@@ -30,6 +30,16 @@ environment.loaders.append('jQueryExpose', {
   ]
 })
 
+environment.loaders.append('momentExpose', {
+  test: require.resolve('moment'),
+  use: [
+    {
+      loader: 'expose-loader',
+      options: 'moment'
+    }
+  ]
+})
+
 // Add an additional plugin of your choosing : ProvidePlugin
 environment.plugins.prepend(
   'Provide',
