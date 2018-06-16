@@ -51,8 +51,7 @@
       margin: 5px 5px 0 0;
     }
 
-    > [class^="fa-"], > [class*=" fa-"],
-    > [class^="glyphicon-"], > [class*=" glyphicon-"] {
+    > [class^="fa-"], > [class*=" fa-"] {
       color: #555;
       display: inline-block;
       font-size: 16px;
@@ -142,8 +141,7 @@
     height: auto;
     line-height: 1;
 
-    > [class^="fa-"], > [class*=" fa-"],
-    > [class^="glyphicon-"], > [class*=" glyphicon-"] {
+    > [class^="fa-"], > [class*=" fa-"] {
       margin: 0;
     }
 

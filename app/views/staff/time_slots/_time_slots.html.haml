@@ -4,12 +4,12 @@
       %header
         .btn-nav.pull-right
           = link_to event_staff_schedule_time_slots_path(format: :csv), class: "btn btn-info" do
-            %span.glyphicon.glyphicon-download-alt
+            %span.fa.fa-cloud-download
             Download as CSV
 
           = link_to event_staff_schedule_time_slots_path(format: :json),
               class: "btn btn-info pull-right" do
-            %span.glyphicon.glyphicon-download-alt
+            %span.fa.fa-cloud-download
             Download as JSON
 
         %h3.pull-left Time Slots

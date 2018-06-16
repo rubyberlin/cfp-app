@@ -16,5 +16,5 @@
     - input_class = internal?(f.object) ? 'form-control mention' : 'form-control'
     = f.text_area :body, class: input_class, placeholder: 'Add your comment', rows: 5, data: { mention_names: internal?(f.object) ? @mention_names : nil }
   %button.btn.btn-success.pull-right.save-comment(type="submit")
-    %span.glyphicon.glyphicon-ok
+    %span.fa.fa-check
     Comment

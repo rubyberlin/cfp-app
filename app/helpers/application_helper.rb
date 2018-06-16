@@ -52,7 +52,7 @@ module ApplicationHelper
       key += " alert-info" if key == "notice" || key == 'confirm'
       key = "danger" if key == "alert"
       content_tag(:div, class: "container alert alert-dismissable alert-#{key}") do
-        content_tag(:button, content_tag(:span, '', class: 'glyphicon glyphicon-remove'),
+        content_tag(:button, content_tag(:span, '', class: 'fa fa-remove'),
                     class: 'close', data: { dismiss: 'alert' }) +
           simple_format(value)
       end
@@ -81,7 +81,7 @@ module ApplicationHelper
 
   def bang(label)
     content_tag(:span, '',
-                class: 'glyphicon glyphicon-exclamation-sign') + ' ' + label
+                class: 'fa fa-exclamation-circle') + ' ' + label
   end
 
   def modal(identifier, title = '')
