@@ -18,10 +18,16 @@ environment.loaders.append('jqueryLibs', {
 
 environment.loaders.append('jQueryExpose', {
   test: require.resolve('jquery'),
-  use: {
-    loader: 'expose-loader',
-    options: '$'
-  }
+  use: [
+    {
+      loader: 'expose-loader',
+      options: 'jQuery'
+    },
+    {
+      loader: 'expose-loader',
+      options: '$'
+    }
+  ]
 })
 
 // Add an additional plugin of your choosing : ProvidePlugin
