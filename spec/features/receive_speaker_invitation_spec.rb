@@ -207,7 +207,7 @@ feature 'Speaker Invitation received' do
 
     it "shows the invitation on the My Proposals page" do
       visit proposals_path
-      within('div.invitations') do
+      within('section.invitations') do
         expect(page).to have_text(proposal.title)
       end
     end

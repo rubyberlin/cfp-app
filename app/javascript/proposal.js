@@ -17,7 +17,7 @@ $(function() {
     var maxlength = $(this).attr('maxlength');
     var current_length = $(this).val().length;
     if (current_length > maxlength) {
-      alert("Character limit of " + maxlength + " has been exceeded");
+      alert('Character limit of ' + maxlength + ' has been exceeded');
     }
   });
 
@@ -27,41 +27,40 @@ $(function() {
 
   // Track editing
   $('#edit-track-icon').on('click', () => {
-    $('#current-track').hide();
-    $('#edit-track-wrapper').show();
+    $('#current-track').addClass('d-none');
+    $('#edit-track-wrapper').removeClass('d-none');
   });
 
   $('#cancel-track-editing').on('click', () => {
-    $('#edit-track-wrapper').hide();
-    $('#current-track').show();
+    $('#edit-track-wrapper').addClass('d-none');
+    $('#current-track').removeClass('d-none');
   });
 
   // Format editing
   $('#edit-format-icon').on('click', () => {
-    $('#current-format').hide();
-    $('#edit-format-wrapper').show();
+    $('#current-format').addClass('d-none');
+    $('#edit-format-wrapper').removeClass('d-none');
   });
 
   $('#cancel-format-editing').on('click', () => {
-    $('#edit-format-wrapper').hide();
-    $('#current-format').show();
+    $('#edit-format-wrapper').addClass('d-none');
+    $('#current-format').removeClass('d-none');
   });
 
   // Reviewer tags editing
   $('#edit-tags-icon').on('click', () => {
-    $('.proposal-reviewer-tags, #edit-tags-icon').toggle();
-    $('#review-tags-form-wrapper').slideToggle();
+    $('.proposal-reviewer-tags, #edit-tags-icon').addClass('d-none');
+    $('#review-tags-form-wrapper').removeClass('d-none');
   });
 
   $('#cancel-tags-editing').on('click', () => {
-    $('#review-tags-form-wrapper').toggle();
-    $('.proposal-reviewer-tags, #edit-tags-icon').toggle();
+    $('#review-tags-form-wrapper').addClass('d-none');
+    $('.proposal-reviewer-tags, #edit-tags-icon').removeClass('d-none');
   });
 
-  if($('#autocomplete-options').length > 0) {
-    var html = $('#autocomplete-options').html();
-    var data = JSON.parse(html);
-    var items = data.map(function(x) { return { item: x }; });
+  if ($('#autocomplete-options').length > 0) {
+    const data = $('#autocomplete-options').data('review-tags');
+    const items = data.map(x => ({ item: x }));
 
     $('#proposal_review_tags').selectize({
       delimiter: ',',
@@ -73,10 +72,10 @@ $(function() {
       searchField: 'item',
       create: function(input) {
         return {
-            value: input,
-            text: input,
-            item: input
-        }
+          value: input,
+          text: input,
+          item: input
+        };
       }
     });
   }

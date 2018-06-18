@@ -174,40 +174,38 @@ class ProposalDecorator < ApplicationDecorator
   end
 
   def standalone_track_select(tooltip)
-    h.simple_form_for :proposal, remote: true do |f|
+    h.simple_form_for :proposal, remote: true, wrapper: :inline_form do |f|
       f.input :track,
               required: false,
-              label_html: { class: 'info-item-heading' },
+              label: false,
               collection: track_options,
               include_blank: Track::NO_TRACK,
               selected: object.track_id,
               id: 'track',
               input_html: {
-                class: 'proposal-track-select form-control select',
+                class: 'form-control-sm proposal-track-select',
                 data: {
                   target_path: h.event_staff_program_proposal_update_track_path(object.event, object)
                 }
-              },
-              popover_icon: { content: tooltip }
+              }
     end
   end
 
   def standalone_format_select(tooltip)
-    h.simple_form_for :proposal, remote: true do |f|
+    h.simple_form_for :proposal, remote: true, wrapper: :inline_form do |f|
       f.input :format,
               required: false,
-              label_html: { class: 'info-item-heading' },
+              label: false,
               collection: format_options,
               include_blank: Track::NO_TRACK,
               selected: object.session_format_id,
               id: 'track',
               input_html: {
-                class: 'proposal-format-select form-control select',
+                class: 'form-control-sm proposal-format-select',
                 data: {
                   target_path: h.event_staff_program_proposal_update_session_format_path(object.event, object)
                 }
-              },
-              popover_icon: { content: tooltip }
+              }
     end
   end
 
