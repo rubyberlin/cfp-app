@@ -44,9 +44,6 @@ $.fn.dataTableExt.oApi.fnSortNeutral = oSettings => {
 import 'jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css'
 import 'jquery-ui-timepicker-addon'
 
-import 'vendor/jquery.mentionsInput.scss'
-import 'vendor/jquery.mentionsInput'
-
 import 'bootstrap-multiselect/dist/css/bootstrap-multiselect.css'
 import 'bootstrap-multiselect'
 
