@@ -9,6 +9,7 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "3.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "bootstrap": "^4.1.1",
     "bootstrap-multiselect": "^0.9.13-1",
     "chartkick": "^2.3.6",

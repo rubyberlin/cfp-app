@@ -3,6 +3,9 @@ const erb = require('./loaders/erb')
 const coderay = require('./loaders/coderay')
 const webpack = require('webpack')
 
+const babelLoader = environment.loaders.get('babel')
+babelLoader.exclude = /node_modules\/(?!tributejs)/;
+
 environment.loaders.append('erb', erb)
 
 environment.loaders.append('coderay', coderay)
