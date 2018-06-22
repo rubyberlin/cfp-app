@@ -1,10 +1,6 @@
 class Staff::SessionFormatsController < Staff::ApplicationController
   before_action :set_session_format, only: %i[edit update destroy]
 
-  def index
-    @session_formats = @event.session_formats
-  end
-
   def new
     @session_format = SessionFormat.new
   end

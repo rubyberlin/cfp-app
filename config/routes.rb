@@ -102,8 +102,8 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :session_formats, except: :show
-      resources :tracks, except: [:show]
+      resources :session_formats, except: %i[index show]
+      resources :tracks, except: %i[index show]
     end
   end
 

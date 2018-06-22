@@ -1,10 +1,6 @@
 class Staff::TracksController < Staff::ApplicationController
   before_action :set_track, only: %i[edit update destroy]
 
-  def index
-    @tracks = current_event.tracks.sort_by_name
-  end
-
   def new
     @track = Track.new
   end
