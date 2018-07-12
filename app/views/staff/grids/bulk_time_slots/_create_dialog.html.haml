@@ -1,10 +1,12 @@
-.modal-dialog
+.modal-dialog{ role: 'document' }
   .modal-content
     = simple_form_for bulk, url: preview_event_staff_schedule_grid_bulk_time_slot_path, remote: true, html: {role: 'form'} do |f|
       .modal-header
-        %h3 Bulk Generate Time Slots
-      .errors
+        %h3#bulk-time-slot-create-dialog-label.modal-title Bulk Generate Time Slots
+        %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+          %span{ 'aria-hidden': 'true' } &times;
       .modal-body
+        .errors
         = render partial: 'staff/grids/bulk_time_slots/form', locals: {f: f, bulk: bulk}
       .modal-footer
         %button.btn.btn-secondary.bulk-cancel{'data-dismiss' => "modal"} Cancel

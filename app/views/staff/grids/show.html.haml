@@ -27,7 +27,7 @@
                 .unscheduled-sessions-column
                   = render partial: 'unscheduled_sessions', locals: { schedule: @schedule }
 
-#grid-time-slot-edit-dialog.modal.fade
-  .modal-dialog
-#bulk-time-slot-create-dialog.modal.fade
-  .modal-dialog
+#grid-time-slot-edit-dialog.modal.fade{ role: 'dialog', tabindex: '-1', 'aria-labelledby': 'grid-time-slot-edit-dialog-label' }
+  .modal-dialog{ role: 'document' }
+#bulk-time-slot-create-dialog.modal.fade{ role: 'dialog', tabindex: '-1', 'aria-labelledby': 'bulk-time-slot-create-dialog-label' }
+  .modal-dialog{ role: 'document' }

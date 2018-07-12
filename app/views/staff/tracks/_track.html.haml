@@ -6,11 +6,13 @@
       = link_to "#", data: { toggle: "modal", target: "#track-guidelines-#{track.id}" } do
         %span.fa.fa-list-alt
 
-      %div{ id: "track-guidelines-#{track.id}", class: 'modal fade' }
-        .modal-dialog
+      .modal.fade{ role: 'dialog', tabindex: '-1', id: "track-guidelines-#{track.id}", 'aria-labelledby': "track-guidelines-#{track.id}-label" }
+        .modal-dialog{ role: 'document' }
           .modal-content
             .modal-header
-              %h3= "#{track.name} Guidelines"
+              %h3.modal-title{ id: "track-guidelines-#{track.id}-label" }= "#{track.name} Guidelines"
+              %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+                %span{ 'aria-hidden': 'true' } &times;
             .modal-body
               = track.guidelines
 

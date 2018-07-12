@@ -1,9 +1,11 @@
-%div{ id: "new-speaker-invitation", class: 'modal fade' }
-  .modal-dialog
+#new-speaker-invitation.modal.fade{ role: 'dialog', tabindex: '-1', 'aria-labelledby': 'new-speaker-invitation-label' }
+  .modal-dialog{ role: 'document' }
     .modal-content
       = simple_form_for(:speaker, url: invitations_path(proposal_uuid: proposal.uuid)) do |f|
         .modal-header
-          %h3 Invite a new speaker
+          %h3#new-speaker-invitation-label.modal-title Invite a new speaker
+          %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+            %span{ 'aria-hidden': 'true' } &times;
         .modal-body
           = f.error_notification
           = f.input :email, class: "form-control", autofocus: true

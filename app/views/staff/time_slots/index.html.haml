@@ -10,7 +10,7 @@
               .col-md-12
                 = render partial: 'time_slots'
 
-        #time-slot-edit-dialog.modal.fade
-          .modal-dialog
-        #time-slot-new-dialog.modal.fade
-          .modal-dialog
+        #time-slot-edit-dialog.modal.fade{ role: 'dialog', tabindex: '-1', 'aria-labelledby': 'time-slot-edit-dialog-label' }
+          .modal-dialog{ role: 'document' }
+        #time-slot-new-dialog.modal.fade{ role: 'dialog', tabindex: '-1', 'aria-labelledby': 'time-slot-new-dialog-label' }
+          .modal-dialog{ role: 'document' }

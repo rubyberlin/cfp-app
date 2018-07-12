@@ -15,14 +15,16 @@
       data: { confirm: "Are you sure you want to remove this room?" },
       class: 'btn btn-danger btn-sm'
 
-    %div{ id: "room-edit-#{room.id}", class: 'modal fade' }
-      .modal-dialog
+    .modal.fade{ role: 'dialog', tabindex: '-1', id: "room-edit-#{room.id}", 'aria-labelledby': "room-edit-#{room.id}-label" }
+      .modal-dialog{ role: 'document' }
         .modal-content
           = simple_form_for [ event, :staff, :schedule, room ], remote: true do |f|
             .modal-header
-              %h3 Edit Room
-              .errors
+              %h3.modal-title{ id: "room-edit-#{room.id}-label" } Edit Room
+              %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+                %span{ 'aria-hidden': 'true' } &times;
             .modal-body
+              .errors
               = render partial: 'staff/rooms/form', locals: { room: room, f: f }
             .modal-footer
               .btn-toolbar

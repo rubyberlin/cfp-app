@@ -365,11 +365,12 @@
                         Launch demo modal
                       / Modal
                       #myModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "myModalLabel", :role => "dialog", :tabindex => "-1"}
-                        .modal-dialog
+                        .modal-dialog{ role: 'document' }
                           .modal-content
                             .modal-header
-                              %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
-                              %h3#myModalLabel Hi Friend!
+                              %h3#myModalLabel.modal-title Hi Friend!
+                              %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+                                %span{ 'aria-hidden': 'true' } &times;
                             .modal-body
                               %p Content
                             .modal-footer
