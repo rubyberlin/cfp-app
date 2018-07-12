@@ -30,7 +30,7 @@ import palette from 'google-palette';
   }
 
   function updateDayRange($grids) {
-    times = _.flatten(_.map($grids.find('.time-slot').toArray(), function(ts) {
+    const times = _.flatten(_.map($grids.find('.time-slot').toArray(), function(ts) {
         return [$(ts).data("starts"), ($(ts).data("starts") + $(ts).data("duration"))]
     }));
 

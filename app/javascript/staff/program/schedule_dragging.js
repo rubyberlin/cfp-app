@@ -8,13 +8,13 @@ import palette from 'google-palette';
         return window.Schedule.Drag
     }
 
+    let trackCssClasses = [];
+    let trackColors = [];
+
     function init() {
         if ($(".unscheduled-sessions").length ) {
             $('.unscheduled-sessions-toggle').on('click', toggleUnscheduledSessionsWidget)
             $('input[name="session_search"]').on('keyup', filterSessions)
-
-            var trackCssClasses = [];
-            var trackColors = [];
 
             initTrackColors()
             initDraggableSessions()
