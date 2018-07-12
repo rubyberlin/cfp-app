@@ -50,8 +50,6 @@ import 'selectize/dist/css/selectize.css'
 import 'selectize/dist/css/selectize.default.css'
 import 'selectize'
 
-import 'google-palette'
-
 import Chartkick from 'chartkick'
 window.Chartkick = Chartkick
 

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import palette from 'google-palette';
 
 (function($, window) {
   if (typeof(window.Schedule) === 'undefined') {
