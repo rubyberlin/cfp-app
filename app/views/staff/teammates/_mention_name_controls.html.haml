@@ -15,5 +15,8 @@
             = f.label :mention_name
             = f.text_field :mention_name
           .modal-footer
-            %button.btn.btn-secondary{'data-dismiss' => "modal"} Cancel
-            %button.pull-right.btn.btn-primary{:type => "submit"} Save
+            .btn-toolbar
+              .btn-group.order-2
+                %button.btn.btn-primary{ type: 'submit' } Save
+              .btn-group.order-1.mr-1
+                %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } } Cancel

@@ -9,5 +9,8 @@
         .errors
         = render partial: 'staff/grids/bulk_time_slots/form', locals: {f: f, bulk: bulk}
       .modal-footer
-        %button.btn.btn-secondary.bulk-cancel{'data-dismiss' => "modal"} Cancel
-        %button.btn.btn-success{:type => "submit"} Preview
+        .btn-toolbar
+          .btn-group.order-2
+            %button.btn.btn-success{ type: 'submit' } Preview
+          .btn-group.order-1.mr-1
+            %button.btn.btn-secondary.bulk-cancel{ type: 'button', data: { dismiss: 'modal' } } Cancel

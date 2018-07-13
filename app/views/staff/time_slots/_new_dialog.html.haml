@@ -10,12 +10,15 @@
         = render partial: 'staff/time_slots/form',
             locals: {f: f, time_slot: time_slot}
       .modal-footer
-        %ul#form-flash.pull-left
+        %ul#form-flash
           - flash.map do |key, value|
             %li{ class: "alert alert-#{key}"}= value
 
-        %button.btn.btn-secondary{'data-dismiss' => "modal"} Cancel
-        %button.btn.btn-primary{:type => "submit",
-          name: 'button', value: 'save'} Save
-        %button.btn.btn-primary{:type => "submit",
-          name: 'button', value: 'save_and_add'} Save and Add
+        .btn-toolbar
+          .btn-group.order-2
+            %button.btn.btn-primary{ type: 'submit',
+              name: 'button', value: 'save' } Save
+            %button.btn.btn-primary{ type: 'submit',
+              name: 'button', value: 'save_and_add' } Save and Add
+          .btn-group.order-1.mr-1
+            %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } } Cancel
