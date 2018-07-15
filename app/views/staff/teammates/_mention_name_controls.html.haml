@@ -3,15 +3,20 @@
   = link_to '#', class: "edit-mention-name", data: { toggle: 'modal', target: "#teammate-edit-mention-name-#{teammate.id}" } do
     .fa.fa-pencil
 
-  %div{ id: "teammate-edit-mention-name-#{teammate.id}", class: 'modal fade' }
-    .modal-dialog
+  .modal.fade{ role: 'dialog', tabindex: '-1', id: "teammate-edit-mention-name-#{teammate.id}", 'aria-labelledby': "teammate-edit-mention-name-#{teammate.id}-label" }
+    .modal-dialog{ role: 'document' }
       .modal-content
         = form_for teammate, url: event_staff_teammate_path(teammate.event, teammate), html: { role: 'form' } do |f|
           .modal-header
-            %h3 Edit #{teammate.name}'s mention name
+            %h3.modal-title{ id: "teammate-edit-mention-name-#{teammate.id}-label" } Edit #{teammate.name}'s mention name
+            %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+              %span{ 'aria-hidden': 'true' } &times;
           .modal-body
             = f.label :mention_name
             = f.text_field :mention_name
           .modal-footer
-            %button.btn.btn-default{'data-dismiss' => "modal"} Cancel
-            %button.pull-right.btn.btn-primary{:type => "submit"} Save
+            .btn-toolbar
+              .btn-group.order-2
+                %button.btn.btn-primary{ type: 'submit' } Save
+              .btn-group.order-1.mr-1
+                %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } } Cancel

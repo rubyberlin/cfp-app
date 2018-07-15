@@ -26,10 +26,10 @@
   .col-md-12
     .tabbable
       %ul.nav.nav-tabs
-        %li.active
-          %a{"data-toggle" => "tab", :href => "#create-proposal"} Proposal Form
-        %li
-          %a{"data-toggle" => "tab", :href => "#preview"} Preview
+        %li.nav-item
+          %a.nav-link.active{"data-toggle" => "tab", :href => "#create-proposal"} Proposal Form
+        %li.nav-item
+          %a.nav-link{"data-toggle" => "tab", :href => "#preview"} Preview
       .tab-content
         #create-proposal.tab-pane.active
           .row

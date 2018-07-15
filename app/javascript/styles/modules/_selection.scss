@@ -3,10 +3,10 @@ ul.selection-counts {
 
   li {
     display: inline;
-    padding-left: 15px;
-    padding-right: 15px;
-    padding-bottom:    $navbar-padding-vertical;
-    padding-top:    $navbar-padding-vertical;
+    padding-left:   15px;
+    padding-right:  15px;
+    padding-bottom: $navbar-padding-y;
+    padding-top:    $navbar-padding-y;
 
     .track-select {
       display: inline;
@@ -14,7 +14,7 @@ ul.selection-counts {
   }
 
   li.dropdown > a {
-    padding-bottom:    $navbar-padding-vertical;
-    padding-top:    $navbar-padding-vertical;
+    padding-bottom: $navbar-padding-y;
+    padding-top:    $navbar-padding-y;
   }
 }

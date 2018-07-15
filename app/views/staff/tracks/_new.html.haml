@@ -1,7 +1,15 @@
 .modal-content
   .modal-header
-    %h3 New Track
-    .errors
+    %h3#config-modal-label.modal-title New Track
+    %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+      %span{ 'aria-hidden': 'true' } &times;
   = simple_form_for [ event, :staff, @track ], remote: true do |f|
     .modal-body
+      .errors
       = render partial: 'form', locals: {f: f}
+    .modal-footer
+      .btn-toolbar
+        .btn-group.order-2
+          %button.btn.btn-primary{ type: 'submit' } Save
+        .btn-group.order-1.mr-1
+          %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } } Cancel

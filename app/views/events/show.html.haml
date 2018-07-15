@@ -24,10 +24,10 @@
         CFP
 
 .row.margin-top
-  .col-md-4.col-md-push-8
+  .col-md-4.order-2
     .event-info.event-info-block.callout
       .call-header
-        .label.label-success.label-large.inline-block
+        .badge.badge-success.badge-large.inline-block
           CFP
           = event.status
 
@@ -43,13 +43,13 @@
           %div
             = link_to "Submit a proposal", new_event_proposal_path, class: "btn btn-primary"
       - elsif event.closed?
-        .panel-body
+        .card-body
           %p
             The CFP closed on
             %strong= event.closes_at(:long_with_zone)
           %p Thank you for all submitted proposals!
       - elsif event.draft?
-        .panel-body
+        .card-body
           %p The CFP has not yet opened.  
           %p Please check back soon!
 
@@ -59,6 +59,6 @@
         = pluralize(event.proposals.count, "proposal")
         = event.line_chart
 
-  .col-md-8.col-md-pull-4
+  .col-md-8.order-1
     .markdown
       = markdown(event.guidelines)

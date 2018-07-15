@@ -1,0 +1,51 @@
+.badge {
+  text-transform: uppercase;
+}
+
+.badge-primary {
+  @include badge-variant($badge-primary-bg);
+}
+
+.badge-secondary {
+  @include badge-variant($badge-secondary-bg);
+}
+
+.badge-success {
+  @include badge-variant($badge-success-bg);
+}
+
+.badge-info {
+  @include badge-variant($badge-info-bg);
+}
+
+.badge-warning {
+  @include badge-variant($badge-warning-bg);
+}
+
+.label-danger {
+  @include badge-variant($badge-danger-bg);
+}
+
+.badge-mini {
+  font-size: $font-size-sm;
+}
+
+.badge-large {
+  font-size: $font-size-lg;
+}
+
+.badge-compact {
+  font-size: $font-size-compact;
+  display: inline-block;
+  padding: .2em .6em .35em;
+}
+
+.other-proposal-status .badge-mini,
+.proposal-status .badge-mini {
+  display: inline-block;
+  padding: .2em .6em .1em;
+}
+
+.session-status .badge-large {
+  padding: 0 5px 0;
+}

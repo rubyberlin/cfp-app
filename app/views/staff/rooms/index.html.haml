@@ -20,16 +20,20 @@
             %th.actions Actions
         %tbody
           = render event.rooms
-      #room-new-dialog.modal.fade
-        .modal-dialog
+      #room-new-dialog.modal.fade{ role: 'dialog', tabindex: '-1', 'aria-labelledby': 'room-new-dialog-label' }
+        .modal-dialog{ role: 'document' }
           .modal-content
             = simple_form_for [ event, :staff, :schedule, Room.new ], remote: true do |f|
               .modal-header
-                %h3 New Room
-                .errors
+                %h3#room-new-dialog-label.modal-title New Room
+                %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+                  %span{ 'aria-hidden': 'true' } &times;
               .modal-body
+                .errors
                 = render partial: "staff/rooms/form", locals: { f: f }
               .modal-footer
                 .btn-toolbar
-                  %button.pull-right.btn.btn-primary{:type => "submit"} Save
-                  %button.btn.btn-default{"data-dismiss" => "modal"} Cancel
+                  .btn-group.order-2
+                    %button.btn.btn-primary{ type: 'submit' } Save
+                  .btn-group.order-1.mr-1
+                    %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } } Cancel

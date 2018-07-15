@@ -14,9 +14,8 @@
   vertical-align: top;
   text-decoration: none;
   width: 22.50%;
-  -webkit-border-radius: 5px;
   border-radius: 5px;
-  @include transition(all ease-in-out .15s);
+  transition: all ease-in-out .15s;
 }
 
 .shortcuts .shortcut .shortcut-icon {
@@ -27,7 +26,7 @@
 }
 
 .shortcuts .shortcut:hover {
-  background: $brand-primary;
+  background: theme-color('primary');
 }
 
 .shortcuts .shortcut:hover span{
@@ -45,9 +44,7 @@
   color: #545454;
 }
 
-
-@media (max-width: 979px) {
-
+@include media-breakpoint-down(md) {
   .shortcuts .shortcut {
     width: 31%;
   }

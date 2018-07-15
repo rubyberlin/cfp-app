@@ -1,4 +1,3 @@
-.proposal,
 .proposal-section {
   margin-bottom: 1em;
 }
@@ -12,12 +11,9 @@
   }
 }
 
-.speaker img, .speaker-image {
+.speaker img,
+.speaker-image {
   margin: 0 0.5em 0.8em 0;
-}
-
-.proposal-actions-bar {
-  padding: 3px 0 3px 0;
 }
 
 #proposal {
@@ -55,7 +51,7 @@
 .other-proposal-rating,
 .other-proposal-format,
 .other-proposal-track {
-  font-size: $font-size-small;
+  font-size: $font-size-sm;
 }
 
 .other_proposal_tags {
@@ -98,11 +94,6 @@ ul {
   margin-top: 2.3em;
 }
 
-.btn.save-comment {
-  width: 105px;
-  float: right;
-}
-
 span.disabled-state {
   padding: 3px 20px;
   color: grey;
@@ -111,15 +102,15 @@ span.disabled-state {
 .callout {
   border-left: solid darken(#dff0d8, 10%) 5px;
   background-color: lighten(#dff0d8, 5%);
-  padding: $padding-base-horizontal;
+  padding: $input-btn-padding-x;
 
   .callout-title {
-    @extend .control-label;
-    margin-bottom: $padding-large-vertical * 2;
+    @extend .col-form-label;
+    margin-bottom: $spacer * 2;
   }
 }
 
-span.glyphicon-question-sign {
+span.fa-exclamation-circle {
   font-size: 1.3em;
   display: inline-block;
 }
@@ -144,44 +135,10 @@ div.col-md-4 {
   }
 }
 
-#edit-tags-icon,
-#edit-track-icon,
-#edit-format-icon,
-#cancel-format-editing,
-#cancel-track-editing {
-  color: $bright-blue;
-  font-size: $font-size-large;
-  margin-left: 5px;
-  padding: 0;
-}
-
-.proposal-track-select, .proposal-format-select {
-  height: auto;
-}
-
-#edit-format-wrapper, #edit-track-wrapper {
-  margin-bottom: 0;
-  display: none;
-
-  form, .select {
-    display: inline-block;
-    margin-bottom: 0;
-  }
-
-  .popover-trigger i {
-    font-size: 12px;
-    line-height: 12px;
-    float: right;
-  }
-}
-
 #review-tags-form-wrapper {
-  display: none;
   padding: 0;
   text-align: left;
-  #autocomplete-options {
-    display: none;
-  }
+
   .selectize-input.items .item {
     background: $state-success-bg;
     border: 1px solid darken($state-success-bg, 30%);
@@ -191,79 +148,85 @@ div.col-md-4 {
       border-left: 1px solid darken($state-success-bg, 30%);
     }
   }
+
   .selectize-dropdown-content > .option.active {
     background: $state-success-bg;
   }
 }
 
-// Refactored proposals list items
-.proposal-info-bar {
-  padding-bottom: $padding-large-vertical;
+.proposal-meta-item,
+.proposal-meta-list {
+  $self: &;
 
-  i.fa {
-    position:relative;
-    margin-top: -0.1em;
+  &__label {
+    color:       #555;
+    font-weight:  normal;
+    font-size:    0.75rem;
+    line-height:  1rem;
   }
 
-  .proposal-title {
-    margin-top: 0;
-    margin-bottom: $padding-base-vertical;
-    font-weight: bold;
-  }
+  &__value {
+    font-weight:  normal;
+    font-size:    0.9rem;
+    line-height:  2rem;
 
-  .proposal-meta {
-    font-size: $font-size-base;
-    color: $black;
+    &__edit-region {
+      display:      flex;
+      align-items:  baseline;
 
-    .proposal-meta-item {
-      display: inline-block;
-      margin-right: $padding-base-horizontal;
+      &__text {
+        flex: 1 1 auto;
 
-      strong {
-        font-size: $font-size-xs;
-        color: $gray;
+        // .popover-trigger i {
+        //   font-size: 12px;
+        //   line-height: 12px;
+        //   float: right;
+        // }
       }
 
-      .label {
-        margin-bottom: 0;
-      }
-
-      .info-item-heading {
-        color: $gray;
-        font-size: $font-size-xs;
-        font-weight: normal;
-      }
-
-      .proposal-reviewer-tags {
-        float: left;
-        max-width: 80%;
+      &__icon {
+        color:        $bright-blue;
+        cursor:       pointer;
+        margin-left:  5px;
+        padding:      0;
       }
     }
+  }
+}
 
-    .proposal-description {
-      line-height: 1;
-      margin-bottom: $padding-base-vertical * 2;
+.proposal-meta-item {
+  $self: &;
+
+  &--inline {
+    display:      inline-flex;
+    align-items:  baseline;
+    margin-left:  ($spacer * .75);
+
+    #{$self}__label {
+      line-height: 2rem;
+
+      &::after {
+        content:      ':';
+        margin-right: ($spacer * .25);
+      }
+    }
+  }
+}
+
+.proposal-meta-list {
+  display:      flex;
+  align-items:  baseline;
+
+  &__label {
+    line-height: 2rem;
+
+    &::after {
+      content:      ':';
+      margin-right: ($spacer * .25);
     }
   }
 
-  .proposal-status {
-    padding-bottom: $padding-large-vertical;
-
-    .label {
-      margin-right: 0;
-    }
-  }
-
-  .invitation-status {
-    padding-bottom: $padding-large-vertical;
-
-    .label {
-      margin-right: 0;
-    }
-  }
-
-  .page-header & {
-    padding-top: $padding-large-vertical;
-    padding-bottom: 0;
+  &__value {
+    margin-right: ($spacer * .75);
   }
 }

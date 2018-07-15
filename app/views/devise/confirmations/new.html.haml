@@ -3,17 +3,21 @@
     %h2 Resend confirmation instructions
 
 .row
-  = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+  = simple_form_for(resource,
+      as:   resource_name,
+      url:  confirmation_path(resource_name),
+      html: { method: :post, class: 'col-sm-12' }) do |f|
 
-    .form-inputs
+    .row
       .col-sm-5.col-centered
-        .well.clearfix
-          = f.error_notification
-          = f.full_error :confirmation_token
-          = f.input :email, required: true, autofocus: true, wrapper_html: {class: "col-sm-12"}
+        .card
+          .card-body
+            = f.error_notification
+            = f.full_error :confirmation_token
+            = f.input :email, required: true, autofocus: true, wrapper_html: {class: "col-sm-12"}
 
-          .form-group.col-sm-12
-            = f.button :submit, "Resend confirmation instructions", class: "btn btn-success"
+            .form-group.col-sm-12
+              = f.button :submit, "Resend confirmation instructions", class: "btn btn-success"
 
 
-          .form-group= render "devise/shared/links"
+            .form-group= render "devise/shared/links"

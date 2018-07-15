@@ -10,7 +10,7 @@ feature 'Forgot Password', :devise do
   #   Then I see an invalid credentials message
   scenario 'user cannot forgot password if not registered', js: true do
     forgot_password('test@example.com')
-    expect(page).to have_content "Email *\n" + I18n.t('errors.messages.not_found')
+    expect(page).to have_content "Email *\nEmail " + I18n.t('errors.messages.not_found')
   end
 
   # Scenario: User can forgot password with valid credentials
@@ -32,6 +32,6 @@ feature 'Forgot Password', :devise do
   scenario 'user cannot forgot password with wrong email', js: true do
     user = create(:user)
     forgot_password('invalid@email.com')
-    expect(page).to have_content "Email *\n" + I18n.t('errors.messages.not_found')
+    expect(page).to have_content "Email *\nEmail " + I18n.t('errors.messages.not_found')
   end
 end

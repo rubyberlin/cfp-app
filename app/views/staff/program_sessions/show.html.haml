@@ -23,40 +23,40 @@
         .btn-navbar.pull-right
           - if current_user.organizer_for_event?(current_event)
             = link_to edit_event_staff_program_session_path(current_event, @program_session), class: 'btn btn-primary' do
-              %span.glyphicon.glyphicon-edit
+              %span.fa.fa-edit
               Edit
             = promote_button(@program_session)
         %h1 Program Session
   .row
     .col-md-6
       .program-session-item
-        %h3.control-label Title
+        %h3.col-form-label Title
         %p= @program_session.title
       .program-session-item
-        %h3.control-label Format
+        %h3.col-form-label Format
         %p #{program_session.session_format_name}
       .program-session-item
-        %h3.control-label Track
+        %h3.col-form-label Track
         %p #{program_session.track_name}
       .program-session-item
-        %h3.control-label Abstract
+        %h3.col-form-label Abstract
         .markdown{ data: { 'field-id' => 'program_session_abstract' } }
           = program_session.abstract_markdown
       .program-session-item
-        %h3.control-label Video URL
+        %h3.col-form-label Video URL
         = link_to program_session.video_url, program_session.complete_video_url if program_session.video_url
       .program-session-item
-        %h3.control-label Slides URL
+        %h3.col-form-label Slides URL
         = link_to program_session.slides_url, program_session.complete_slides_url if program_session.slides_url
 
     .col-md-6
       .program-session-item
-        %h3.control-label Status
-        %p.session-status #{program_session.state_label(large: true)}
+        %h3.col-form-label Status
+        %p.session-status #{program_session.state_badge(large: true)}
       .program-session-item
         - if program_session.proposal.present?
           .proposal-link
-            %h3.control-label Proposal
+            %h3.col-form-label Proposal
             %p= link_to program_session.proposal.title, event_staff_program_proposal_path(current_event, program_session.proposal)
           - if program_session.proposal.confirmed?
             %p= "Confirmed at: #{program_session.proposal.confirmed_at.to_s(:month_day_year)}"
@@ -66,14 +66,14 @@
                 class: "btn btn-primary btn-sm",
                 method: :post
       .program-session-item
-        %h3.control-label Confirmation Notes
+        %h3.col-form-label Confirmation Notes
         %p= render 'confirmation_notes', program_session: program_session
       .program-session-item.session-speakers
         .session-speakers-header.clearfix
-          %h3.control-label.pull-left
+          %h3.col-form-label.pull-left
             Speakers
           - if current_user.organizer_for_event?(current_event)
-            = link_to "Add Speaker", new_event_staff_program_session_speaker_path(current_event, program_session), class: "btn btn-success btn-xs pull-right new-speaker"
+            = link_to "Add Speaker", new_event_staff_program_session_speaker_path(current_event, program_session), class: "btn btn-success btn-sm pull-right new-speaker"
         - @speakers.each do |speaker|
           %section
             .session-speaker-header.clearfix
@@ -82,7 +82,7 @@
                 %p= speaker.email
               - if current_user.organizer_for_event?(current_event)
                 .session-speaker-actions.pull-right
-                  .edit-session-speaker= link_to "Edit", edit_event_staff_program_speaker_path(current_event, speaker), class: "btn btn-primary btn-xs"
+                  .edit-session-speaker= link_to "Edit", edit_event_staff_program_speaker_path(current_event, speaker), class: "btn btn-primary btn-sm"
                   - if program_session.multiple_speakers?
-                    .remove-session-speaker= link_to "Remove", event_staff_program_speaker_path(current_event, speaker), method: :delete, data: { confirm: "Are you sure you want to remove this speaker?" }, class: "btn btn-danger btn-xs"
+                    .remove-session-speaker= link_to "Remove", event_staff_program_speaker_path(current_event, speaker), method: :delete, data: { confirm: "Are you sure you want to remove this speaker?" }, class: "btn btn-danger btn-sm"
             %p &nbsp;

@@ -290,7 +290,7 @@ body .custom-session-card {
     position: absolute;
     width: 100%;
     text-align: left;
-    font-size: $font-size-small;
+    font-size: $font-size-sm;
     background: #FFF;
     cursor: pointer;
     z-index: 10;
@@ -302,7 +302,7 @@ body .custom-session-card {
 
     &.preview {
       cursor: default;
-      background: $brand-info;
+      background: theme-color('info');
       .title {
         color: #fff;
       }
@@ -318,8 +318,6 @@ body .custom-session-card {
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
     margin: 0;
 }

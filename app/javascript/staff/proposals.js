@@ -46,16 +46,16 @@ $(function() {
 
   $('.multiselect').multiselect({
     enableHTML: true,
-    buttonClass: 'btn btn-default',
+    buttonClass: 'btn btn-secondary',
     buttonText: function (options, select) {
       if (options.length == 0) {
         return 'None selected <b class="caret"></b>';
       } else {
-        var tagClass = 'label ';
+        var tagClass = 'badge ';
         if ($(select).hasClass('review-tags')) {
-          tagClass += 'label-success';
+          tagClass += 'badge-success';
         } else {
-          tagClass += 'label-primary';
+          tagClass += 'badge-primary';
         }
         var selected = '';
         options.each(function () {

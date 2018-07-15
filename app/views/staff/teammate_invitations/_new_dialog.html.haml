@@ -1,9 +1,11 @@
-%div{ id: "new-teammate-invitation", class: "modal fade" }
-  .modal-dialog
+#new-teammate-invitation.modal.fade{ role: 'dialog', tabindex: '-1', 'aria-labelledby': 'new-teammate-invitation-label' }
+  .modal-dialog{ role: 'document' }
     .modal-content
       = simple_form_for(:teammate, url: event_staff_teammates_path(event)) do |f|
         .modal-header
-          %h3 Invite a New Teammate
+          %h3#new-teammate-invitation-label.modal-title Invite a New Teammate
+          %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+            %span{ 'aria-hidden': 'true' } &times;
         .modal-body
           = f.error_notification
           = f.input :email, class: "form-control", autofocus: true
@@ -11,5 +13,8 @@
           = f.input :role, as: :select, collection: Teammate::STAFF_ROLES, class: "form-control"
 
         .modal-footer
-          %button.pull-right.btn.btn-success{type: "submit"} Invite
-          %button.btn.btn-default{"data-dismiss" => "modal"} Cancel
+          .btn-toolbar
+            .btn-group.order-2
+              %button.btn.btn-success{ type: 'submit' } Invite
+            .btn-group.order-1.mr-1
+              %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } } Cancel

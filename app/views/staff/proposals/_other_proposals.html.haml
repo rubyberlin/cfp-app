@@ -5,7 +5,7 @@
         .row.other-proposal-header
           .col-sm-7.other-proposal-title=link_to truncate(proposal.title, length: 25), event_staff_program_proposal_path(event, proposal)
           &nbsp;
-          .col-sm-5.other-proposal-status.text-right= proposal.state_label(small: true)
+          .col-sm-5.other-proposal-status.text-right= proposal.state_badge(small: true)
         .rating-and-format
           .other-proposal-rating.pull-right
             %b Rating:
@@ -17,7 +17,7 @@
           %b Track:
           = proposal.track_name
         .other-proposal-review-tags
-          = proposal.review_tags_labels
+          = proposal.review_tags_badges
   -else
     %li
       None

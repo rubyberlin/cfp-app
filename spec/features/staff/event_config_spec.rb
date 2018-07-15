@@ -29,6 +29,8 @@ feature "Event Config" do
         click_button "Save"
       end
 
+      expect(find(:bs_modal, 'New Session Format', open: false))
+        .not_to have_css '.open'
       expect(find('table#session-formats'))
         .to have_table_row('Name' => 'Best Session')
     end
@@ -44,6 +46,8 @@ feature "Event Config" do
         click_button "Save"
       end
 
+      expect(find(:bs_modal, 'Edit Session Format', open: false))
+        .not_to have_css '.open'
       expect(find('table#session-formats'))
         .to have_table_row('Description' => 'The most exciting session.')
     end
@@ -88,6 +92,8 @@ feature "Event Config" do
         click_button "Save"
       end
 
+      expect(find(:bs_modal, 'New Track', open: false))
+        .not_to have_css '.open'
       expect(find('table#tracks')).to have_table_row('Name' => 'Best Track')
     end
 
@@ -123,6 +129,8 @@ feature "Event Config" do
         click_button "Save"
       end
 
+      expect(find(:bs_modal, 'Edit Track', open: false))
+        .not_to have_css '.open'
       expect(find('table#tracks'))
         .to have_table_row('Description' => 'The best track ever.')
     end

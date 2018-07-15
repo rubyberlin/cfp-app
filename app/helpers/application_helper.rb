@@ -52,7 +52,7 @@ module ApplicationHelper
       key += " alert-info" if key == "notice" || key == 'confirm'
       key = "danger" if key == "alert"
       content_tag(:div, class: "container alert alert-dismissable alert-#{key}") do
-        content_tag(:button, content_tag(:span, '', class: 'glyphicon glyphicon-remove'),
+        content_tag(:button, content_tag(:span, '', class: 'fa fa-remove'),
                     class: 'close', data: { dismiss: 'alert' }) +
           simple_format(value)
       end
@@ -81,7 +81,7 @@ module ApplicationHelper
 
   def bang(label)
     content_tag(:span, '',
-                class: 'glyphicon glyphicon-exclamation-sign') + ' ' + label
+                class: 'fa fa-exclamation-circle') + ' ' + label
   end
 
   def modal(identifier, title = '')
@@ -115,5 +115,12 @@ module ApplicationHelper
 
   def admin_nav?
     current_user.admin?
+  end
+
+  def dropdown_item_link(link, &block)
+    link_inner_html = capture_haml(link, &block)
+    link_to_unless_current(link_inner_html, link, class: 'dropdown-item') do
+      content_tag(:span, link_inner_html, class: 'dropdown-item active')
+    end
   end
 end

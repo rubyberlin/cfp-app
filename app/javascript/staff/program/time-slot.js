@@ -54,16 +54,16 @@ import { cfpDataTable } from '../../base';
     $info.find('.duration').html(data['duration'] + " minutes");
 
     if ($selected.val() === '') {
-      $fields.removeClass('hidden');
-      $info.addClass('hidden');
+      $fields.removeClass('d-none');
+      $info.addClass('d-none');
     } else {
-      $fields.addClass('hidden');
-      $info.removeClass('hidden');
+      $fields.addClass('d-none');
+      $info.removeClass('d-none');
     }
   }
 
   function updateLength($container) {
-    var $length = $('.length-label .length');
+    var $length = $('#time_slot_length');
     var start = document.getElementById('time_slot_start_time').value;
     var end = document.getElementById('time_slot_end_time').value;
 
@@ -71,7 +71,7 @@ import { cfpDataTable } from '../../base';
       var s = moment(start, 'h:mm a');
       var e = moment(end, 'h:mm a');
       var diff = e.diff(s, 'minutes');
-      $length.text(diff + ' minutes');
+      $length.val(diff + ' minutes');
     }
   }
 

@@ -1,12 +1,17 @@
-.modal-dialog
+.modal-dialog{ role: 'document' }
   .modal-content
     = simple_form_for [event, :staff, :schedule, time_slot], remote: true, html: {role: 'form'} do |f|
       .modal-header
-        %h3 Edit Time Slot
-        .errors
+        %h3#time-slot-edit-dialog-label.modal-title Edit Time Slot
+        %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+          %span{ 'aria-hidden': 'true' } &times;
       .modal-body
+        .errors
         = render partial: 'staff/time_slots/form',
             locals: {f: f, time_slot: time_slot }
       .modal-footer
-        %button.btn.btn-default{'data-dismiss' => "modal"} Cancel
-        %button.btn.btn-primary{:type => "submit"} Save
+        .btn-toolbar
+          .btn-group.order-2
+            %button.btn.btn-primary{ type: 'submit' } Save
+          .btn-group.order-1.mr-1
+            %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } } Cancel

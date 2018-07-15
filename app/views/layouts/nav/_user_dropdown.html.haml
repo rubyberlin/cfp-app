@@ -1,14 +1,14 @@
-%li.dropdown
-  %a.dropdown-toggle.gravatar-container{ href: "#", data: { toggle: "dropdown" } }
+%li.nav-item.dropdown
+  %a.nav-link.dropdown-toggle.gravatar-container{ href: "#", data: { toggle: "dropdown" } }
     = image_tag("https://www.gravatar.com/avatar/#{current_user.gravatar_hash}?s=25", class: 'user-dropdown-gravatar', alt: '')
     &nbsp; #{current_user.name}
-    %b.caret
-  %ul.dropdown-menu
+  %ul.dropdown-menu.dropdown-menu-right
     %li
-      = link_to edit_profile_path do
+      = dropdown_item_link edit_profile_path do
         %i.fa.fa-user
         %span My Profile
     %li
-      = link_to destroy_user_session_path, method: :delete do
+      = link_to destroy_user_session_path, method: :delete,
+        class: 'dropdown-item' do
         %i.fa.fa-sign-out
         %span Sign Out

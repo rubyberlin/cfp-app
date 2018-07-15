@@ -42,8 +42,8 @@
             %tbody
               = render event.tracks.sort_by_name
 
-    #config-modal.modal.fade
-      .modal-dialog
+    #config-modal.modal.fade{ role: 'dialog', tabindex: '-1', 'aria-labelledby': 'config-modal-label' }
+      .modal-dialog{ role: 'document' }
         .modal-content
   .row
     .col-md-4

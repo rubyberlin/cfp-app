@@ -1,15 +1,20 @@
-.modal.fade{id: "test-template-#{type_key}-dialog"}
-  .modal-dialog
+.modal.fade{ role: 'dialog', tabindex: '-1', id: "test-template-#{type_key}-dialog", 'aria-labelledby': "test-template-#{type_key}-dialog-label" }
+  .modal-dialog{ role: 'document' }
     .modal-content
       = simple_form_for :speaker_email_template, url: event_staff_test_speaker_template_path(@event), method: 'post', remote: true, html: {role: 'form'} do |f|
         .modal-header
-          %h3 Send Test '#{SpeakerEmailTemplate::DISPLAY_TYPES[type_key]}' Email
-        .errors
+          %h3.modal-title{ id: "test-template-#{type_key}-dialog-label" } Send Test '#{SpeakerEmailTemplate::DISPLAY_TYPES[type_key]}' Email
+          %button.close{ type: 'button', data: { dismiss: 'modal' }, 'aria-label': 'Close' }
+            %span{ 'aria-hidden': 'true' } &times;
 
         .modal-body
+          .errors
           = f.input :type_key, as: :hidden, input_html: {value: type_key}
           = f.input :email, label: 'Send To', as: :string, autofocus: true, input_html: {value: sticky_template_test_email || current_user.email}
 
         .modal-footer
-          %button.btn.btn-default{'data-dismiss' => 'modal', type: 'button'} Cancel
-          %button.btn.btn-success{type: 'submit'} Send
+          .btn-toolbar
+            .btn-group.order-2
+              %button.btn.btn-success{ type: 'submit' } Send
+            .btn-group.order-1.mr-1
+              %button.btn.btn-secondary{ type: 'button', data: { dismiss: 'modal' } } Cancel

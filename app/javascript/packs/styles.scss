@@ -1,6 +1,7 @@
 // vendor styles
+@import "~bootstrap/scss/functions";
 @import "../styles/base/variables";
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap/scss/bootstrap";
 
 // base application styles
 @import "../styles/base/mixins";
@@ -13,7 +14,7 @@
 // @import "../styles/pages/*";
 
 // module styles
-@import "../styles/modules/badge";
+@import "../styles/modules/badges";
 @import "../styles/modules/buttons";
 @import "../styles/modules/calendar";
 @import "../styles/modules/dashboard";
@@ -22,7 +23,6 @@
 @import "../styles/modules/events";
 @import "../styles/modules/forms";
 @import "../styles/modules/icons";
-@import "../styles/modules/labels";
 @import "../styles/modules/navbar";
 @import "../styles/modules/markdown";
 @import "../styles/modules/news";

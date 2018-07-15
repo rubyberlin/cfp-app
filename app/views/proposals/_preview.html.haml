@@ -2,19 +2,15 @@
   .col-md-8
     #proposal-preview{ data: { 'remote-url' => event_parse_edit_field_proposal_path(event.slug) } }
       .proposal-info-bar
-        .proposal-meta.proposal-description
-          .proposal-meta-item
-            %strong #{ 'Speaker'.pluralize(proposal.speakers.count) }:
-            %span Blind
-          .proposal-meta-item
-            %strong Format:
-            %span #{proposal.session_format_name}
-          .proposal-meta-item
-            %strong Track:
-            %span #{proposal.track_name}
+        %dl.proposal-meta-list
+          %dl.proposal-meta-list__label #{ 'Speaker'.pluralize(proposal.speakers.count) }
+          %dd.proposal-meta-list__value Blind
+          %dt.proposal-meta-list__label Format
+          %dd.proposal-meta-list__value #{proposal.session_format_name}
+          %dt.proposal-meta-list__label Track
+          %dd.proposal-meta-list__value #{proposal.track_name}
           -if proposal.tags.present?
-            .proposal-meta-item
-              %strong Tags:
-              %span #{proposal.tags_labels}
+            %dt.proposal-meta-list__label Tags
+            %dd.proposal-meta-list__value #{proposal.tags_badges}
       %br
       = render partial: 'proposals/contents', locals: { proposal: proposal }

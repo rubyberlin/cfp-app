@@ -26,10 +26,10 @@ import 'jquery-ui/themes/base/slider.css'
 import 'jquery-ui/ui/widgets/slider'
 
 import 'jquery-ujs'
-import 'bootstrap-sass'
+import 'bootstrap'
 
-import 'datatables.net-bs/css/dataTables.bootstrap.css'
-import datatables from 'datatables.net-bs'
+import 'datatables.net-bs4/css/dataTables.bootstrap4.css'
+import datatables from 'datatables.net-bs4'
 datatables(window, $)
 
 import 'vendor/jquery.dataTables.columnFilter'
@@ -43,9 +43,6 @@ $.fn.dataTableExt.oApi.fnSortNeutral = oSettings => {
 
 import 'jquery-ui-timepicker-addon/dist/jquery-ui-timepicker-addon.css'
 import 'jquery-ui-timepicker-addon'
-
-import 'vendor/jquery.mentionsInput.scss'
-import 'vendor/jquery.mentionsInput'
 
 import 'bootstrap-multiselect/dist/css/bootstrap-multiselect.css'
 import 'bootstrap-multiselect'

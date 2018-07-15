@@ -1,13 +1,12 @@
-.row
+.row.page-header
   .col-md-12
-    .page-header
-      %h1 My Proposals
+    %h1 My Proposals
 
 .row
   .col-md-12.proposals
     - if proposals.blank? && invitations.blank?
       .widget.widget-card.text-center
-        %h2.control-label You don't have any proposals.
+        %h2.col-form-label You don't have any proposals.
 
     - events.each do |event|
       - talks = proposals[event] || []
@@ -22,7 +21,7 @@
               %span{:class => "event-status-badge event-status-#{event.status}"}
                 CFP
                 = event.status
-              %span.pull-right
+              .text-right
                 - if event.open?
                   = link_to 'Submit a proposal', new_event_proposal_path(event.slug), class: 'btn btn-primary btn-sm'
               .event-meta
@@ -36,57 +35,54 @@
 
         .col-md-8
           - if invites.present?
-            .proposal-section.invitations.callout
+            %section.proposal-section.invitations.callout
               %h2.callout-title Speaker Invitations
               %ul.list-unstyled
                 - invites.each do |invitation|
-                  %li.invitation.proposal.proposal-info-bar
+                  %li.invitation.proposal-info-bar
                     .flex-container.flex-container-md
                       .flex-item.flex-item-padded
                         %h4.proposal-title= link_to invitation.proposal.title, invitation_path(invitation.slug)
 
-                        .proposal-meta.proposal-description
-                          .proposal-meta-item
-                            %strong Track:
-                            = invitation.proposal.track_name
-                          .proposal-meta-item
-                            %strong #{ 'Speaker'.pluralize(invitation.proposal.speakers.count) }:
-                            = invitation.proposal.speakers.collect { |speaker| speaker.name }.join(', ')
+                        %dl
+                          %dt.proposal-meta-list__label Track
+                          %dd.proposal-meta-list__value= invitation.proposal.track_name
+                          %dt.proposal-meta-list__label #{ 'Speaker'.pluralize(invitation.proposal.speakers.count) }
+                          %dd.proposal-meta-list__value= invitation.proposal.speakers.collect { |speaker| speaker.name }.join(', ')
+
                       .flex-item.flex-item-fixed.flex-item-padded.flex-item-right
                         .invitation-status
-                          = invitation.state_label
+                          = invitation.state_badge
                         - if invitation.pending?
-                          .proposal-meta.invite-btns
+                          %div.invite-btns
                             = invitation.decline_button(small: true)
 
                             = invitation.accept_button(small: true)
 
-          .proposal-section
+          %section.proposal-section
             %ul.list-unstyled
               - talks.each do |proposal|
-                %li.proposal.proposal-info-bar
+                %li.proposal-info-bar
                   .flex-container.flex-container-md
                     .flex-item.flex-item-fixed.flex-item-padded.proposal-icon
                       %i.fa.fa-fw.fa-file-text
                     .flex-item.flex-item-padded
                       %h4.proposal-title= link_to proposal.title, event_proposal_path(event_slug: proposal.event.slug, uuid: proposal)
-                      .proposal-meta.proposal-description
-                        .proposal-meta-item
-                          %strong #{ 'Speaker'.pluralize(proposal.speakers.count) }:
-                          %span= proposal.speakers.collect { |speaker| speaker.name }.join(', ')
-                        .proposal-meta-item
-                          %strong Format:
-                          %span #{proposal.session_format_name}
 
-                        .proposal-meta-item
-                          %strong Track:
-                          %span #{proposal.track_name}
-                      .proposal-meta.margin-top
-                        %strong Updated:
-                        %span #{proposal.updated_in_words}
+                      .proposal-description
+                        %dl.proposal-meta-list
+                          %dt.proposal-meta-list__label #{ 'Speaker'.pluralize(proposal.speakers.count) }
+                          %dd.proposal-meta-list__value= proposal.speakers.collect { |speaker| speaker.name }.join(', ')
+                          %dt.proposal-meta-list__label Format
+                          %dd.proposal-meta-list__value #{proposal.session_format_name}
+                          %dt.proposal-meta-list__label Track
+                          %dd.proposal-meta-list__value #{proposal.track_name}
+                          %dt.proposal-meta-list__label Updated
+                          %dd.proposal-meta-list__value #{proposal.updated_in_words}
+
                     .flex-item.flex-item-fixed.flex-item-padded
                       .proposal-status
                         = proposal.speaker_state(small: true)
-                      .proposal-meta
+                      %div
                         %i.fa.fa-fw.fa-comments
                         = pluralize(proposal.public_comments.count, 'comment')

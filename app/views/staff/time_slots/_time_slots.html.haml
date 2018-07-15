@@ -4,12 +4,12 @@
       %header
         .btn-nav.pull-right
           = link_to event_staff_schedule_time_slots_path(format: :csv), class: "btn btn-info" do
-            %span.glyphicon.glyphicon-download-alt
+            %span.fa.fa-cloud-download
             Download as CSV
 
           = link_to event_staff_schedule_time_slots_path(format: :json),
               class: "btn btn-info pull-right" do
-            %span.glyphicon.glyphicon-download-alt
+            %span.fa.fa-cloud-download
             Download as JSON
 
         %h3.pull-left Time Slots
@@ -21,7 +21,7 @@
             id: 'add-time-slot'
   .row
     .col-md-12
-      #time-slot-prereqs.clearfix{ class: has_missing_requirements?(event) ? '' : 'hidden' }
+      #time-slot-prereqs.clearfix{ class: has_missing_requirements?(event) ? '' : 'd-none' }
         %h5.text-danger{ id: 'missing-prereq-head' }
           The following must be resolved before adding a new time slot:
         %ul#missing-prereq-messages.list-group

@@ -8,7 +8,7 @@
             .counts-container
               .total.time-slots
                 %span.title Time slots
-                %span.badge= "#{@counts[day][:scheduled]}/#{@counts[day][:total]}"
+                %span.badge.badge-pill.badge-secondary= "#{@counts[day][:scheduled]}/#{@counts[day][:total]}"
   .row
     .col-md-12
       .tab-content
@@ -27,5 +27,7 @@
                 .unscheduled-sessions-column
                   = render partial: 'unscheduled_sessions', locals: { schedule: @schedule }
 
-#grid-time-slot-edit-dialog.modal.fade
-#bulk-time-slot-create-dialog.modal.fade
+#grid-time-slot-edit-dialog.modal.fade{ role: 'dialog', tabindex: '-1', 'aria-labelledby': 'grid-time-slot-edit-dialog-label' }
+  .modal-dialog{ role: 'document' }
+#bulk-time-slot-create-dialog.modal.fade{ role: 'dialog', tabindex: '-1', 'aria-labelledby': 'bulk-time-slot-create-dialog-label' }
+  .modal-dialog{ role: 'document' }

@@ -12,7 +12,7 @@
   }
 
   &.confirmation {
-    border: 2px solid $brand_danger;
+    border: 2px solid theme-color('danger');
   }
 
   .widget-header {
@@ -20,8 +20,7 @@
     border: 1px solid #d6d6d6;
     height: 40px;
     line-height: 40px;
-    @include gradient-vertical($beige, #f2efea, 0%, 100%);
-    -webkit-background-clip: padding-box;
+    @include gradient-y($beige, #f2efea, 0%, 100%);
     background-clip: padding-box;
 
     h3 {
@@ -52,8 +51,7 @@
       margin: 5px 5px 0 0;
     }
 
-    > [class^="fa-"], > [class*=" fa-"],
-    > [class^="glyphicon-"], > [class*=" glyphicon-"] {
+    > [class^="fa-"], > [class*=" fa-"] {
       color: #555;
       display: inline-block;
       font-size: 16px;
@@ -70,8 +68,6 @@
     background: #FFF;
     border: 1px solid #D5D5D5;
     padding: 20px 15px 15px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
     border-radius: 5px;
     /* Widget Content Clearfix */
     &:before,
@@ -87,10 +83,6 @@
 
   .widget-header +.widget-content {
     border-top: none;
-    -webkit-border-top-left-radius: 0;
-    -webkit-border-top-right-radius: 0;
-    -moz-border-radius-topleft: 0;
-    -moz-border-radius-topright: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
   }
@@ -149,8 +141,7 @@
     height: auto;
     line-height: 1;
 
-    > [class^="fa-"], > [class*=" fa-"],
-    > [class^="glyphicon-"], > [class*=" glyphicon-"] {
+    > [class^="fa-"], > [class*=" fa-"] {
       margin: 0;
     }
 
@@ -165,6 +156,6 @@
   &.widget-card-alt,
   &.widget-card-alt .widget-header,
   &.widget-card-alt .widget-content {
-    background: lighten($brand-info, 45%);
+    background: lighten(theme-color('info'), 45%);
   }
 }

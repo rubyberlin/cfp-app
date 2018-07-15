@@ -1,21 +1,28 @@
+import Tribute from 'tributejs';
+import 'tributejs/scss/tribute.scss';
+
 $(function() {
-    $('textarea.mention').mentionsInput({
-        showAvatars: false,
-        minChars: 1,
-        elastic: false,
+  const $textarea = $('textarea.mention');
 
-        onDataRequest: function(mode, query, callback) {
-            var data = formattedMentionNames($(this).data("mention-names"))
+  if ($textarea.length > 0) {
+    const values = $textarea
+      .data('mention-names')
+      .filter(m => m)
+      .map(m => ({ value: m, key: m }));
 
-            data = _.filter(data, function(item) { return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1 });
-
-            callback.call(this, data);
+    const tribute = new Tribute({
+      values,
+      selectTemplate: function(item) {
+        if (typeof item === 'undefined') return null;
+        if (this.range.isContentEditable(this.current.element)) {
+          return `<span contenteditable="false"><a href="" target="_blank" title="${
+            item.original.key
+          }">${item.original.value}</a></span>`;
         }
-    })
 
-    function formattedMentionNames(mentionNames) {
-        return _.map(_.compact(mentionNames), function(mentionName) {
-        	return { name: "@" + mentionName, type: 'default', id: 1 }
-        })
-    }
+        return `@${item.original.value}`;
+      }
+    });
+    tribute.attach($textarea[0]);
+  }
 });

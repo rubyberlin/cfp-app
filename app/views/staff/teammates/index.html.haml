@@ -48,7 +48,7 @@
                       - if current_user.organizer_for_event?(current_event)
                         %td.text-center{ id: "teammate-role-#{teammate.id}" }
                           - unless teammate.user == current_user
-                            = link_to 'Remove', event_staff_teammate_path(teammate.event, teammate), method: :delete, data: { confirm: "Are you sure you want to remove #{teammate.name}?" }, class: 'btn btn-danger btn-xs'
+                            = link_to 'Remove', event_staff_teammate_path(teammate.event, teammate), method: :delete, data: { confirm: "Are you sure you want to remove #{teammate.name}?" }, class: 'btn btn-danger btn-sm'
 
       .row
         .col-md-12
@@ -84,6 +84,6 @@
                           event_staff_teammate_path(event, invite),
                           method: :delete,
                           data: { confirm: "Are you sure you want to remove this invite?" },
-                          class: 'btn btn-danger btn-xs'
+                          class: 'btn btn-danger btn-sm'
 
 = render partial: 'staff/teammate_invitations/new_dialog', locals: { event: event }

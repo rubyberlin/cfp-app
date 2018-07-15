@@ -1,9 +1,23 @@
+.btn-primary {
+  @include button-variant(
+    theme-color('primary-btn'),
+    theme-color('primary-btn')
+  );
+}
+
+.btn-outline-primary {
+  @include button-outline-variant(
+    theme-color('primary-btn'),
+    theme-color('primary-btn')
+  );
+}
+
 .btn-nav {
   .page-header & {
     margin-top: 30px;
   }
   .btn {
-    margin-right: $padding-xs-horizontal;
+    margin-right: $input-btn-padding-x;
     &:last-child {
       margin-right: 0;
     }
@@ -17,9 +31,7 @@
   padding: 12px 22px;
   font-size: 22px;
   line-height: normal;
-  -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
+  border-radius: 8px;
 }
 
 .edit-guidelines-btn,
@@ -37,13 +49,13 @@
 }
 
 .hint-btn {
-  color: $brand-info;
+  color: theme-color('info');
   cursor: pointer;
-  font-size: $font-size-large;
+  font-size: $font-size-lg;
   margin-top: -2px;
 
   &:active,
   &:focus {
-    color: $brand-info;
+    color: theme-color('info');
   }
 }

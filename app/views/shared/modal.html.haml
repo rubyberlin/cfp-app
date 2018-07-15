@@ -1,5 +1,5 @@
-.modal.fade id=identifier
-  .modal-dialog
+.modal.fade{ role: 'dialog', tabindex: '-1', id: identifier }
+  .modal-dialog{ role: 'document' }
     .modal-content
       - if title.present?
         .modal-header
