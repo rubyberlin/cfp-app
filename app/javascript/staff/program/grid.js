@@ -1,4 +1,5 @@
 import moment from 'moment';
+import palette from 'google-palette';
 
 (function($, window) {
   if (typeof(window.Schedule) === 'undefined') {
@@ -29,7 +30,7 @@ import moment from 'moment';
   }
 
   function updateDayRange($grids) {
-    times = _.flatten(_.map($grids.find('.time-slot').toArray(), function(ts) {
+    const times = _.flatten(_.map($grids.find('.time-slot').toArray(), function(ts) {
         return [$(ts).data("starts"), ($(ts).data("starts") + $(ts).data("duration"))]
     }));
 

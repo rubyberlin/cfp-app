@@ -18,6 +18,10 @@ import 'jquery-ui/themes/base/theme.css'
 import 'jquery-ui/themes/base/datepicker.css'
 import 'jquery-ui/ui/widgets/datepicker'
 
+import 'jquery-ui/themes/base/draggable.css'
+import 'jquery-ui/ui/widgets/draggable'
+import 'jquery-ui/ui/widgets/droppable'
+
 import 'jquery-ui/themes/base/slider.css'
 import 'jquery-ui/ui/widgets/slider'
 
@@ -49,8 +53,6 @@ import 'bootstrap-multiselect'
 import 'selectize/dist/css/selectize.css'
 import 'selectize/dist/css/selectize.default.css'
 import 'selectize'
-
-import 'google-palette'
 
 import Chartkick from 'chartkick'
 window.Chartkick = Chartkick
