@@ -32,11 +32,15 @@ feature "Staff Organizers can manage teammates" do
       visit event_staff_teammates_path(invitation.event)
 
       click_link "Invite New Teammate"
-      fill_in "Email", with: "harrypotter@hogwarts.edu"
-      select("reviewer", from: "Role")
-      fill_in "Mention Name", with: "wizard"
-      click_button "Invite"
+      within_bs_modal 'Invite a New Teammate' do
+        fill_in "Email", with: "harrypotter@hogwarts.edu"
+        select("reviewer", from: "Role")
+        fill_in "Mention Name", with: "wizard"
+        click_button "Invite"
+      end
 
+      expect(find(:bs_modal, 'Invite a New Teammate', open: false))
+        .not_to have_css '.open'
       expect(page).to have_text("harrypotter@hogwarts.edu")
       expect(page).to have_text("pending")
       expect(Teammate.last.mention_name).to eq("wizard")
@@ -50,9 +54,11 @@ feature "Staff Organizers can manage teammates" do
       visit event_staff_teammates_path(incomplete_event)
 
       click_link "Invite New Teammate"
-      fill_in "Email", with: "harrypotter@hogwarts.edu"
-      select("reviewer", from: "Role")
-      click_button "Invite"
+      within_bs_modal 'Invite a New Teammate' do
+        fill_in "Email", with: "harrypotter@hogwarts.edu"
+        select("reviewer", from: "Role")
+        click_button "Invite"
+      end
 
       expect(current_path).to eq(event_staff_edit_path(incomplete_event))
       expect(page).to have_content "You must set a contact email for this event before inviting teammates."
@@ -65,22 +71,26 @@ feature "Staff Organizers can manage teammates" do
       row = find("tr#teammate-#{program_team_teammate.id}")
 
       page.execute_script("$('#teammate-#{program_team_teammate.id} .change-role').click()")
-      select "reviewer", from: "Role"
+      within_bs_modal "Change #{program_team_teammate.name}'s role" do
+        select "reviewer", from: "Role"
 
-      click_button "Save"
+        click_button "Save"
+      end
 
       expect(row).to have_content(program_team_teammate.email)
       expect(row).to have_content("reviewer")
     end
 
-    it "edits an exsiting teammates mention_name", js: true do
+    it "edits an existing teammates mention_name", js: true do
       visit event_staff_teammates_path(invitation.event)
       row = find("tr#teammate-#{program_team_teammate.id}")
 
       page.execute_script("$('#teammate-#{program_team_teammate.id} .edit-mention-name').click()")
-      fill_in "Mention Name", with: "new_mention_name"
+      within_bs_modal "Edit #{program_team_teammate.name}'s mention name" do
+        fill_in "Mention Name", with: "new_mention_name"
 
-      click_button "Save"
+        click_button "Save"
+      end
 
       expect(row).to have_content("new_mention_name")
     end
