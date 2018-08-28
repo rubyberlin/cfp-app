@@ -23,7 +23,7 @@
     "jquery-ujs": "^1.2.2",
     "moment": "2.17.1",
     "popper.js": "^1.14.4",
-    "rails-erb-loader": "^5.4.2",
+    "rails-erb-loader": "^5.5.0",
     "selectize": "0.12.4",
     "tributejs": "^3.3.3",
     "underscore": "1.8.3"
