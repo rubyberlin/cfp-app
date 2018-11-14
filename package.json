@@ -25,7 +25,7 @@
     "popper.js": "^1.14.4",
     "rails-erb-loader": "^5.5.0",
     "selectize": "0.12.4",
-    "tributejs": "^3.3.3",
+    "tributejs": "^3.4.0",
     "underscore": "1.8.3"
   },
   "devDependencies": {
