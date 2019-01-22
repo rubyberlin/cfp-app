@@ -5646,9 +5646,9 @@ tough-cookie@~2.3.3:
   dependencies:
     punycode "^1.4.1"
 
-tributejs@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.yarnpkg.com/tributejs/-/tributejs-3.3.3.tgz#2eb9af8be500e126c5eea9e74772a0c54c6b9b9b"
+tributejs@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/tributejs/-/tributejs-3.5.1.tgz#3bbbe3842270b84f14d05dfa7006606a97a04a88"
 
 trim-newlines@^1.0.0:
   version "1.0.0"
