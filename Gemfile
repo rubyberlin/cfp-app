@@ -33,7 +33,7 @@ gem 'responders', '~> 2.4.0'
 
 gem 'groupdate'
 
-gem 'nokogiri', '~> 1.8.1'
+gem 'nokogiri', '~> 1.10.5'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
