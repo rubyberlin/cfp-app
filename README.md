@@ -77,7 +77,7 @@ There are five user roles in CFP app. To log in as a user type in development mo
 
 ## Deployment on Heroku
 
-The app was written with a Heroku deployment stack in mind. You can easily deploy the application using the button below, or you can deploy it anywhere assuming you can run Ruby 2.4.4 and Rails 5.2.0 with a Postgres database and an SMTP listener.
+The app was written with a Heroku deployment stack in mind. You can easily deploy the application using the button below, or you can deploy it anywhere assuming you can run Ruby 2.5.7 and Rails 5.2.0 with a Postgres database and an SMTP listener.
 
 The Heroku stack will use the free SendGrid Starter and Heroku postgreSQL
 addons.
