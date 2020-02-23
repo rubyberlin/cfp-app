@@ -1,4 +1,4 @@
-dist: trusty
+dist: xenial
 sudo: false
 
 language: ruby
@@ -8,10 +8,7 @@ rvm:
 
 addons:
   postgresql: "9.6"
-  apt:
-    update: true
-    packages:
-      - google-chrome-stable
+  chrome: stable
 
 cache:
   bundler: true
