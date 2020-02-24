@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "3.5",
+    "@rails/webpacker": "4.2.2",
     "babel-plugin-add-module-exports": "^0.2.1",
     "bootstrap": "^4.1.2",
     "bootstrap-multiselect": "^0.9.13-1",
@@ -29,6 +29,6 @@
     "underscore": "1.8.3"
   },
   "devDependencies": {
-    "webpack-dev-server": "2.11.2"
+    "webpack-dev-server": "^3.10.3"
   }
 }

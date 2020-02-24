@@ -10,7 +10,7 @@ gem 'puma', '~> 3.12.2'
 
 gem 'chartkick'
 
-gem 'webpacker', '~> 3.5'
+gem 'webpacker', '~> 4.0'
 
 gem 'devise',             '~> 4.7.1'
 gem 'omniauth',           '~> 1.8.1'
