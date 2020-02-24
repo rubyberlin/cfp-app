@@ -11,8 +11,8 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "bootstrap": "^4.1.2",
-    "bootstrap-multiselect": "^0.9.13-1",
+    "bootstrap": "4.1.2",
+    "bootstrap-multiselect": "0.9.13-1",
     "chartkick": "^2.3.6",
     "datatables.net-bs4": "^1.10.19",
     "expose-loader": "^0.7.5",
@@ -24,9 +24,9 @@
     "jquery-ujs": "^1.2.2",
     "moment": "2.17.1",
     "popper.js": "^1.14.4",
-    "rails-erb-loader": "^5.5.0",
+    "rails-erb-loader": "^5.5.2",
     "selectize": "0.12.4",
-    "tributejs": "^3.3.3",
+    "tributejs": "3.3.3",
     "underscore": "1.8.3"
   },
   "devDependencies": {
