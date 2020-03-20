@@ -214,7 +214,7 @@ GEM
     multipart-post (2.0.0)
     nenv (0.3.0)
     nio4r (2.3.1)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     notiffany (0.1.1)
       nenv (~> 0.1)
@@ -348,7 +348,7 @@ GEM
       rubyzip (~> 1.2)
     sexp_processor (4.11.0)
     shellany (0.0.1)
-    simple_form (4.0.1)
+    simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     simplecov (0.16.1)
@@ -449,7 +449,7 @@ DEPENDENCIES
   rspec-rails
   rubocop (~> 0.55)
   selenium-webdriver
-  simple_form (~> 4.0.0)
+  simple_form (~> 5.0.2)
   simplecov
   spring
   spring-commands-rspec
