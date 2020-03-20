@@ -21,7 +21,7 @@
     "jquery-ui": "1.12.1",
     "jquery-ui-timepicker-addon": "^1.6.3",
     "jquery-ujs": "^1.2.2",
-    "moment": "2.17.1",
+    "moment": "2.24.0",
     "popper.js": "^1.14.4",
     "rails-erb-loader": "^5.5.0",
     "selectize": "0.12.4",
