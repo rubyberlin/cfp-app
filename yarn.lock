@@ -1387,9 +1387,10 @@ bootstrap-multiselect@^0.9.13-1:
   version "0.9.13-1"
   resolved "https://registry.yarnpkg.com/bootstrap-multiselect/-/bootstrap-multiselect-0.9.13-1.tgz#2c57cee260b18d7f01a4edd9d65f25df0425fd2a"
 
-bootstrap@^4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.2.tgz#aee2a93472e61c471fc79fb475531dcbc87de326"
+bootstrap@^4.5.3:
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.3.tgz#c6a72b355aaf323920be800246a6e4ef30997fe6"
+  integrity sha512-o9ppKQioXGqhw8Z7mah6KdTYpNQY//tipnkxppWhPbiSWdD+1raYsnhwEZjkTHYbGee4cVQ0Rx65EhOY/HNLcQ==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
