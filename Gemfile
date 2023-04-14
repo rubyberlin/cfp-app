@@ -13,7 +13,7 @@ gem 'chartkick'
 gem 'webpacker', '~> 4.0'
 
 gem 'devise',             '~> 4.7.1'
-gem 'omniauth',           '~> 1.8.1'
+gem 'omniauth',           '~> 1.9.2'
 gem 'omniauth-github'
 gem 'omniauth-twitter'
 
