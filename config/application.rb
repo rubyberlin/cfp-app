@@ -35,5 +35,9 @@ module CFPApp
     end
 
     config.active_record.time_zone_aware_types = [:datetime]
+
+    # WORKAROUND: allow hashes with Symbol keys in Serialized Columns
+    # See: https://discuss.rubyonrails.org/t/cve-2022-32224-possible-rce-escalation-bug-with-serialized-columns-in-active-record/81017
+    config.active_record.yaml_column_permitted_classes = [Symbol]
   end
 end
