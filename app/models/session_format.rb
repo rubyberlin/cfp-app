@@ -29,5 +29,5 @@ end
 #
 # Foreign Keys
 #
-#  fk_rails_9632792490  (event_id => events.id)
+#  fk_rails_...  (event_id => events.id)
 #
