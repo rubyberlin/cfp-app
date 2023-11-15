@@ -24,7 +24,7 @@ gem 'coderay', '~> 1.0'
 gem 'country_select', '~> 1.3.1'
 gem 'haml', '~> 5.0.4'
 gem 'haml-rails', '~> 1.0.0'
-gem 'redcarpet', '~> 3.4.0'
+gem 'redcarpet', '~> 3.5.1'
 gem 'simple_form', '~> 4.0.0'
 
 gem 'active_model_serializers', '~> 0.10.0'

@@ -314,7 +314,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    redcarpet (3.4.0)
+    redcarpet (3.5.1)
     request_store (1.4.0)
       rack (>= 1.4)
     responders (2.4.0)
@@ -459,7 +459,7 @@ DEPENDENCIES
   rack-timeout (~> 0.5.0)
   rails (= 5.2.8.1)
   rails-controller-testing
-  redcarpet (~> 3.4.0)
+  redcarpet (~> 3.5.1)
   responders (~> 2.4.0)
   rspec-rails
   rubocop (~> 0.55)
