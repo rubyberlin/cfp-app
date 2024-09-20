@@ -6,7 +6,7 @@ gem 'rails', '5.2.8.1'
 
 gem 'pg'
 
-gem 'puma', '~> 3.12.2'
+gem 'puma', '~> 6.4.3'
 
 gem 'chartkick'
 
