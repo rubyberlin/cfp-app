@@ -25,7 +25,7 @@ gem 'country_select', '~> 1.3.1'
 gem 'haml', '~> 5.0.4'
 gem 'haml-rails', '~> 1.0.0'
 gem 'redcarpet', '~> 3.4.0'
-gem 'simple_form', '~> 4.0.0'
+gem 'simple_form', '~> 5.0.2'
 
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'draper', '~> 3.0.1'

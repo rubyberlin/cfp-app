@@ -361,7 +361,7 @@ GEM
       websocket (~> 1.0)
     sexp_processor (4.11.0)
     shellany (0.0.1)
-    simple_form (4.0.1)
+    simple_form (5.0.2)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     simplecov (0.16.1)
@@ -464,7 +464,7 @@ DEPENDENCIES
   rspec-rails
   rubocop (~> 0.55)
   selenium-webdriver
-  simple_form (~> 4.0.0)
+  simple_form (~> 5.0.2)
   simplecov
   spring
   spring-commands-rspec
